@@ -97,15 +97,32 @@ logfile = logging.getLogger('')
 logfile.info('gyro before = ' + str(gyro.angle))
 left_motor.reset()
 right_motor.reset()
+run_for_motor_stalled(mm_horizontal, 10000, -35)
+#we reset mm_horizontal
+mm_horizontal.reset()
+#we run mm_vertical all the way down
+run_for_motor_stalled(mm_vertical, 10000, -50)
+# gyro straight to align with rechargeable battery 
 mdiff.follow_gyro_angle(4, 0, 0, SpeedPercent(20), target_angle=0, 
                             follow_for=my_follow_for_degrees, degrees=615,
                             right_motor = right_motor, left_motor = left_motor)
+# move horizontal rack left to drop battery units in rechargeable battery space.
 run_for_motor_stalled(mm_horizontal, 10000, 35)
+# bring rack back to position and right for watch tv
 mm_horizontal.reset()
 run_for_motor_stalled(mm_horizontal, 10000, -35)
+# gyro staight to complete watch television
 gyro.reset()
 left_motor.reset()
 right_motor.reset()
 mdiff.follow_gyro_angle(4, 0, 0, SpeedPercent(20), target_angle=0, 
-                            follow_for=my_follow_for_degrees, degrees=250,
+                            follow_for=my_follow_for_degrees, degrees=180,
                             right_motor = right_motor, left_motor = left_motor)
+# move horizontal rack to the left to do wind turbine mission
+left_motor.reset()
+right_motor.reset()
+run_for_motor_stalled(mm_horizontal, 10000, 35)
+# move forward to align with white line in wind turbine
+mdiff.follow_gyro_angle(4, 0, 0, SpeedPercent(20), target_angle=0, 
+                            follow_for=follow_until_white,
+                             left_motor = left_motor, right_motor = right_motor, light = left_light)
