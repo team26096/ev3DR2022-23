@@ -16,6 +16,7 @@ from ev3dev2.button import Button
 from ev3dev2._platform.fake import OUTPUT_C
 from ev3dev2.motor import OUTPUT_A, OUTPUT_B, MoveDifferential, SpeedRPM
 from ev3dev2.wheel import EV3Tire, Wheel
+from functions import *
 
 s = Sound()
 robot = MoveTank(OUTPUT_B, OUTPUT_C)
@@ -28,67 +29,10 @@ left_motor = LargeMotor(OUTPUT_B)
 left_light = ColorSensor(INPUT_4)
 right_light = ColorSensor(INPUT_1)
 back_light = ColorSensor(INPUT_2)
-
-class EV3DRTires(Wheel):
-    """
-    part number 41897
-    comes in set 45544
-    """
-    def __init__(self):
-        Wheel.__init__(self, 50, 15)
-
 mdiff = MoveDifferential(OUTPUT_B, OUTPUT_C, EV3DRTires, 85.35)
 mdiff.gyro=gyro
 logfile = logging.getLogger('')
 btn = Button()
-
-def follow_until_black(tank, left_motor, right_motor, light):
-    light_intensity = (light.reflected_light_intensity)
-    if light_intensity <= 13:
-        return False
-    else:
-        return True
-def follow_until_white(tank, left_motor, right_motor, light):
-    light_intensity = (light.reflected_light_intensity)
-    if light_intensity >= 85:
-        return False
-    else:
-        return True
-
-def my_follow_for_degrees(tank, degrees, left_motor, right_motor):
-    averagedegrees = (left_motor.position + right_motor.position)/2  
-    if degrees >= 0:
-        if averagedegrees >= degrees:
-            return False
-        else:
-            return True
-    # if the target degrees are less than 0, the robot is moving backwards
-    else:
-        if averagedegrees <= degrees:
-            return False
-        else:
-            return True
-
-def pivot_gyro_turn(left_speed, right_speed, target_angle, 
-robot, gyro, bLeftTurn = True):
-    logfile = logging.getLogger('')
-    CurGyro = gyro.angle
-    logfile.info('gyro = ' + str(CurGyro))
-    if  bLeftTurn == True:
-        while CurGyro >= target_angle:
-            logfile.info('gyro = ' + str(CurGyro))
-            robot.on(left_speed, right_speed)
-            CurGyro = gyro.angle
-    else: 
-        while CurGyro <= target_angle:
-            logfile.info('gyro = ' + str(CurGyro))
-            robot.on(left_speed, right_speed)
-            CurGyro = gyro.angle
-
-def run_for_motor_stalled(motor, seconds, speed):
-    motor.on(speed)
-    motor.wait_until_not_moving(timeout=seconds)
-    motor.stop()
 
 #add run 4 code here
 gyro.reset()
@@ -124,5 +68,4 @@ right_motor.reset()
 run_for_motor_stalled(mm_horizontal, 10000, 35)
 # move forward to align with white line in wind turbine
 mdiff.follow_gyro_angle(4, 0, 0, SpeedPercent(20), target_angle=0, 
-                            follow_for=follow_until_white,
-                             left_motor = left_motor, right_motor = right_motor, light = left_light)
+                            follow_for=follow_until_white, lightSensor = left_light)
