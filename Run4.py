@@ -47,7 +47,7 @@ mm_horizontal.reset()
 #we run mm_vertical all the way down
 run_for_motor_stalled(mm_vertical, 10000, -50)
 # gyro straight to align with rechargeable battery 
-mdiff.follow_gyro_angle(4, 0, 0, SpeedPercent(20), target_angle=0, 
+mdiff.follow_gyro_angle(4, 0, 0, 30, target_angle=0, 
                             follow_for=my_follow_for_degrees, degrees=615,
                             right_motor = right_motor, left_motor = left_motor)
 # move horizontal rack left to drop battery units in rechargeable battery space.
@@ -56,16 +56,51 @@ run_for_motor_stalled(mm_horizontal, 10000, 35)
 mm_horizontal.reset()
 run_for_motor_stalled(mm_horizontal, 10000, -35)
 # gyro staight to complete watch television
+#gyro.reset()
+left_motor.reset()
+right_motor.reset()
+mdiff.follow_gyro_angle(4, 0, 0, 30, target_angle=0, 
+                            follow_for=my_follow_for_degrees, degrees=220,
+                            right_motor = right_motor, left_motor = left_motor)
+# move horizontal rack to the left to do wind turbine mission
+run_for_motor_stalled(mm_horizontal, 10000, 35)
+# lifting rack up to avoid hitting wind turbine
+mm_vertical.on_for_degrees(100, 1500, brake=True, block=False)
+# move forward to align with white line in wind turbine
+left_motor.reset()
+right_motor.reset()
+mdiff.follow_gyro_angle(4, 0, 0, 20, target_angle=0, 
+                            follow_for=follow_until_white, lightSensor = right_light)
+mdiff.follow_gyro_angle(4, 0, 0, 20, target_angle=0, 
+                            follow_for=follow_until_black, lightSensor = right_light)
+# turn left to align with oil platform 
+pivot_gyro_turn(0, 20, -5, robot, gyro, bLeftTurn=True)
+# gyro staight to complete oil platform
 gyro.reset()
 left_motor.reset()
 right_motor.reset()
-mdiff.follow_gyro_angle(4, 0, 0, SpeedPercent(20), target_angle=0, 
+mdiff.follow_gyro_angle(4, 0, 0, 20, target_angle=0, 
                             follow_for=my_follow_for_degrees, degrees=180,
                             right_motor = right_motor, left_motor = left_motor)
-# move horizontal rack to the left to do wind turbine mission
+# gyro staight backwards to realse the truck
+gyro.reset()
 left_motor.reset()
 right_motor.reset()
-run_for_motor_stalled(mm_horizontal, 10000, 35)
-# move forward to align with white line in wind turbine
-mdiff.follow_gyro_angle(4, 0, 0, SpeedPercent(20), target_angle=0, 
-                            follow_for=follow_until_white, lightSensor = left_light)
+mdiff.follow_gyro_angle(4, 0, 0, -20, target_angle=0, 
+                            follow_for=follow_until_white, lightSensor = right_light)
+# turn left to align with oil platform 
+pivot_gyro_turn(0, 20, -10, robot, gyro, bLeftTurn=True)
+gyro.reset()
+left_motor.reset()
+right_motor.reset()
+mdiff.follow_gyro_angle(4, 0, 0, -20, target_angle=0, 
+                            follow_for=follow_until_black, lightSensor = right_light)
+mdiff.follow_gyro_angle(4, 0, 0, -20, target_angle=0, 
+                            follow_for=follow_until_white, lightSensor = right_light) 
+#we run mm_vertical all the way down
+run_for_motor_stalled(mm_vertical, 10000, -50)
+gyro.reset()
+left_motor.reset()
+right_motor.reset()
+robot.on_for_degrees(-25, -25, 80, brake=True, block=True)
+run_for_motor_stalled(mm_horizontal, 10000, -35)
