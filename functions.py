@@ -270,3 +270,20 @@ def myPerfectSquare(left_target_light, right_target_light, left_motor, right_mot
         elapsed_time = round(cur_time - start_time, 2)
     left_motor.stop()
     right_motor.stop()
+
+#function to turn and align back sensor to black
+def backward_turn_until_black (light_sensor, robot, bLeftTurn=True):
+    logfile = logging.getLogger('')
+
+    if  bLeftTurn == True:
+        robot.on(-15, 0)
+    else: 
+        robot.on(0, -15)
+
+    light = light_sensor.reflected_light_intensity
+    while light > 7:
+        logfile.info('light_sensor = ' + str(light))
+        light=light_sensor.reflected_light_intensity
+        sleep(0.1)
+        
+    robot.stop()

@@ -33,6 +33,7 @@ mdiff.gyro=gyro
 logfile = logging.getLogger('')
 btn = Button()
 
+
 #start of code
 
 #we reset mm_horizontal
@@ -129,19 +130,37 @@ mm_vertical.on_for_degrees(100, 1000, brake=True, block=False)
 robot.on_for_degrees(-25, -25, 245, brake=True, block=True)
 
 #start aligning with smart grid
-gyro.reset()
-pivot_gyro_turn(0, -20, 105, robot, gyro, bLeftTurn=False)
+backward_turn_until_black (back_light, robot, bLeftTurn=False)
+#pivot_gyro_turn(0, -20, 105, robot, gyro, bLeftTurn=False)
 
 #starts line following with back sensor to smart grid
 left_motor.reset()
 right_motor.reset()
 robot.cs = back_light
-robot.follow_line(-1, 0, 0, -15, target_light_intensity=56,
+'''robot.follow_line(-1, 0, 0, -15, target_light_intensity=56,
                  follow_left_edge=True,
                  off_line_count_max=500,
                  sleep_time=0.01,
                  follow_for=my_follow_for_degrees, degrees=-600,
                  left_motor = left_motor, right_motor = right_motor)
+'''
+#line follow backward until left sensor is on black
+robot.follow_line(-1, 0, 0, -15, target_light_intensity=56,
+                 follow_left_edge=True,
+                 off_line_count_max=500,
+                 sleep_time=0.01,
+                 follow_for=follow_until_black, lightSensor=left_light)
+
+#align robot parallel to smart grid
+squareToBlack(-15, left_light, right_light, left_motor, right_motor)
+s.beep()
+
+#gyro straight to smart grid
+gyro.reset()
+right_motor.reset()
+left_motor.reset()
+robot.follow_gyro_angle(3, 0, 0, -25, target_angle=0, 
+                    follow_for=follow_for_ms, ms=900)
 
 #move horizontal rack to the right to hook to lever on smart grid
 mm_horizontal.reset()
