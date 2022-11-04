@@ -44,34 +44,52 @@ mm_vertical.reset()
 gyro.reset()
 #we reset both motors
 robot.reset()
+
 #we move robot forward to the end of base area
 robot.on_for_degrees(25, 25, 500, brake=True, block=True)
+
 #we turn gyro to align with the hydroelectric dam 
-pivot_gyro_turn(0, 10, -25, robot, gyro, bLeftTurn=True)
-#moving to the right
-mm_horizontal.on_for_degrees(35, -200, brake=True, block=True)
+pivot_gyro_turn(0, 10, -35, robot, gyro, bLeftTurn=True)
+
 #moving to catch water units
-robot.on_for_degrees(25, 25, 225, brake=True, block=True) 
-#lifting water unit up
-mm_vertical.on_for_degrees(100, 900, brake=True, block=False)
-#moving more right
+robot.on_for_degrees(25, 25, 215, brake=True, block=True)
+
+#move to the right
 mm_horizontal.on_for_degrees(35, -500, brake=True, block=True)
+
+#lifting water unit up 
+mm_vertical.on_for_degrees(100, 900, brake=True, block=True)
+
+#moving more right to not bump into the mission
+#mm_horizontal.on_for_degrees(-35, -500, brake=True, block=True)
+
 #going forward to drop water unit
-robot.on_for_degrees(25, 25, 300, brake=True, block=False)
-#moving mm_horizontal all the way up  
-run_for_motor_stalled(mm_vertical, 10000, 50)
+robot.on_for_degrees(25, 25, 300, brake=True, block=True)
+
+#raising rack up to push lever
+mm_vertical.on_for_degrees(100, 1100, brake=True, block=True)
+
 #going forward to water reservoir
-robot.on_for_degrees(25, 25, 250, brake=True, block=False)
+robot.on_for_degrees(25, 25, 275, brake=True, block=True)
+
 #moving water unit above reservoir
-mm_horizontal.on_for_degrees(15, 200, brake=True, block=False)
+mm_horizontal.on_for_degrees(15, 600, brake=True, block=True)
+
 #moving vertical all the way down
-run_for_motor_stalled(mm_vertical, 10000, -25)
+mm_vertical.on_for_degrees(15, -800, brake=True, block=True)
+
 #going back to release the water unit into the reservoir
-robot.on_for_degrees(25, 25, -200, brake=True, block=False)
+robot.on_for_degrees(25, 25, -75, brake=True, block=True)
+
 #moving rack to the right
-mm_horizontal.on_for_degrees(15, -1000, brake=True, block=False)
+run_for_motor_stalled(mm_horizontal, 10000, -25)
+
 #going forward to align with other water units
-robot.on_for_degrees(25, 25, 700, brake=True, block=False)
+robot.on_for_degrees(25, 25, 700, brake=True, block=True)
+
+#moving to left to release water units
+run_for_motor_stalled(mm_horizontal, 10000, 25)
+
 '''
 #we lift up the water unit to hook onto water reservoir
 mm_vertical.on_for_degrees(100, 900, brake=True, block=True)
