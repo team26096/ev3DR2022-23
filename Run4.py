@@ -38,9 +38,10 @@ btn = Button()
 
 #add run 4 code here
 def mission1():
+    logfile.info("first mission is starting")
     gyro.reset()
     sleep(0.5)
-    logfile = logging.getLogger('')
+    
     logfile.info('gyro before = ' + str(gyro.angle))
     left_motor.reset()
     right_motor.reset()
@@ -56,14 +57,17 @@ def mission1():
     mdiff.follow_gyro_angle(4, 0, 0, 30, target_angle=0, 
                                 follow_for=my_follow_for_degrees, degrees=615,
                                 right_motor = right_motor, left_motor = left_motor)
-
+    logfile.info("alighned with rechargable battery")
     # move horizontal rack left to drop battery units in rechargeable battery space.
     run_for_motor_stalled(mm_horizontal, 10000, 35)
+    logfile.info("first mission is finished")
 
 def mission2():
+    logfile.info("second mission is starting")
     # bring rack back to position and right for watch tv
     mm_horizontal.reset()
     run_for_motor_stalled(mm_horizontal, 10000, -35)
+    logfile.info("ready for watch television")
 
     # gyro staight to complete watch television
     left_motor.reset()
@@ -71,8 +75,10 @@ def mission2():
     mdiff.follow_gyro_angle(4, 0, 0, 30, target_angle=0, 
                                 follow_for=my_follow_for_degrees, degrees=300,
                                 right_motor = right_motor, left_motor = left_motor)
+    logfile.info("second mission is finished")
 
 def mission3():
+    logfile.info("third mission is starting")
     # move horizontal rack to the left to do wind turbine mission
     run_for_motor_stalled(mm_horizontal, 10000, 35)
 
@@ -92,6 +98,7 @@ def mission3():
 
     # turn left to align with oil platform 
     pivot_gyro_turn(0, 20, -15, robot, gyro, bLeftTurn=True)
+    logfile.info("alighned with oil platform")
 
     # gyro staight to complete oil platform
     gyro.reset()
@@ -107,8 +114,10 @@ def mission3():
     right_motor.reset()
     mdiff.follow_gyro_angle(4, 0, 0, -20, target_angle=0, 
                                 follow_for=follow_until_white, lightSensor = right_light)
+    logfile.info("third mission is finished")
 
 def mission4():
+    logfile.info("fourth mission is starting")
     # turn to align front with wind turbine
     backward_turn_until_black (right_light, robot, bLeftTurn=False)
 
@@ -120,7 +129,8 @@ def mission4():
                                 follow_for=follow_until_white, lightSensor = right_light)
     #we run mm_vertical all the way down
     run_for_motor_stalled(mm_vertical, 10000, -50)
-
+    
+    logfile.info("starting back and forth loop for wind turbine")
     # move back and forward for wind turbine
     loop = 0
     while(True):
@@ -132,6 +142,8 @@ def mission4():
                                 follow_for=follow_until_white, lightSensor = right_light)
             sleep(2)
         loop = loop + 1
+    logfile.info("fourth mission is finished")
+    
 
 '''
 mission1()
