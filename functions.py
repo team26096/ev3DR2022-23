@@ -287,3 +287,20 @@ def backward_turn_until_black (light_sensor, robot, bLeftTurn=True):
         sleep(0.1)
         
     robot.stop()
+
+#function to turn and align back sensor to black with forward motion
+def forward_turn_until_black (light_sensor, robot, bLeftTurn=True):
+    logfile = logging.getLogger('')
+
+    if  bLeftTurn == True:
+        robot.on(0, 15)
+    else: 
+        robot.on(15, 0)
+
+    light = light_sensor.reflected_light_intensity
+    while light > 7:
+        logfile.info('light_sensor = ' + str(light))
+        light=light_sensor.reflected_light_intensity
+        sleep(0.1)
+        
+    robot.stop()
