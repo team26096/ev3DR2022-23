@@ -35,133 +35,148 @@ btn = Button()
 
 #start of code
 
-#we reset mm_horizontal
-mm_horizontal.reset()
+def getOutOfBase():
+    #we reset mm_horizontal
+    mm_horizontal.reset()
 
-#we run mm_horizontal all the way to the left 
-run_for_motor_stalled(mm_horizontal, 10000, 35)
+    #we run mm_horizontal all the way to the left 
+    run_for_motor_stalled(mm_horizontal, 10000, 35)
 
-#we reset mm_vertical
-mm_vertical.reset()
+    #we reset mm_vertical
+    mm_vertical.reset()
 
-#we run mm_vertical all the way down
-run_for_motor_stalled(mm_vertical, 10000, -35)
+    #we run mm_vertical all the way down
+    run_for_motor_stalled(mm_vertical, 10000, -35)
 
-#we reset gyro
-gyro.reset()
-#we reset both motors
-robot.reset()
+    #we reset gyro
+    gyro.reset()
+    #we reset both motors
+    robot.reset()
 
-#gyro straight
-robot.cs = left_light
-robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
+    #gyro straight
+    robot.cs = left_light
+    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
+                        follow_for=follow_until_black, lightSensor=left_light)
+    s.beep()
+
+def alignWithSolarFarm():
+
+    #move rack to the right to avoid energy storage
+    mm_horizontal.reset()
+    mm_horizontal.on_for_degrees(35, -300, brake=True, block=True)
+
+    #turn right to approach solar farm
+    gyro.reset()
+    pivot_gyro_turn(10, 0, 30, robot, gyro, bLeftTurn=False)
+    s.beep()
+
+    #gyro straight to get in position for solar farm
+    gyro.reset()
+    right_motor.reset()
+    left_motor.reset()
+    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
+                        follow_for=my_follow_for_degrees, degrees=850,
+                        right_motor = right_motor, left_motor = left_motor)
+
+    #we run mm_horizontal all the way to the left so we can collect solar units
+    run_for_motor_stalled(mm_horizontal, 10000, 35)
+
+def collectEnergyUnits():
+
+    #move forward to collect the first solar unit
+    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
+                        follow_for=my_follow_for_degrees, degrees=20,
+                        right_motor = right_motor, left_motor = left_motor)
+
+    #turn to collect energy units from solar farm
+    gyro.reset()
+    pivot_gyro_turn(0, -22, 30, robot, gyro, bLeftTurn=False)
+
+    #gyro straight to collect the last solar unit (next to smart grid)
+    gyro.reset()
+    right_motor.reset()
+    left_motor.reset()
+    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
+                        follow_for=my_follow_for_degrees, degrees=400,
+                        right_motor = right_motor, left_motor = left_motor)
+
+    #turn to avoid smart grid and align to power to X
+    gyro.reset()
+    pivot_gyro_turn(0, -20, 40, robot, gyro, bLeftTurn=False)
+
+def dropUnitstoPX():
+    #raising rack to avoid water reservoir
+    mm_vertical.on_for_degrees(100, 600, brake=True, block=False)
+
+    #gyro straight into power to X to drop energy units
+    gyro.reset()
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
+                        follow_for=my_follow_for_degrees, degrees=400,
+                        right_motor = right_motor, left_motor = left_motor)
+
+    #turn to drop energy units into power to X
+    gyro.reset()
+    pivot_gyro_turn(0, -15, 40, robot, gyro, bLeftTurn=False)
+
+    #gyro straight into power to X
+    gyro.reset()
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
+                        follow_for=my_follow_for_degrees, degrees=290,
+                        right_motor = right_motor, left_motor = left_motor)
+         
+    #leave energy units in power to X and avoid water resorvior
+    mm_vertical.on_for_degrees(100, 1000, brake=True, block=False)
+
+    #go back to align to leave power to X
+    robot.on_for_degrees(-25, -25, 300, brake=True, block=True)
+    s.beep()
+
+def alignForSmartGrid():
+    #start aligning with smart grid
+    backward_turn_until_black (back_light, robot, bLeftTurn=False)
+    s.beep()
+
+    #starts line following with back sensor to smart grid
+    robot.reset()
+    robot.cs = back_light
+
+    #line follow backward until left sensor is on black
+    robot.follow_line(-1, 0, 0, -15, target_light_intensity=56,
+                    follow_left_edge=True,
+                    off_line_count_max=500,
+                    sleep_time=0.01,
                     follow_for=follow_until_black, lightSensor=left_light)
-s.beep()
+    s.beep()
 
-#move rack to the right to avoid energy storage
-mm_horizontal.reset()
-mm_horizontal.on_for_degrees(35, -300, brake=True, block=True)
+    #align robot parallel to smart grid
+    squareToBlack(-15, left_light, right_light, left_motor, right_motor)
+    s.beep()
 
-#turn right to approach solar farm
-gyro.reset()
-pivot_gyro_turn(10, 0, 30, robot, gyro, bLeftTurn=False)
-s.beep()
+    #gyro straight to smart grid
+    gyro.reset()
+    right_motor.reset()
+    left_motor.reset()
+    robot.follow_gyro_angle(3, 0, 0, -25, target_angle=0, 
+                        follow_for=follow_for_ms, ms=900)
+    s.beep()
 
-#gyro straight to get in position for solar farm
-gyro.reset()
-right_motor.reset()
-left_motor.reset()
-robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
-                    follow_for=my_follow_for_degrees, degrees=850,
-                    right_motor = right_motor, left_motor = left_motor)
+def doSmartGrid():
 
-#we run mm_horizontal all the way to the left so we can collect solar units
-run_for_motor_stalled(mm_horizontal, 10000, 35)
+    #move horizontal rack to the right to hook to lever on smart grid
+    mm_horizontal.reset()
+    mm_horizontal.on_for_degrees(50, -625, brake=True, block=True)
 
-#move forward to collect the first solar unit
-robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
-                    follow_for=my_follow_for_degrees, degrees=20,
-                    right_motor = right_motor, left_motor = left_motor)
+    #we run mm_vertical all the way down to grab lever for smart grid
+    run_for_motor_stalled(mm_vertical, 10000, -35)
 
-#turn to collect energy units from solar farm
-gyro.reset()
-pivot_gyro_turn(0, -22, 30, robot, gyro, bLeftTurn=False)
+    #move horizontal rack left and pull smart grid
+    run_for_motor_stalled(mm_horizontal, 10000, 50)
 
-#gyro straight to collect the last solar unit (next to smart grid)
-gyro.reset()
-right_motor.reset()
-left_motor.reset()
-robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
-                    follow_for=my_follow_for_degrees, degrees=370,
-                    right_motor = right_motor, left_motor = left_motor)
-
-#turn to avoid smart grid and align to power to X
-gyro.reset()
-pivot_gyro_turn(0, -20, 40, robot, gyro, bLeftTurn=False)
-
-#raising rack to avoid water reservoir
-mm_vertical.on_for_degrees(100, 500, brake=True, block=False)
-
-#gyro straight into power to X to drop energy units
-gyro.reset()
-right_motor.reset()
-left_motor.reset()
-robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
-                    follow_for=my_follow_for_degrees, degrees=400,
-                    right_motor = right_motor, left_motor = left_motor)
-
-#turn to drop energy units into power to X
-gyro.reset()
-pivot_gyro_turn(0, -15, 40, robot, gyro, bLeftTurn=False)
-
-#gyro straight into power to X
-gyro.reset()
-right_motor.reset()
-left_motor.reset()
-robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
-                    follow_for=my_follow_for_degrees, degrees=290,
-                    right_motor = right_motor, left_motor = left_motor)
-
-#leave energy units in power to X and avoid water resorvior
-mm_vertical.on_for_degrees(100, 1000, brake=True, block=False)
-
-#go back to align to leave power to X
-robot.on_for_degrees(-25, -25, 245, brake=True, block=True)
-
-#start aligning with smart grid
-backward_turn_until_black (back_light, robot, bLeftTurn=False)
-#pivot_gyro_turn(0, -20, 105, robot, gyro, bLeftTurn=False)
-
-#starts line following with back sensor to smart grid
-left_motor.reset()
-right_motor.reset()
-robot.cs = back_light
-
-#line follow backward until left sensor is on black
-robot.follow_line(-1, 0, 0, -15, target_light_intensity=56,
-                 follow_left_edge=True,
-                 off_line_count_max=500,
-                 sleep_time=0.01,
-                 follow_for=follow_until_black, lightSensor=left_light)
-
-#align robot parallel to smart grid
-squareToBlack(-15, left_light, right_light, left_motor, right_motor)
-s.beep()
-
-#gyro straight to smart grid
-gyro.reset()
-right_motor.reset()
-left_motor.reset()
-robot.follow_gyro_angle(3, 0, 0, -25, target_angle=0, 
-                    follow_for=follow_for_ms, ms=900)
-
-#move horizontal rack to the right to hook to lever on smart grid
-mm_horizontal.reset()
-mm_horizontal.on_for_degrees(50, -625, brake=True, block=True)
-
-#we run mm_vertical all the way down to grab lever for smart grid
-run_for_motor_stalled(mm_vertical, 10000, -35)
-
-#move horizontal rack left and pull smart grid
-run_for_motor_stalled(mm_horizontal, 10000, 50)
-
+getOutOfBase()
+alignWithSolarFarm()
+collectEnergyUnits()
+dropUnitstoPX()
+alignForSmartGrid()
+doSmartGrid()
