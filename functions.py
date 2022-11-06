@@ -304,3 +304,17 @@ def forward_turn_until_black (light_sensor, robot, bLeftTurn=True):
         sleep(0.1)
         
     robot.stop()
+
+def pivot_turn_until_black(left_speed, right_speed, target_light, 
+robot, lightSensor):
+    logfile = logging.getLogger('')
+    light = lightSensor.reflected_light_intensity
+    logfile.info('light = ' + str(light))
+    robot.on(left_speed, right_speed)
+    while light >= target_light:
+        logfile.info('light = ' + str(light))
+        sleep(0.1)
+        light = lightSensor.reflected_light_intensity
+
+    logfile.info('light 1 = ' + str(light))    
+    robot.stop()
