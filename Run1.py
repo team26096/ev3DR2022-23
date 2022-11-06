@@ -141,23 +141,25 @@ def collectWaterUnits():
     #bring horizontal rack to the right
     run_for_motor_stalled(mm_horizontal, 10000, -35)
 
+def alignToPowerPlant():
+    gyro.reset()
+    #turning to align with the line in front of the power plant mission
+    pivot_gyro_turn(10, 0, 50, robot, gyro, bLeftTurn=False)
+    #squaring to the line in front of the power plant mission
+    squareToBlack(15, left_light, right_light, left_motor, right_motor)
+    #gyro straight until the back sensor hits black
+    gyro.reset()
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0, 15, target_angle=0, 
+                follow_for=follow_until_black, lightSensor=back_light)
+    pivot_turn_until_black(-5, -15, 7, robot, right_light)
+
+
+
+
 getOutOfBase()
 lift1WaterUnit()
 hydroelectricDam()
 waterReservoirUnit1()
 collectWaterUnits()
-
-'''
-#we lift up the water unit to hook onto water reservoir
-mm_vertical.on_for_degrees(100, 900, brake=True, block=True)
-#we grab the water unit and move the rack away from the hydroelectric dam
-mm_horizontal.on_for_degrees(35, -800, brake=True, block=True)
-#moving forward to align with the hydroelectric dam dropping mechanism
-robot.on_for_degrees(25, 25, 225, brake=True, block=True)
-#dropping water unit which'll realease energy unit, is going 600 more than previous step
-mm_vertical.on_for_degrees(75, 600, brake=True, block=True)
-#coming down to avoid crashing into our mission
-mm_vertical.on_for_degrees(75, -600, brake=True, block=True)
-#going forward after hydroelectric dam
-robot.on_for_degrees(25, 25, 300, brake=True, block=True)
-'''
+#alignToPowerPlant()
