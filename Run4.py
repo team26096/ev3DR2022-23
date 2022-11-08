@@ -63,7 +63,7 @@ def mission1():
 
 def mission2():
     # bring rack back to position and right for watch tv
-    run_for_motor_stalled(mm_horizontal, 10000, -35)
+    run_for_motor_stalled(mm_horizontal, 10000, -30)
     mm_horizontal.reset()
     # turn back for watch tv
     pivot_gyro_turn(15, 0, 5, robot, gyro, bLeftTurn=False)
@@ -83,7 +83,10 @@ def mission3():
 
     # move forward to until left light sees black line
     mdiff.follow_gyro_angle(4, 0, 0, 20, target_angle=0, 
-                                follow_for=follow_until_black, lightSensor = left_light)
+                                follow_for=follow_until_white, lightSensor = left_light)
+    s.beep()
+    mdiff.follow_gyro_angle(4, 0, 0, 20, target_angle=0, 
+                                follow_for=follow_until_black, lightSensor = right_light)
     s.beep()
 
     # turn left to align with oil platform 
@@ -97,145 +100,50 @@ def mission3():
                                 left_motor = left_motor, right_motor = right_motor)
 
     # lifting rack up to release truck
-    mm_vertical.on_for_degrees(100, 850, brake=True, block=False)
+    mm_vertical.on_for_degrees(80, 850, brake=True, block=False)
 
     # gyro staight backwards to realse the truck
     robot.reset()
     mdiff.follow_gyro_angle(4, 0, 0, -15, target_angle=-35, 
                                 follow_for=follow_until_black, lightSensor = right_light)
+    s.beep()
 
 def mission4():
     # turn to align front with wind turbine
-    pivot_gyro_turn(-10, 15, -25, robot, gyro, bLeftTurn=True)
+    pivot_gyro_turn(15, -15, 47, robot, gyro, bLeftTurn=False)
 
-    backward_turn_until_black (right_light, robot, bLeftTurn=False)
-    s.beep()
-
-    # turn to align front with wind turbine
-    forward_turn_until_black (left_light, robot, bLeftTurn=False)
-    s.beep()
-    
-    # gyro staight backwards to realse the truck
+    # gyro staight backwards to align with wind turbine
     robot.reset()
-    mdiff.follow_gyro_angle(4, 0, 0, -15, target_angle=0, 
-                                follow_for=my_follow_for_degrees, degrees=-50,
+    mdiff.follow_gyro_angle(4, 0, 0, -15, target_angle=47, 
+                                follow_for=my_follow_for_degrees, degrees=-200,
                                 left_motor = left_motor, right_motor = right_motor)
 
-    # align bucket on rack with wind turbine
-    run_for_motor_stalled(mm_horizontal, 10000, 35)
-    mm_horizontal.reset()
+    # bring rack down
+    run_for_motor_stalled(mm_vertical, 10000, -50)
 
-    # we run mm_vertical all the way down
-    run_for_motor_stalled(mm_vertical, 10000, -35)
-
-    # move back and forward for wind turbine
+    # loop for going back and forth
     loop = 0
-    while(True):
-        if (loop < 4):
-            mdiff.follow_gyro_angle(4, 0, 0, 70, target_angle=0, 
-                                follow_for=follow_until_white, lightSensor = right_light)
-            sleep(2)
-            mdiff.follow_gyro_angle(4, 0, 0, -70, target_angle=0, 
-                                follow_for=follow_until_white, lightSensor = right_light)
-            sleep(2)
+    while(loop < 4):
+        mdiff.follow_gyro_angle(4, 0, 0, 20, target_angle=40, 
+                            follow_for=my_follow_for_degrees, degrees=70,
+                            left_motor = left_motor, right_motor = right_motor)
+        sleep(0.3)
+        mdiff.follow_gyro_angle(4, 0, 0, -20, target_angle=40, 
+                            follow_for=my_follow_for_degrees, degrees=-70,
+                            left_motor = left_motor, right_motor = right_motor)
+        sleep(0.3)
         loop = loop + 1
+    s.beep()
 
+    # move rack all the way to the right
+    mm_horizontal.on_for_degrees(-50, 500, brake=True, block=False)
 
+    # backward gyro straight back to base
+    mdiff.follow_gyro_angle(4, 0, 0, -50, target_angle=-20, 
+                            follow_for=my_follow_for_degrees, degrees=-1300,
+                            left_motor = left_motor, right_motor = right_motor)
+    
 mission1()
 mission2()
 mission3()
-# mission4()
-
-
-'''
-gyro.reset()
-sleep(0.5)
-logfile = logging.getLogger('')
-logfile.info('gyro before = ' + str(gyro.angle))
-left_motor.reset()
-right_motor.reset()
-run_for_motor_stalled(mm_horizontal, 10000, -35)
-
-#we reset mm_horizontal
-mm_horizontal.reset()
-
-#we run mm_vertical all the way down
-run_for_motor_stalled(mm_vertical, 10000, -50)
-
-# gyro straight to align with rechargeable battery 
-mdiff.follow_gyro_angle(4, 0, 0, 30, target_angle=0, 
-                            follow_for=my_follow_for_degrees, degrees=615,
-                            right_motor = right_motor, left_motor = left_motor)
-
-# move horizontal rack left to drop battery units in rechargeable battery space.
-run_for_motor_stalled(mm_horizontal, 10000, 35)
-
-# bring rack back to position and right for watch tv
-mm_horizontal.reset()
-run_for_motor_stalled(mm_horizontal, 10000, -35)
-
-# gyro staight to complete watch television
-left_motor.reset()
-right_motor.reset()
-mdiff.follow_gyro_angle(4, 0, 0, 30, target_angle=0, 
-                            follow_for=my_follow_for_degrees, degrees=300,
-                            right_motor = right_motor, left_motor = left_motor)
-
-# move horizontal rack to the left to do wind turbine mission
-run_for_motor_stalled(mm_horizontal, 10000, 35)
-
-# lifting rack up to avoid hitting wind turbine
-mm_vertical.on_for_degrees(100, 1500, brake=True, block=False)
-
-# move forward to align with white line in wind turbine
-left_motor.reset()
-right_motor.reset()
-mdiff.follow_gyro_angle(4, 0, 0, 20, target_angle=0, 
-                            follow_for=follow_until_white, lightSensor = right_light)
-s.beep()
-mdiff.follow_gyro_angle(4, 0, 0, 20, target_angle=0, 
-                            follow_for=follow_until_black, lightSensor = right_light)
-s.beep()
-
-# turn left to align with oil platform 
-pivot_gyro_turn(0, 20, -15, robot, gyro, bLeftTurn=True)
-
-# gyro staight to complete oil platform
-gyro.reset()
-left_motor.reset()
-right_motor.reset()
-mdiff.follow_gyro_angle(4, 0, 0, 20, target_angle=0, 
-                            follow_for=my_follow_for_degrees, degrees=200,
-                            right_motor = right_motor, left_motor = left_motor)
-
-# gyro staight backwards to realse the truck
-gyro.reset()
-left_motor.reset()
-right_motor.reset()
-mdiff.follow_gyro_angle(4, 0, 0, -20, target_angle=0, 
-                            follow_for=follow_until_white, lightSensor = right_light)
-
-# turn to align front with wind turbine
-backward_turn_until_black (right_light, robot, bLeftTurn=False)
-
-# move robot backward
-gyro.reset()
-left_motor.reset()
-right_motor.reset()
-mdiff.follow_gyro_angle(4, 0, 0, -20, target_angle=0, 
-                            follow_for=follow_until_white, lightSensor = right_light)
-
-#we run mm_vertical all the way down
-run_for_motor_stalled(mm_vertical, 10000, -50)
-
-# move back and forward for wind turbine
-loop = 0
-while(loop < 4):
-    mdiff.follow_gyro_angle(4, 0, 0, 90, target_angle=0, 
-                            follow_for=follow_until_white, lightSensor = right_light)
-    sleep(0.5)
-    mdiff.follow_gyro_angle(4, 0, 0, -90, target_angle=0, 
-                            follow_for=follow_until_white, lightSensor = right_light)
-    sleep(0.5)
-    loop = loop + 1
-'''
+mission4()
