@@ -276,9 +276,9 @@ def backward_turn_until_black (light_sensor, robot, bLeftTurn=True):
     logfile = logging.getLogger('')
 
     if  bLeftTurn == True:
-        robot.on(-15, 0)
+        robot.on(-10, 0)
     else: 
-        robot.on(0, -15)
+        robot.on(0, -10)
 
     light = light_sensor.reflected_light_intensity
     while light > 7:
@@ -293,9 +293,9 @@ def forward_turn_until_black (light_sensor, robot, bLeftTurn=True):
     logfile = logging.getLogger('')
 
     if  bLeftTurn == True:
-        robot.on(0, 15)
+        robot.on(0, 10)
     else: 
-        robot.on(15, 0)
+        robot.on(10, 0)
 
     light = light_sensor.reflected_light_intensity
     while light > 7:
