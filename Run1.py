@@ -1,38 +1,9 @@
 #!/usr/bin/env micropython
 
-import os
-import threading  
-import logging
-from time import time, sleep
-from ev3dev2 import motor
-from ev3dev2.motor import (OUTPUT_A, OUTPUT_B, OUTPUT_C, OUTPUT_D, MoveSteering,
-                           MoveTank, SpeedPercent, follow_for_ms, MediumMotor, LargeMotor)
-from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
-from ev3dev2.sensor.lego import GyroSensor, ColorSensor
-from ev3dev2.sound import Sound
-from ev3dev2.button import Button
-from ev3dev2._platform.fake import OUTPUT_C
-from ev3dev2.motor import OUTPUT_A, OUTPUT_B, MoveDifferential, SpeedRPM
-from ev3dev2.wheel import EV3Tire, Wheel
-from functions import *
+# add imports
+from initialize import *
 
-s = Sound()
-robot = MoveTank(OUTPUT_B, OUTPUT_C)
-gyro = GyroSensor(INPUT_3)
-robot.gyro = gyro
-mm_horizontal = MediumMotor(OUTPUT_D)
-mm_vertical = MediumMotor(OUTPUT_A)
-right_motor = LargeMotor(OUTPUT_C)
-left_motor = LargeMotor(OUTPUT_B)
-left_light = ColorSensor(INPUT_4)
-right_light = ColorSensor(INPUT_1)
-back_light = ColorSensor(INPUT_2)
-mdiff = MoveDifferential(OUTPUT_B, OUTPUT_C, EV3DRTires, 85.35)
-mdiff.gyro=gyro
-logfile = logging.getLogger('')
-btn = Button()
 #start of code
-
 def getOutOfBase():
     #we run mm_horizontal all the way to the left 
     run_for_motor_stalled(mm_horizontal, 10000, 35)
@@ -154,12 +125,10 @@ def alignToPowerPlant():
                 follow_for=follow_until_black, lightSensor=back_light)
     pivot_turn_until_black(-5, -15, 7, robot, right_light)
 
-
-
-
-getOutOfBase()
-lift1WaterUnit()
-hydroelectricDam()
-waterReservoirUnit1()
-collectWaterUnits()
-#alignToPowerPlant()
+def run1():
+    getOutOfBase()
+    lift1WaterUnit()
+    hydroelectricDam()
+    waterReservoirUnit1()
+    collectWaterUnits()
+    # alignToPowerPlant()
