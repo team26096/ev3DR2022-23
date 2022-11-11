@@ -156,12 +156,12 @@ def collectRB():
     s.beep()
 
     #turning to align robot to base and pick up RB
-    pivot_gyro_turn(0, -10, 320, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(0, -10, 305, robot, gyro, bLeftTurn=False)
     s.beep()
 
     #go backward to collect RB
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, -25, target_angle=320, 
+    robot.follow_gyro_angle(3, 0, 0, -25, target_angle=305, 
                         follow_for=my_follow_for_degrees, degrees=-200,
                         right_motor = right_motor, left_motor = left_motor)
     s.beep()
@@ -170,8 +170,8 @@ def collectRB():
     mm_horizontal.on_for_degrees(35, -700, brake=True, block=True)
     
     #final go back to base and grab RB
-    robot.follow_gyro_angle(3, 0, 0, -25, target_angle=340, 
-                        follow_for=my_follow_for_degrees, degrees=1200,
+    robot.follow_gyro_angle(3, 0, 0, -25, target_angle=315, 
+                        follow_for=my_follow_for_degrees, degrees=1000,
                         right_motor = right_motor, left_motor = left_motor)
     s.beep()
 
