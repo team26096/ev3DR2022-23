@@ -55,6 +55,7 @@ def mission3():
                                 follow_for=follow_until_black, lightSensor = right_light)
     s.beep()
 
+
     # turn left to align with oil platform 
     # pivot_gyro_turn(0, 20, -25, robot, gyro, bLeftTurn=True)
 
@@ -115,3 +116,7 @@ def run4():
     mission3()
     mission4()
 
+mission1()
+mission2()
+mission3()
+mission4()
