@@ -49,7 +49,7 @@ def mission3():
 
     # move forward to until left light sees black line
     mdiff.follow_gyro_angle(4, 0, 0, 20, target_angle=0, 
-                                follow_for=follow_until_white, lightSensor = left_light)
+                                follow_for=follow_until_white, lightSensor = right_light)
     s.beep()
     mdiff.follow_gyro_angle(4, 0, 0, 20, target_angle=0, 
                                 follow_for=follow_until_black, lightSensor = right_light)
@@ -63,7 +63,7 @@ def mission3():
     # gyro.reset()
     robot.reset()
     mdiff.follow_gyro_angle(4, 0, 0, 30, target_angle=-35, 
-                                follow_for=my_follow_for_degrees, degrees=270,
+                                follow_for=my_follow_for_degrees, degrees=290,
                                 left_motor = left_motor, right_motor = right_motor)
 
     # lifting rack up to release truck
@@ -91,11 +91,11 @@ def mission4():
     # loop for going back and forth
     loop = 0
     while(loop < 4):
-        mdiff.follow_gyro_angle(4, 0, 0, 20, target_angle=40, 
+        mdiff.follow_gyro_angle(4, 0, 0, 20, target_angle=47, 
                             follow_for=my_follow_for_degrees, degrees=70,
                             left_motor = left_motor, right_motor = right_motor)
         sleep(0.3)
-        mdiff.follow_gyro_angle(4, 0, 0, -20, target_angle=40, 
+        mdiff.follow_gyro_angle(4, 0, 0, -20, target_angle=47, 
                             follow_for=my_follow_for_degrees, degrees=-70,
                             left_motor = left_motor, right_motor = right_motor)
         sleep(0.3)
