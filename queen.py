@@ -2,6 +2,7 @@
 
 # add imports here
 from Run1 import *
+from Run2 import *
 from Run3 import *
 from Run4 import *
 from Run5 import *
@@ -28,15 +29,16 @@ while True:
         run1()
     elif btn.check_buttons(buttons=['up']): 
         s.beep()
-        # when the up button is pressed, the robot will play run3
-        run3()
+        # when the up button is pressed, the robot will play run2
+        run2()
     elif btn.check_buttons(buttons=['right']): 
         s.beep()
-        # when the right button is pressed, the robot will play run4
-        run4()
+        # when the right button is pressed, the robot will play run3
+        run3()
     elif btn.check_buttons(buttons=['down']): 
         s.beep()
-        # when the down button is pressed, the robot will play xxx
+        # when the down button is pressed, the robot will play run4
+        run4()
     elif btn.check_buttons(buttons=['left']): 
         s.beep()
         # when the left button is pressed, the robot will play run5
