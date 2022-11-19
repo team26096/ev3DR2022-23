@@ -104,7 +104,7 @@ def alignForSmartGrid():
 def doSmartGrid():
     #move horizontal rack to the right to hook to lever on smart grid
     mm_horizontal.reset()
-    mm_horizontal.on_for_degrees(50, -600, brake=True, block=True)
+    mm_horizontal.on_for_degrees(50, -650, brake=True, block=True)
 
     #we run mm_vertical all the way down to grab lever for smart grid
     run_for_motor_stalled(mm_vertical, 10000, -35)
@@ -142,7 +142,7 @@ def collectRB():
     #final go back to base and grab RB
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, -25, target_angle=315, 
-                        follow_for=my_follow_for_degrees, degrees=-1000,
+                        follow_for=my_follow_for_degrees, degrees=-1300,
                         right_motor = right_motor, left_motor = left_motor)
     s.beep()
     
