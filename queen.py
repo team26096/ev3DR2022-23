@@ -4,6 +4,7 @@
 from Run1 import *
 from Run3 import *
 from Run4 import *
+from Run5 import *
 from initialize import *
 from portCheck import *
 
@@ -37,4 +38,5 @@ while True:
         # when the down button is pressed, the robot will play xxx
     elif btn.check_buttons(buttons=['left']): 
         s.beep()
-        # when the left button is pressed, the robot will play xxx
+        # when the left button is pressed, the robot will play run5
+        run5()
