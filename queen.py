@@ -19,6 +19,7 @@ while True:
 
 s.speak('starting button sequence')
 # start button sequence
+
 while True:
     # print(btn.buttons_pressed)
     if btn.check_buttons(buttons=['enter']): 
