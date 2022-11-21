@@ -42,14 +42,11 @@ def hydroelectricDam():
     #going forward to align with the hydroelectric dam lever
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 15, target_angle=-39, 
-                follow_for=my_follow_for_degrees, degrees=250,
+                follow_for=my_follow_for_degrees, degrees=225,
                 right_motor = right_motor, left_motor = left_motor)
 
     #raising rack up to push lever
     mm_vertical.on_for_degrees(35, 1100, brake=True, block=True)
-    sleep(0.25)
-    #going a little down
-    mm_vertical.on_for_degrees(35, -900, brake=True, block=True)
 
 def waterReservoirUnit1():
     robot.reset()
@@ -112,29 +109,60 @@ def collectWaterUnits():
     run_for_motor_stalled(mm_horizontal, 10000, -35)
 
 def dropInnovationProject():
+    robot.reset()
     robot.follow_gyro_angle(3, 0, 0,15, target_angle=-39, 
-            follow_for=my_follow_for_degrees, degrees=400,
+            follow_for=my_follow_for_degrees, degrees=200,
             right_motor = right_motor, left_motor = left_motor)
     
 
 def alignToPowerPlant():
-    gyro.reset()
-    #turning to align with the line in front of the power plant mission
-    pivot_gyro_turn(10, 0, 50, robot, gyro, bLeftTurn=False)
-    #squaring to the line in front of the power plant mission
-    squareToBlack(15, left_light, right_light, left_motor, right_motor)
-    #gyro straight until the back sensor hits black
-    gyro.reset()
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, 15, target_angle=0, 
-                follow_for=follow_until_black, lightSensor=back_light)
-    pivot_turn_until_black(-5, -15, 7, robot, right_light)
+    #starting to align to power plant
+    robot.follow_gyro_angle(3, 0, 0, 15, target_angle=-39, 
+                follow_for=my_follow_for_degrees, degrees=400,
+                right_motor = right_motor, left_motor = left_motor)
+    #pivoting to 0 so the robot can move forward and align to the black line
+    pivot_gyro_turn(10, -10, 0, robot, gyro, bLeftTurn=False)
+    #aligning one light sensor to black so we can move the other one in later and complete the power plant mission
+    robot.follow_gyro_angle(3, 0, 0,15, target_angle=0, 
+            follow_for=follow_until_black, lightSensor=right_light)
+    #moving vertical rack all the way up
+    mm_vertical.on_for_degrees(35, 100, brake=True, block=True)
+    #align robot to face to power plant  
+    pivot_gyro_turn(10, 0, 90, robot, gyro, bLeftTurn=False)
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0,15, target_angle=90, 
+            follow_for=follow_until_black, lightSensor=back_light)
+    #coming forward to power plant mission
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0,15, target_angle=90, 
+            follow_for=my_follow_for_degrees, degrees=65,
+            right_motor = right_motor, left_motor = left_motor)
+    #catching the power unit at the front
+    run_for_motor_stalled(mm_vertical, 10000, -50)
+    mm_vertical.reset()
+    run_for_motor_stalled(mm_horizontal, 10000, 35)
+    mm_horizontal.reset()
+    #lifting up to release the last power unit
+    mm_vertical.on_for_degrees(50, 2200, brake=True, block=True)
 
+def comeBackToBase():
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0,-75, target_angle=90, 
+            follow_for=my_follow_for_degrees, degrees=-200,
+            right_motor = right_motor, left_motor = left_motor)
+    pivot_gyro_turn(25, 0, 165, robot, gyro, bLeftTurn=False)
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0,75, target_angle=165, 
+            follow_for=my_follow_for_degrees, degrees=1600,
+            right_motor = right_motor, left_motor = left_motor)
+
+
+ 
 def run1():
     getOutOfBase()
     lift1WaterUnit()
     hydroelectricDam()
-    waterReservoirUnit1()
-    dropInnovationProject()
-    #collectWaterUnits()
-    # alignToPowerPlant()
+    alignToPowerPlant()
+    comeBackToBase()
+run1()
