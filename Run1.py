@@ -157,12 +157,22 @@ def comeBackToBase():
             follow_for=my_follow_for_degrees, degrees=1600,
             right_motor = right_motor, left_motor = left_motor)
 
+def setUpForRun2():
+    # bring rack down
+    run_for_motor_stalled(mm_vertical, 10000, -35)
+    mm_vertical.reset
 
- 
+    # bring rack up
+    mm_vertical.on_for_degrees(35, 1750, brake=True, block=True)
+    
+    #move rack left 
+    run_for_motor_stalled(mm_horizontal, 10000, 35)
+    mm_horizontal.reset()
+
 def run1():
     getOutOfBase()
     lift1WaterUnit()
     hydroelectricDam()
     alignToPowerPlant()
     comeBackToBase()
-run1()
+    setUpForRun2()

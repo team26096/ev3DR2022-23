@@ -4,20 +4,19 @@
 from initialize import *
 
 #add run 4 code here
-def recharableBattery():
-    gyro.reset()
-    logfile.info('gyro before = ' + str(gyro.angle))
-    robot.reset()
+def run4SelfStartUp():
     run_for_motor_stalled(mm_horizontal, 10000, -35)
-
-    #we reset mm_horizontal
     mm_horizontal.reset()
 
     #we run mm_vertical all the way down
     run_for_motor_stalled(mm_vertical, 10000, -35)
     mm_vertical.reset()
 
-    # gyro straight to align with rechargeable battery 
+def recharableBattery():
+    gyro.reset()
+
+    # gyro straight to align with rechargeable battery
+    robot.reset() 
     mdiff.follow_gyro_angle(4, 0, 0, 30, target_angle=0, 
                                 follow_for=my_follow_for_degrees, degrees=620,
                                 left_motor = left_motor, right_motor = right_motor)
@@ -113,9 +112,9 @@ def windTurbine():
                             follow_for=my_follow_for_degrees, degrees=-1300,
                             left_motor = left_motor, right_motor = right_motor)
     
-    # sleep for run 5 and put rack up
+    # sleep for run 5 and put rack up for run 5
     sleep(2)
-    mm_vertical.on_for_degrees(35, 2150, brake=True, block=True)
+    mm_vertical.on_for_degrees(35, 2300, brake=True, block=True)
 
 def alignForWindTurbine():
     # move horizontal rack to the left to avoid wind turbine mission
@@ -150,8 +149,17 @@ def alignForWindTurbine():
     pivot_gyro_turn(15, -15, 46, robot, gyro, bLeftTurn=False)
 
 
+def setUpForRun5():
+    # bring rack down
+    run_for_motor_stalled(mm_vertical, 10000, -35)
+    mm_vertical.reset()
+
+    # bring rack up
+    mm_vertical.on_for_degrees(35, 1900, brake=True, block=True)
+
 def run4(): 
     recharableBattery()
     watchTelevison()
     alignForWindTurbine()
     windTurbine()
+    setUpForRun5()

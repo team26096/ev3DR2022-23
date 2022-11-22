@@ -14,3 +14,5 @@ from portCheck import do_portcheck
 from functions import *
 
 do_calibrate()
+sleep(5)
+do_calibrate_back()
