@@ -33,7 +33,14 @@ def alignForEnergyStorage():
     robot.reset()
     robot.cs = left_light
     
-    #begin line follow
+    #begin line follow, go certain distance to catch line
+    robot.follow_line(1.2, 0, 0, 15, target_light_intensity=56,
+                    follow_left_edge=False,
+                    off_line_count_max=500,
+                    sleep_time=0.01,
+                    follow_for=my_follow_for_degrees, degrees=500, left_motor=left_motor, right_motor=right_motor)
+    s.beep()
+    #begin line follow, go until black T junction near energy storage
     robot.follow_line(1.2, 0, 0, 15, target_light_intensity=56,
                     follow_left_edge=False,
                     off_line_count_max=500,
