@@ -81,10 +81,21 @@ def follow_until_white(tank, lightSensor):
 
 def follow_until_black(tank,lightSensor):
     logfile = logging.getLogger('')
-    light_intensity = lightSensor.reflected_light_intensity
+    #light_intensity = lightSensor.reflected_light_intensity
     light_intensity = (lightSensor.reflected_light_intensity)
     logfile.info('light = ' + str(light_intensity))
     if light_intensity <= 10:
+        return False
+    else:
+        return True
+
+def follow_until_front_black(tank, lls, rls):
+    logfile = logging.getLogger('')
+    #left_light_intensity = lls.reflected_light_intensity
+    left_light_intensity = (lls.reflected_light_intensity)
+    right_light_intensity = (rls.reflected_light_intensity)
+    logfile.info('left light = ' + str(left_light_intensity) + ', right light = ' + str(right_light_intensity))
+    if (left_light_intensity <= 10 & right_light_intensity <= 10):
         return False
     else:
         return True
@@ -110,9 +121,13 @@ robot, gyro, bLeftTurn = True):
 def do_calibrate():
     left_light = ColorSensor(INPUT_4)
     right_light = ColorSensor(INPUT_1)
-    back_light = ColorSensor(INPUT_2)
     left_light.calibrate_white()
     right_light.calibrate_white()
+    s = Sound()
+    s.beep()
+
+def do_calibrate_back():
+    back_light = ColorSensor(INPUT_2)
     back_light.calibrate_white()
     s = Sound()
     s.beep()

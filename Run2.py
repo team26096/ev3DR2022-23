@@ -3,20 +3,19 @@
 # add imports
 from initialize import *
 
-
-def getOutOfBase():
-
+def run2SelfSetup():
     # bring rack down
-    run_for_motor_stalled(mm_vertical, 10000, -50)
+    run_for_motor_stalled(mm_vertical, 10000, -35)
     mm_vertical.reset
 
     # bring rack up
-    mm_vertical.on_for_degrees(40, 1750, brake=True, block=True)
-    sleep(1)
+    mm_vertical.on_for_degrees(35, 1750, brake=True, block=True)
     
     #move rack left 
-    run_for_motor_stalled(mm_horizontal, 10000, 25)
+    run_for_motor_stalled(mm_horizontal, 10000, 35)
     mm_horizontal.reset()
+
+def getOutOfBase():
   
     # gyro straight until the lcs sees black and white
     gyro.reset()
@@ -39,7 +38,7 @@ def alignForEnergyStorage():
                     follow_left_edge=False,
                     off_line_count_max=500,
                     sleep_time=0.01,
-                    follow_for=follow_until_black, lightSensor=right_light)
+                    follow_for=follow_until_front_black, lls=left_light, rls=right_light)
     s.beep()
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
@@ -63,22 +62,33 @@ def doOilPlatform():
     mm_horizontal.reset()
     mm_horizontal.on_for_degrees(50, 400, brake=True, block=True)
 
-    #raise rack 4 times to pump fuel units into truck
+    #raise rack 3 times to pump fuel units into truck
     loop = 0
-    while(loop < 4):
+    while(loop < 3):
         mm_vertical.on_for_degrees(40, 900, brake=True, block=True)
-        sleep(0.3)
+        sleep(0.1)
         mm_vertical.on_for_degrees(40, -900, brake=True, block=True)   
         loop = loop + 1
-    s.beep()
+
     # come back to base
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, -50, target_angle=30, 
                     follow_for=my_follow_for_degrees, degrees=-1300, left_motor=left_motor, right_motor=right_motor)
+
+def setUpForRun3():
+    # we run mm_horizontal all the way to the left 
+    run_for_motor_stalled(mm_horizontal, 10000, 35)
+    #we reset mm_horizontal
+    mm_horizontal.reset()
+
+    #we run mm_vertical all the way down
+    run_for_motor_stalled(mm_vertical, 10000, -35)
+    #we reset mm_vertical
+    mm_vertical.reset()
 
 def run2():
     getOutOfBase()
     alignForEnergyStorage()
     doEnergyStorage()
     doOilPlatform()
-
+    setUpForRun3

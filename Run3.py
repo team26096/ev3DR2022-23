@@ -4,17 +4,18 @@
 from initialize import *
 
 #start of code
-def getOutOfBase():
-    #we run mm_horizontal all the way to the left 
-    run_for_motor_stalled(mm_horizontal, 10000, 25)
+def run3SelfStartUp():
+    # we run mm_horizontal all the way to the left 
+    run_for_motor_stalled(mm_horizontal, 10000, 35)
     #we reset mm_horizontal
     mm_horizontal.reset()
 
     #we run mm_vertical all the way down
-    run_for_motor_stalled(mm_vertical, 10000, -25)
+    run_for_motor_stalled(mm_vertical, 10000, -35)
     #we reset mm_vertical
     mm_vertical.reset()
 
+def getOutOfBase():
     #we reset gyro
     gyro.reset()
     #we reset both motors
@@ -104,14 +105,14 @@ def alignForSmartGrid():
 def doSmartGrid():
     #move horizontal rack to the right to hook to lever on smart grid
     mm_horizontal.reset()
-    mm_horizontal.on_for_degrees(50, -650, brake=True, block=True)
+    mm_horizontal.on_for_degrees(50, -670, brake=True, block=True)
 
     #we run mm_vertical all the way down to grab lever for smart grid
     run_for_motor_stalled(mm_vertical, 10000, -35)
     mm_vertical.reset()
 
     #move horizontal rack left and pull smart grid
-    run_for_motor_stalled(mm_horizontal, 10000, 25)
+    run_for_motor_stalled(mm_horizontal, 10000, 35)
     mm_horizontal.reset()
 
 def collectRB():
@@ -137,23 +138,22 @@ def collectRB():
     s.beep()
     
     #move rack to the right to avoid toy factory
-    mm_horizontal.on_for_degrees(35, -700, brake=True, block=True)
+    mm_horizontal.on_for_degrees(35, -675, brake=True, block=True)
     
     #final go back to base and grab RB
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, -25, target_angle=315, 
-                        follow_for=my_follow_for_degrees, degrees=-1300,
+    robot.follow_gyro_angle(3, 0, 0, -50, target_angle=315, 
+                        follow_for=my_follow_for_degrees, degrees=-1400,
                         right_motor = right_motor, left_motor = left_motor)
-    s.beep()
-    
-    # move rack down and to the right for run 4
-    run_for_motor_stalled(mm_vertical, 10000, -35)
-    mm_vertical.reset()
 
-    #move horizontal rack left and pull smart grid
-    run_for_motor_stalled(mm_horizontal, 10000, -25)
+def setUpForRun4():
+    # stall rack to the left
+    run_for_motor_stalled(mm_horizontal, 10000, -35)
     mm_horizontal.reset()
 
+    #we run mm_vertical all the way down
+    run_for_motor_stalled(mm_vertical, 10000, -35)
+    mm_vertical.reset()
 
 def run3():
     getOutOfBase()
@@ -163,3 +163,4 @@ def run3():
     alignForSmartGrid()
     doSmartGrid()
     collectRB()
+    setUpForRun4()
