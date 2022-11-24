@@ -112,6 +112,4 @@ def run1():
     hydroelectricDam()
     alignToPowerPlant()
     comeBackToBase()
-    #setUpForRun2()
-
-run1()
+    setUpForRun2()

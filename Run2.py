@@ -84,12 +84,12 @@ def doOilPlatform():
 
 def setUpForRun3():
     # we run mm_horizontal all the way to the left 
-    run_for_motor_stalled(mm_horizontal, 10000, 35)
+    run_for_motor_stalled(mm_horizontal, 10000, 25)
     #we reset mm_horizontal
     mm_horizontal.reset()
 
     #we run mm_vertical all the way down
-    run_for_motor_stalled(mm_vertical, 10000, -35)
+    run_for_motor_stalled(mm_vertical, 10000, -25)
     #we reset mm_vertical
     mm_vertical.reset()
 
@@ -99,6 +99,3 @@ def run2():
     doEnergyStorage()
     doOilPlatform()
     setUpForRun3()
-
-run2SelfSetup()
-run2()
