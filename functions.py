@@ -1,5 +1,5 @@
 #!/usr/bin/env micropython
-
+'''
 from time import time, sleep
 import threading
 import logging      
@@ -12,6 +12,8 @@ from ev3dev2.button import Button
 from portCheck import do_portcheck
 from ev3dev2.motor import OUTPUT_A, OUTPUT_B, MoveDifferential, SpeedRPM
 from ev3dev2.wheel import EV3Tire, Wheel
+'''
+from initialize import *
 
 class FollowGyroAngleErrorTooFast(Exception):
     """
@@ -20,19 +22,39 @@ class FollowGyroAngleErrorTooFast(Exception):
     """
     pass     
 
+def readAllValues():
+    # Read all Files
+    f = open("ConfiguredColor.txt", "r")
+
+    global leftColorSensorWhite
+    global rightColorSensorWhite
+    global backColorSensorWhite
+    global leftColorSensorBlack
+    global rightColorSensorBlack
+    global backColorSensorBlack
+
+    leftColorSensorWhite = int(f.readline())
+    rightColorSensorWhite = int(f.readline())
+    backColorSensorWhite = int(f.readline())
+    leftColorSensorBlack = int(f.readline())
+    rightColorSensorBlack = int(f.readline())
+    backColorSensorBlack = int(f.readline())
+
+    f.close()
+
 #this function moves a motor until it cannot move anymore(stall)
 def run_for_motor_stalled(motor, seconds, speed):
     motor.on(speed)
     motor.wait_until_not_moving(timeout=seconds)
     motor.stop()
 
-class EV3DRTires(Wheel):
-    """
-    part number 41897
-    comes in set 45544
-    """
-    def __init__(self):
-        Wheel.__init__(self, 50, 15)
+# class EV3DRTires(Wheel):
+#     """
+#     part number 41897
+#     comes in set 45544
+#     """
+#     def __init__(self):
+#         Wheel.__init__(self, 50, 15)
 
 def robot_runfordegrees(robot, left_speed, right_speed, degrees):
     robot.on_for_degrees(left_speed, right_speed, degrees)
@@ -89,6 +111,25 @@ def follow_until_black(tank,lightSensor):
     else:
         return True
 
+def follow_until_right_white(tank, lightSensor):
+    logfile = logging.getLogger('')
+    light_intensity = (lightSensor.reflected_light_intensity)
+    logfile.info('light = ' + str(light_intensity) + ' rightColorSensorWhite = ' + str(rightColorSensorWhite - 5))
+    if light_intensity >= (rightColorSensorWhite - 5):
+        return False
+    else:
+        return True
+
+def follow_until_right_black(tank,lightSensor):
+    logfile = logging.getLogger('')
+    #light_intensity = lightSensor.reflected_light_intensity
+    light_intensity = (lightSensor.reflected_light_intensity)
+    logfile.info('light = ' + str(light_intensity) + ' rightColorSensorBlack = ' + str(rightColorSensorWhite + 3))
+    if light_intensity <= (rightColorSensorBlack + 3):
+        return False
+    else:
+        return True
+    
 def follow_until_front_black(tank, lls, rls):
     logfile = logging.getLogger('')
     #left_light_intensity = lls.reflected_light_intensity

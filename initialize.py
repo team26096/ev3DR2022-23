@@ -12,15 +12,20 @@ from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
 from ev3dev2.sensor.lego import GyroSensor, ColorSensor
 from ev3dev2.sound import Sound
 from ev3dev2.button import Button
-#from functions import *
 from ev3dev2._platform.fake import OUTPUT_C
 from ev3dev2.motor import OUTPUT_A, OUTPUT_B, MoveDifferential, SpeedRPM
 from ev3dev2.wheel import EV3Tire, Wheel
-from functions import *
-from functions import follow_until_black
-from functions import follow_until_white
+#from functions import *
 
-s = Sound()
+class EV3DRTires(Wheel):
+    """
+    part number 41897
+    comes in set 45544
+    """
+    def __init__(self):
+        Wheel.__init__(self, 50, 15)
+
+snd = Sound()
 robot = MoveTank(OUTPUT_B, OUTPUT_C)
 gyro = GyroSensor(INPUT_3)
 robot.gyro = gyro
@@ -35,4 +40,10 @@ mdiff = MoveDifferential(OUTPUT_B, OUTPUT_C, EV3DRTires, 85.35)
 mdiff.gyro=gyro
 logfile = logging.getLogger('')
 btn = Button()
-logfile = logging.getLogger('')
+
+leftColorSensorWhite = -1
+rightColorSensorWhite = -1
+backColorSensorWhite = -1
+leftColorSensorBlack = -1
+rightColorSensorBlack = -1
+backColorSensorBlack = -1

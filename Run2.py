@@ -2,6 +2,7 @@
 
 # add imports
 from initialize import *
+from functions import *
 
 def run2SelfSetup():
     # bring rack down
@@ -27,7 +28,7 @@ def alignForEnergyStorage():
     
     #move rack to the middle for energy storage
     mm_horizontal.reset()
-    mm_horizontal.on_for_degrees(50, -400, brake=True, block=True)
+    mm_horizontal.on_for_degrees(50, -250, brake=True, block=True)
 
     #line follow to energy storage
     robot.reset()
@@ -46,6 +47,9 @@ def alignForEnergyStorage():
                     off_line_count_max=500,
                     sleep_time=0.01,
                     follow_for=follow_until_front_black, lls=left_light, rls=right_light)
+
+    #make sure the robot is aligned completely to energy storage
+    pivot_gyro_turn(10, -10, 0, robot, gyro, bLeftTurn=False)
 
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
