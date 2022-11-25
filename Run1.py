@@ -69,7 +69,6 @@ def alignToPowerPlant():
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0,15, target_angle=90, 
             follow_for=follow_until_front_black, lls=left_light, rls=right_light)
-    s.beep()
     #coming forward to power plant mission
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, -20, target_angle=90, 

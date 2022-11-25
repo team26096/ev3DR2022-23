@@ -114,7 +114,3 @@ def run4():
     alignForWindTurbine()
     windTurbine()
     setUpForRun5()
-
-readAllValues()
-run4SelfStartUp()
-run4()

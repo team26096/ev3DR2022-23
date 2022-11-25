@@ -16,7 +16,7 @@ def configureColor():
             do_calibrate()
             frontCalibrate = True
             logfile.info("frontCalibrate done")
-        elif btn.check_buttons(buttons=['enter']):
+        elif btn.check_buttons(buttons=['down']):
             do_calibrate_back()
             backCalibrate = True
             logfile.info("backCalibrate done") 
