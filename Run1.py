@@ -2,6 +2,7 @@
 
 # add imports
 from initialize import *
+from functions import *
 
 #start of code
 def getOutOfBase():

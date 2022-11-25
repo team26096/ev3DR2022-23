@@ -1,18 +1,103 @@
 #!/usr/bin/env micropython
 
-from time import time, sleep
-import os
-import threading
-import logging         
-from ev3dev2.motor import (OUTPUT_A, OUTPUT_B, OUTPUT_C, OUTPUT_D, MoveSteering,
-                           MoveTank, SpeedPercent, follow_for_ms, MediumMotor, LargeMotor)
-from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
-from ev3dev2.sensor.lego import GyroSensor, ColorSensor
-from ev3dev2.sound import Sound
-from ev3dev2.button import Button
-from portCheck import do_portcheck
+from initialize import *
 from functions import *
 
-do_calibrate()
-sleep(5)
-do_calibrate_back()
+def configureColor():
+
+    snd.speak('Starting color calibration.')
+
+    frontCalibrate = False
+    backCalibrate = False
+    # read white values 
+    while (frontCalibrate == False or backCalibrate == False):
+
+        if btn.check_buttons(buttons=['up']):
+            do_calibrate()
+            frontCalibrate = True
+            logfile.info("frontCalibrate done")
+        elif btn.check_buttons(buttons=['enter']):
+            do_calibrate_back()
+            backCalibrate = True
+            logfile.info("backCalibrate done") 
+    
+    snd.beep()
+    snd.speak('Color calibration done.')
+    logfile.info("Color calibration is done")
+
+
+    sleep(2)
+    logfile.info("Starting white sensing.")
+    snd.speak('Starting white sensing.')
+    leftWhite = -1000
+    rightWhite = -1000
+    backWhite = -1000
+
+    # read white values 
+    while (leftWhite == -1000 or rightWhite == -1000 or backWhite == -1000):
+
+        if btn.check_buttons(buttons=['left']):
+            leftWhite = left_light.reflected_light_intensity
+            logfile.info('Left light = ' + str(leftWhite))
+        elif btn.check_buttons(buttons=['right']):
+            rightWhite = right_light.reflected_light_intensity
+            logfile.info('Right light = ' + str(rightWhite))
+        elif btn.check_buttons(buttons=['down']):
+            backWhite = back_light.reflected_light_intensity
+            logfile.info('Back light = ' + str(backWhite))
+    
+    snd.beep()
+
+    sleep(2)
+    logfile.info("White sensing is done.")
+    snd.speak('White sensing is done.')
+
+
+    leftBlack = -1000
+    rightBlack = -1000
+    backBlack = -1000
+
+    logfile.info("Starting black sensing.")
+    snd.speak('Starting black sensing.')
+
+
+     # read black values 
+    while (leftBlack == -1000 or rightBlack == -1000 or backBlack == -1000):
+
+        if btn.check_buttons(buttons=['left']):
+            leftBlack = left_light.reflected_light_intensity
+            logfile.info('Left light = ' + str(leftBlack))
+        elif btn.check_buttons(buttons=['right']):
+            rightBlack = right_light.reflected_light_intensity
+            logfile.info('Right light = ' + str(rightBlack))
+        elif btn.check_buttons(buttons=['down']):
+            backBlack = back_light.reflected_light_intensity
+            logfile.info('Back light = ' + str(backBlack))
+
+    snd.beep()
+    logfile.info("Black sensing is done.")
+    snd.speak('Black sensing is done.')
+
+    sleep(2)
+
+    logfile.info("writing file")
+    snd.speak('Writing file.')
+
+
+    #Write values to file
+    f = open("ConfiguredColor.txt", "w")
+    f.write(str(leftWhite)+'\n')
+    f.write(str(rightWhite)+'\n')
+    f.write(str(backWhite)+'\n')
+    f.write(str(leftBlack)+'\n')
+    f.write(str(rightBlack)+'\n')
+    f.write(str(backBlack)+'\n')
+    f.close()
+
+    logfile.info("finished writing file")
+    snd.speak('Finished writing file.')
+
+
+    snd.beep()
+
+configureColor()

@@ -2,6 +2,7 @@
 
 # add imports
 from initialize import *
+from functions import *
 
 def run2SelfSetup():
     # bring rack down

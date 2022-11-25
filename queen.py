@@ -8,21 +8,26 @@ from Run4 import *
 from Run5 import *
 from initialize import *
 from portCheck import *
+from functions import *
 
 # start queen code now 
 s = Sound()
 btn = Button()
+
+# main program starts here
 
 # do portcheck
 while True:
     if do_portcheck() == True:
         break
 
+s.speak('Reading Color Values')
+# Read color values
+readAllValues()
+
 s.speak('starting button sequence')
 # start button sequence
-
 while True:
-    # print(btn.buttons_pressed)
     if btn.check_buttons(buttons=['enter']): 
         s.beep()
         # when the enter button is pressed, the robot will play run1
