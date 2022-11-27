@@ -21,19 +21,18 @@ def getOutOfBase():
     # gyro straight until the lcs sees black and white
     gyro.reset()
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0,35, target_angle=0, 
+    robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=0, 
                         follow_for=follow_until_black, lightSensor=left_light)
 
 def alignForEnergyStorage():
     
     #move rack to the middle for energy storage
-    mm_horizontal.reset()
     mm_horizontal.on_for_degrees(50, -250, brake=True, block=True)
 
     #line follow to energy storage
     robot.reset()
     robot.cs = left_light
-    
+
     #begin line follow, go certain distance to catch line
     robot.follow_line(1.2, 0, 0, 15, target_light_intensity=56,
                     follow_left_edge=False,
@@ -67,11 +66,10 @@ def doOilPlatform():
     #come back to get in position for oil platform
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, -25, target_angle=0, 
-                    follow_for=my_follow_for_degrees, degrees=-310, left_motor=left_motor, right_motor=right_motor)
+                    follow_for=my_follow_for_degrees, degrees=-315, left_motor=left_motor, right_motor=right_motor)
 
     #move rack left to get under pump
-    mm_horizontal.reset()
-    mm_horizontal.on_for_degrees(50, 400, brake=True, block=True)
+    mm_horizontal.on_for_degrees(50, 250, brake=True, block=True)
 
     #raise rack 3 times to pump fuel units into truck
     loop = 0
@@ -81,9 +79,12 @@ def doOilPlatform():
         mm_vertical.on_for_degrees(75, -1050, brake=True, block=True)   
         loop = loop + 1
 
+    #Turn tight to align with the return home base
+    pivot_gyro_turn(10, -10, 22, robot, gyro, bLeftTurn=False)
+
     # come back to base
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, -75, target_angle=45, 
+    robot.follow_gyro_angle(3, 0, 0, -75, target_angle=22, 
                     follow_for=my_follow_for_degrees, degrees=-1175, left_motor=left_motor, right_motor=right_motor)
 
 def setUpForRun3():

@@ -23,7 +23,7 @@ def getOutOfBase():
     robot.reset()
     #gyro straight
     robot.cs = left_light
-    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=0, 
+    robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=0, 
                         follow_for=follow_until_black, lightSensor=left_light)
 
 def alignWithSolarFarm():
