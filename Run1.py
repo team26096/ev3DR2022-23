@@ -19,7 +19,7 @@ def getOutOfBase():
     #we reset both motors
     robot.reset()
     #we move robot forward to the end of base area
-    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=0, 
+    robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=0, 
                     follow_for=my_follow_for_degrees, degrees=500,
                     right_motor = right_motor, left_motor = left_motor)
 

@@ -80,18 +80,6 @@ def my_follow_for_degrees(tank, degrees, left_motor, right_motor):
         else:
             return True
 
-def reset():
-    mm_horizontal = MediumMotor(OUTPUT_D)
-    mm_vertical = MediumMotor(OUTPUT_A)
-    # the rack stalls at the left-most position in the background
-    th = threading.Thread(target=RunForMotorStalled, args=(mm_horizontal, -20, 5000))
-    th.daemon = True
-    th.start()
-    # rack stalls down to get to a known position
-    RunForMotorStalled(mm_vertical, -15, 5000)
-    # the rack goes up 350 degrees to start run 1
-    mm_vertical.on_for_degrees(30, 350, brake=True, block=True)
-
 def follow_until_white(tank, lightSensor):
     logfile = logging.getLogger('')
     light_intensity = (lightSensor.reflected_light_intensity)

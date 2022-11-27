@@ -11,40 +11,37 @@ def run5SelfSetup():
 
     # bring rack up
     mm_vertical.on_for_degrees(35, 1900, brake=True, block=True)
-    sleep(4)
 
 def toyFactory():
     #add run 5 code here
-    #we reset mm_horizontal
     gyro.reset()
     robot.reset()
-    mm_horizontal.reset()
 
     # gyro straight to align with toy factory
     robot.reset()
-    mdiff.follow_gyro_angle(4, 0, 0, 35, target_angle=0, 
+    robot.follow_gyro_angle(1.5, 0, 0, 45, target_angle=0, 
                             follow_for=my_follow_for_degrees, degrees=1000,
                             left_motor = left_motor, right_motor = right_motor)
 
     # turn right to align better with toy factory
-    pivot_gyro_turn(15, 0, 90, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(25, 0, 90, robot, gyro, bLeftTurn=False)
 
     # gyro straight to align with toy factory
-    # robot.reset()
-    # robot.on_for_degrees(20, 20, 50)
+    robot.reset()
+    robot.on_for_degrees(20, 20, 60)
 
     # move rack down a little bit
-    mm_vertical.on_for_degrees(30, -950, brake=True, block=True)
-    sleep(1)
+    mm_vertical.on_for_degrees(75, -950, brake=True, block=True)
+    sleep(0.4)
 
     # pivot gyro back to 0
-    pivot_gyro_turn(-20, 20, 0, robot, gyro, bLeftTurn=True)
+    pivot_gyro_turn(-20, 0, 10, robot, gyro, bLeftTurn=True)
 
 def dinoToy():
 
     # go back to base and finish run!
     robot.reset()
-    mdiff.follow_gyro_angle(4, 0, 0, 60, target_angle=0, 
+    robot.follow_gyro_angle(3, 0, 0, 75, target_angle=0, 
                             follow_for=my_follow_for_degrees, degrees=2500,
                             left_motor = left_motor, right_motor = right_motor)
 
