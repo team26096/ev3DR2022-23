@@ -58,7 +58,7 @@ def alignForEnergyStorage():
 def doEnergyStorage():
     
     #go down to drop units into energy storage bin
-    run_for_motor_stalled(mm_vertical, 10000, -35)
+    run_for_motor_stalled(mm_vertical, 10000, -55)
     mm_vertical.reset()
 
 def doOilPlatform():
@@ -80,7 +80,7 @@ def doOilPlatform():
         loop = loop + 1
 
     #Turn tight to align with the return home base
-    pivot_gyro_turn(10, -10, 22, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(15, -15, 22, robot, gyro, bLeftTurn=False)
 
     # come back to base
     robot.reset()

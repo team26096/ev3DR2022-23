@@ -60,7 +60,7 @@ def collectEnergyUnits():
 
 def dropUnitstoPX():
     #raising rack to avoid water reservoir
-    mm_vertical.on_for_degrees(75, 500, brake=True, block=True)
+    mm_vertical.on_for_degrees(75, 200, brake=True, block=True)
 
     #gyro straight into power to X to drop energy units
     robot.reset()
@@ -100,14 +100,14 @@ def alignForSmartGrid():
 def doSmartGrid():
     #move horizontal rack to the right to hook to lever on smart grid
     mm_horizontal.reset()
-    mm_horizontal.on_for_degrees(75, -750, brake=True, block=True)
+    mm_horizontal.on_for_degrees(75, -800, brake=True, block=True)
 
     #we run mm_vertical all the way down to grab lever for smart grid
     run_for_motor_stalled(mm_vertical, 10000, -75)
     mm_vertical.reset()
 
     #move horizontal rack left and pull smart grid
-    run_for_motor_stalled(mm_horizontal, 10000, 35)
+    run_for_motor_stalled(mm_horizontal, 10000, 25)
     mm_horizontal.reset()
 
 def collectRB():

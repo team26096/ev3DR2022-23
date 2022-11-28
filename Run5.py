@@ -35,7 +35,7 @@ def toyFactory():
     sleep(0.4)
 
     # pivot gyro back to 0
-    pivot_gyro_turn(-20, 0, 10, robot, gyro, bLeftTurn=True)
+    pivot_gyro_turn(-25, 0, 10, robot, gyro, bLeftTurn=True)
 
 def dinoToy():
 

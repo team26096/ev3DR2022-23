@@ -18,19 +18,19 @@ def recharableBattery():
 
     # gyro straight to align with rechargeable battery
     robot.reset() 
-    robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=0, 
+    robot.follow_gyro_angle(1.5, 0, 0, 25, target_angle=0, 
                                 follow_for=my_follow_for_degrees, degrees=620,
                                 left_motor = left_motor, right_motor = right_motor)
 
     # move horizontal rack left to drop battery units in rechargeable battery space.
-    mm_horizontal.on_for_degrees(50, 750, brake=True, block=True)
+    mm_horizontal.on_for_degrees(75, 750, brake=True, block=True)
     
     # turn into rechargeable battery to push energy units fully in
     pivot_gyro_turn(0, 15, -10, robot, gyro, bLeftTurn=True)
 
 def watchTelevison():
     # bring rack back to position and right for watch tv
-    mm_horizontal.on_for_degrees(50, -750, brake=True, block=True)
+    mm_horizontal.on_for_degrees(75, -750, brake=True, block=True)
 
     # turn back from watch tv
     pivot_gyro_turn(15, 0, 0, robot, gyro, bLeftTurn=False)
@@ -54,42 +54,32 @@ def windTurbine():
     # loop for going back and forth ***70
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 25, target_angle=45, 
-                        follow_for=my_follow_for_degrees, degrees=140,
+                        follow_for=my_follow_for_degrees, degrees=185,
                         left_motor = left_motor, right_motor = right_motor)
+    sleep(0.5)
     loop = 0
     while(loop < 3):
         robot.reset()
-        robot.follow_gyro_angle(3, 0, 0, -25, target_angle=45, 
-                            follow_for=my_follow_for_degrees, degrees=-100,
+        robot.follow_gyro_angle(3, 0, 0, -20, target_angle=45, 
+                            follow_for=my_follow_for_degrees, degrees=-170,
+                            left_motor = left_motor, right_motor = right_motor)
+        robot.reset()
+        robot.follow_gyro_angle(3, 0, 0, 20, target_angle=45, 
+                            follow_for=my_follow_for_degrees, degrees=175,
                             left_motor = left_motor, right_motor = right_motor)
         sleep(0.5)
-        robot.reset()
-        robot.follow_gyro_angle(3, 0, 0, 25, target_angle=45, 
-                            follow_for=my_follow_for_degrees, degrees=100,
-                            left_motor = left_motor, right_motor = right_motor)
         loop = loop + 1
 
-        # if loop < 3:
-        #     robot.reset()
-        #     robot.follow_gyro_angle(3, 0, 0, -25, target_angle=45, 
-        #                         follow_for=my_follow_for_degrees, degrees=-120,
-        #                         left_motor = left_motor, right_motor = right_motor)
-        # else:
-        #     robot.reset()
-        #     robot.follow_gyro_angle(3, 0, 0, -30, target_angle=45, 
-        #                         follow_for=my_follow_for_degrees, degrees=-60,
-        #                         left_motor = left_motor, right_motor = right_motor)
-
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, -25, target_angle=45, 
-                        follow_for=my_follow_for_degrees, degrees=-80,
+    robot.follow_gyro_angle(3, 0, 0, -45, target_angle=45, 
+                        follow_for=my_follow_for_degrees, degrees=-120,
                         left_motor = left_motor, right_motor = right_motor)
 
     # pivot gyro to base
     pivot_gyro_turn(-15, 15, -10, robot, gyro, bLeftTurn=True)
 
     # bring rack to the right to avoid hitting energy units in rechargeable battery
-    mm_horizontal.on_for_degrees(50, -500, brake=True, block=True)
+    mm_horizontal.on_for_degrees(50, -500, brake=True, block=False)
 
     # backward gyro straight back to base
     robot.reset()
@@ -97,13 +87,12 @@ def windTurbine():
                             follow_for=my_follow_for_degrees, degrees=-1350,
                             left_motor = left_motor, right_motor = right_motor)
 
-
 def alignForWindTurbine():
     # move horizontal rack to the left to avoid wind turbine mission
-    mm_horizontal.on_for_degrees(50, 750, brake=True, block=True)
+    mm_horizontal.on_for_degrees(75, 750, brake=True, block=True)
 
     # lifting rack up to avoid hitting wind turbine
-    mm_vertical.on_for_degrees(75, 1900, brake=True, block=True)
+    mm_vertical.on_for_degrees(75, 1900, brake=True, block=False)
 
     # move forward to ensure reliablity
     robot.reset()
