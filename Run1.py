@@ -5,7 +5,7 @@ from initialize import *
 from functions import *
 
 #start of code
-def getOutOfBase():
+def run1SelftStart():
     #we run mm_horizontal all the way to the left 
     run_for_motor_stalled(mm_horizontal, 10000, 50)
     #we reset mm_horizontal
@@ -14,12 +14,14 @@ def getOutOfBase():
     run_for_motor_stalled(mm_vertical, 10000, -75)
     #we reset mm_vertical
     mm_vertical.reset()
+
+def getOutOfBase():
     #we reset gyro
     gyro.reset()
     #we reset both motors
     robot.reset()
     #we move robot forward to the end of base area
-    robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=0, 
+    robot.follow_gyro_angle(1.5, 0, 0, 25, target_angle=0, 
                     follow_for=my_follow_for_degrees, degrees=500,
                     right_motor = right_motor, left_motor = left_motor)
 
@@ -56,7 +58,7 @@ def alignToPowerPlant():
                 follow_for=my_follow_for_degrees, degrees=400,
                 right_motor = right_motor, left_motor = left_motor)
     #pivoting to 0 so the robot can move forward and align to the black line
-    pivot_gyro_turn(10, -10, 0, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(10, -10, 5, robot, gyro, bLeftTurn=False)
     #aligning one light sensor to black so we can move the other one in later and complete the power plant mission
     robot.follow_gyro_angle(3, 0, 0, 35, target_angle=0, 
             follow_for=follow_until_white, lightSensor=right_light)
@@ -72,7 +74,7 @@ def alignToPowerPlant():
     #coming forward to power plant mission
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, -20, target_angle=90, 
-            follow_for=my_follow_for_degrees, degrees=-100,
+            follow_for=my_follow_for_degrees, degrees=-105,
             right_motor = right_motor, left_motor = left_motor)
     #catching the power unit at the front 
     run_for_motor_stalled(mm_vertical, 10000, -85) 
