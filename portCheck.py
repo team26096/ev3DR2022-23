@@ -19,7 +19,7 @@ def do_portcheck():
     
     #Verify that port 'B' is the right large motor
     try:
-        log.info('Checking large moter on Port B')
+        log.info('Checking large motor on Port B')
         motor = LargeMotor(OUTPUT_B)
     except:
         log.info('Failed on Port B')
@@ -27,7 +27,7 @@ def do_portcheck():
         return False
     #Verify that port 'C' is the left large motor
     try:
-        log.info('Checking large moter on Port C')
+        log.info('Checking large motor on Port C')
         motor = LargeMotor(OUTPUT_C)    
     except:
         log.info('Failed on Port C')
@@ -35,7 +35,7 @@ def do_portcheck():
         return False
     #Verify that port 'A' is the vertical medium motor
     try:
-        log.info('Checking medium moter on Port A')
+        log.info('Checking medium motor on Port A')
         mm_vertical = MediumMotor(OUTPUT_A)
     except:
         log.info('Failed on Port A')
@@ -43,7 +43,7 @@ def do_portcheck():
         return False
     #Verify that port 'D' is the horizontal medium motor
     try:
-        log.info('Checking medium moter on Port D')
+        log.info('Checking medium motor on Port D')
         mm_horizontal = MediumMotor(OUTPUT_D)
     except:
         log.info('Failed on Port D')
