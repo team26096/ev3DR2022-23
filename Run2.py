@@ -39,21 +39,20 @@ def alignForEnergyStorage():
                     off_line_count_max=500,
                     sleep_time=0.01,
                     follow_for=my_follow_for_degrees, degrees=500, left_motor=left_motor, right_motor=right_motor)
-   
+    
     #begin line follow, go until black T junction near energy storage
     robot.follow_line(1.2, 0, 0, 15, target_light_intensity=56,
                     follow_left_edge=False,
                     off_line_count_max=500,
                     sleep_time=0.01,
                     follow_for=follow_until_front_black, lls=left_light, rls=right_light)
-
+    
     #make sure the robot is aligned completely to energy storage
     pivot_gyro_turn(10, -10, 0, robot, gyro, bLeftTurn=False)
-
+    
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
                     follow_for=my_follow_for_degrees, degrees=160, left_motor=left_motor, right_motor=right_motor)
-    
 
 def doEnergyStorage():
     

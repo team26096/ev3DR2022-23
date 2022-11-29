@@ -19,14 +19,14 @@ def recharableBattery():
     # gyro straight to align with rechargeable battery
     robot.reset() 
     robot.follow_gyro_angle(1.5, 0, 0, 25, target_angle=0, 
-                                follow_for=my_follow_for_degrees, degrees=620,
+                                follow_for=my_follow_for_degrees, degrees=625,
                                 left_motor = left_motor, right_motor = right_motor)
 
     # move horizontal rack left to drop battery units in rechargeable battery space.
     mm_horizontal.on_for_degrees(75, 750, brake=True, block=True)
     
     # turn into rechargeable battery to push energy units fully in
-    pivot_gyro_turn(0, 15, -10, robot, gyro, bLeftTurn=True)
+    pivot_gyro_turn(0, 15, -15, robot, gyro, bLeftTurn=True)
 
 def watchTelevison():
     # bring rack back to position and right for watch tv
@@ -38,7 +38,7 @@ def watchTelevison():
     # gyro staight to complete watch television
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 20, target_angle=0, 
-                                follow_for=my_follow_for_degrees, degrees=325,
+                                follow_for=my_follow_for_degrees, degrees=320,
                                 left_motor = left_motor, right_motor = right_motor)
 
 def windTurbine():
@@ -65,7 +65,7 @@ def windTurbine():
                             left_motor = left_motor, right_motor = right_motor)
         robot.reset()
         robot.follow_gyro_angle(3, 0, 0, 20, target_angle=45, 
-                            follow_for=my_follow_for_degrees, degrees=175,
+                            follow_for=my_follow_for_degrees, degrees=178,
                             left_motor = left_motor, right_motor = right_motor)
         sleep(0.5)
         loop = loop + 1
@@ -79,7 +79,7 @@ def windTurbine():
     pivot_gyro_turn(-15, 15, -10, robot, gyro, bLeftTurn=True)
 
     # bring rack to the right to avoid hitting energy units in rechargeable battery
-    mm_horizontal.on_for_degrees(50, -500, brake=True, block=False)
+    mm_horizontal.on_for_degrees(50, -350, brake=True, block=False)
 
     # backward gyro straight back to base
     robot.reset()

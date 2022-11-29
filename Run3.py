@@ -60,11 +60,11 @@ def collectEnergyUnits():
 
 def dropUnitstoPX():
     #raising rack to avoid water reservoir
-    mm_vertical.on_for_degrees(75, 200, brake=True, block=True)
+    mm_vertical.on_for_degrees(75, 200, brake=True, block=False)
 
     #gyro straight into power to X to drop energy units
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, 45, target_angle=122, 
+    robot.follow_gyro_angle(3, 0, 0, 40, target_angle=122, 
                         follow_for=my_follow_for_degrees, degrees=650,
                         right_motor = right_motor, left_motor = left_motor)
 

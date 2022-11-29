@@ -28,7 +28,7 @@ def toyFactory():
 
     # gyro straight to align with toy factory
     robot.reset()
-    robot.on_for_degrees(20, 20, 60)
+    robot.on_for_degrees(20, 20, 80)
 
     # move rack down a little bit
     mm_vertical.on_for_degrees(75, -950, brake=True, block=True)
