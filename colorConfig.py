@@ -26,7 +26,7 @@ def configureColor():
     logfile.info("Color calibration is done")
 
 
-    sleep(2)
+    sleep(1)
     logfile.info("Starting white sensing.")
     snd.speak('Starting white sensing.')
     leftWhite = -1000
@@ -38,17 +38,20 @@ def configureColor():
 
         if btn.check_buttons(buttons=['left']):
             leftWhite = left_light.reflected_light_intensity
+            snd.beep()
             logfile.info('Left light = ' + str(leftWhite))
         elif btn.check_buttons(buttons=['right']):
             rightWhite = right_light.reflected_light_intensity
+            snd.beep()
             logfile.info('Right light = ' + str(rightWhite))
         elif btn.check_buttons(buttons=['down']):
             backWhite = back_light.reflected_light_intensity
+            snd.beep()
             logfile.info('Back light = ' + str(backWhite))
     
     snd.beep()
 
-    sleep(2)
+    sleep(1)
     logfile.info("White sensing is done.")
     snd.speak('White sensing is done.')
 
@@ -66,19 +69,22 @@ def configureColor():
 
         if btn.check_buttons(buttons=['left']):
             leftBlack = left_light.reflected_light_intensity
+            snd.beep()
             logfile.info('Left light = ' + str(leftBlack))
         elif btn.check_buttons(buttons=['right']):
             rightBlack = right_light.reflected_light_intensity
+            snd.beep()
             logfile.info('Right light = ' + str(rightBlack))
         elif btn.check_buttons(buttons=['down']):
             backBlack = back_light.reflected_light_intensity
+            snd.beep()
             logfile.info('Back light = ' + str(backBlack))
 
     snd.beep()
     logfile.info("Black sensing is done.")
     snd.speak('Black sensing is done.')
 
-    sleep(2)
+    sleep(1)
 
     logfile.info("writing file")
     snd.speak('Writing file.')

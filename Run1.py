@@ -102,7 +102,7 @@ def setUpForRun2():
     mm_vertical.reset
 
     # bring rack up
-    mm_vertical.on_for_degrees(35, 1750, brake=True, block=True)
+    mm_vertical.on_for_degrees(65, 1750, brake=True, block=True)
     
     #move rack left 
     run_for_motor_stalled(mm_horizontal, 10000, 35)
