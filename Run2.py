@@ -40,13 +40,26 @@ def alignForEnergyStorage():
                     sleep_time=0.01,
                     follow_for=my_follow_for_degrees, degrees=500, left_motor=left_motor, right_motor=right_motor)
     snd.beep()
-    #begin line follow, go until black T junction near energy storage
+    
+    #begin line follow, go until white L junction near energy storage
     robot.follow_line(1.2, 0, 0, 15, target_light_intensity=56,
                     follow_left_edge=False,
                     off_line_count_max=500,
                     sleep_time=0.01,
+                    follow_for=follow_until_right_white, lightSensor=right_light)
+    
+    #follow gyro until both front sensors are on black
+    robot.follow_gyro_angle(3, 0, 0, 15, target_angle=0, 
                     follow_for=follow_until_front_black, lls=left_light, rls=right_light)
     snd.beep()
+   
+    #begin line follow, go until black T junction near energy storage
+    # robot.follow_line(1.2, 0, 0, 15, target_light_intensity=56,
+    #                 follow_left_edge=False,
+    #                 off_line_count_max=500,
+    #                 sleep_time=0.01,
+    #                 follow_for=follow_until_front_black, lls=left_light, rls=right_light)
+    # snd.beep()
     #make sure the robot is aligned completely to energy storage
     if (gyro.angle > 0):
         pivot_gyro_turn(-10, 10, 0, robot, gyro, bLeftTurn=True)
