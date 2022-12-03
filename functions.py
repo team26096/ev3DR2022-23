@@ -1,18 +1,5 @@
 #!/usr/bin/env micropython
-'''
-from time import time, sleep
-import threading
-import logging      
-from ev3dev2.motor import (OUTPUT_A, OUTPUT_B, OUTPUT_C, OUTPUT_D, MoveSteering,
-                           MoveTank, SpeedPercent, follow_for_ms, MediumMotor, LargeMotor)
-from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
-from ev3dev2.sensor.lego import GyroSensor, ColorSensor
-from ev3dev2.sound import Sound
-from ev3dev2.button import Button
-from portCheck import do_portcheck
-from ev3dev2.motor import OUTPUT_A, OUTPUT_B, MoveDifferential, SpeedRPM
-from ev3dev2.wheel import EV3Tire, Wheel
-'''
+
 from initialize import *
 
 class FollowGyroAngleErrorTooFast(Exception):
@@ -121,7 +108,8 @@ def follow_until_front_black(tank, lls, rls):
     left_light_intensity = (lls.reflected_light_intensity)
     right_light_intensity = (rls.reflected_light_intensity)
     logfile.info('left light = ' + str(left_light_intensity) + ', right light = ' + str(right_light_intensity))
-    if (left_light_intensity <= 10 and right_light_intensity <= 10):
+    if (left_light_intensity <= (leftColorSensorBlack + 3) and right_light_intensity <= (rightColorSensorBlack + 3)):
+    # if (left_light_intensity <= 10 and right_light_intensity <= 10):
         return False
     else:
         return True

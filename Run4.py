@@ -79,7 +79,7 @@ def windTurbine():
     pivot_gyro_turn(-15, 15, -10, robot, gyro, bLeftTurn=True)
 
     # bring rack to the right to avoid hitting energy units in rechargeable battery
-    mm_horizontal.on_for_degrees(50, -350, brake=True, block=False)
+    mm_horizontal.on_for_degrees(50, -275, brake=True, block=False)
 
     # backward gyro straight back to base
     robot.reset()
