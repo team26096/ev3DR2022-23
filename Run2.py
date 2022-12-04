@@ -90,9 +90,9 @@ def doOilPlatform():
     #raise rack 3 times to pump fuel units into truck
     loop = 0
     while(loop < 3):
-        mm_vertical.on_for_degrees(75, 1050, brake=True, block=True)
+        mm_vertical.on_for_degrees(75, 1250, brake=True, block=True)
         sleep(0.1)
-        mm_vertical.on_for_degrees(75, -1050, brake=True, block=True)   
+        mm_vertical.on_for_degrees(75, -1250, brake=True, block=True)   
         loop = loop + 1
 
     #Turn tight to align with the return home base

@@ -76,7 +76,7 @@ def dropUnitstoPX():
 
     #go back to align to leave power to X
     robot.reset()
-    robot.on_for_degrees(-25, -25, 200, brake=True, block=True)
+    robot.on_for_degrees(-25, -25, 270, brake=True, block=True)
     
     #turn until back light is on black
     forward_turn_until_black(back_light, robot, bLeftTurn=False)
@@ -130,7 +130,7 @@ def collectRB():
                         right_motor = right_motor, left_motor = left_motor)
     
     #move rack to the right to avoid toy factory
-    mm_horizontal.on_for_degrees(75, -675, brake=True, block=True)
+    mm_horizontal.on_for_degrees(75, -600, brake=True, block=True)
     
     #final go back to base and grab RB
     robot.reset()
