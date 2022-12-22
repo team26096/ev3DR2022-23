@@ -61,11 +61,11 @@ def windTurbine():
     while(loop < 3):
         robot.reset()
         robot.follow_gyro_angle(3, 0, 0, -20, target_angle=45, 
-                            follow_for=my_follow_for_degrees, degrees=-170,
+                            follow_for=my_follow_for_degrees, degrees=-185,
                             left_motor = left_motor, right_motor = right_motor)
         robot.reset()
         robot.follow_gyro_angle(3, 0, 0, 20, target_angle=45, 
-                            follow_for=my_follow_for_degrees, degrees=178,
+                            follow_for=my_follow_for_degrees, degrees=210,
                             left_motor = left_motor, right_motor = right_motor)
         sleep(0.5)
         loop = loop + 1
