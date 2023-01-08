@@ -85,8 +85,8 @@ def alignToPowerPlant():
     #lifting up to release the last power unit
     mm_vertical.on_for_degrees(75, 2300, brake=True, block=True)
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, 10, target_angle=90, 
-            follow_for=my_follow_for_degrees, degrees=50,
+    robot.follow_gyro_angle(1.5, 0, 0, 20, target_angle=90, 
+            follow_for=my_follow_for_degrees, degrees=175,
             right_motor = right_motor, left_motor = left_motor)
 
 
@@ -120,3 +120,4 @@ def run1():
     alignToPowerPlant()
     comeBackToBase()
     setUpForRun2()
+
