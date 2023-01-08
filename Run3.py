@@ -175,5 +175,3 @@ def run3():
     hybridCar()
     collectRB
     setUpForRun4()
-    
-run3()
