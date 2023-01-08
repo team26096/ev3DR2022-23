@@ -69,7 +69,7 @@ def dropUnitstoPX():
                         right_motor = right_motor, left_motor = left_motor)
 
     #turn to drop energy units into power to X
-    pivot_gyro_turn(0, -20, 230, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(0, -20, 225, robot, gyro, bLeftTurn=False)
          
     #leave energy units in power to X and avoid water resorvior
     mm_vertical.on_for_degrees(75, 1000, brake=True, block=True)
@@ -77,11 +77,27 @@ def dropUnitstoPX():
     #go back to align to leave power to X
     robot.reset()
     robot.on_for_degrees(-25, -25, 270, brake=True, block=True)
-    
+
+def doHybridCar():
+    #go back to align with hybrid car
+    robot.reset()
+    robot.on_for_degrees(-25, -25, 310, brake=True, block=True)
+
+    #raise the rack up to push hybrid car lever
+    mm_vertical.on_for_degrees(50, 400, brake=True, block=True)
+
+    #bring the rack down to release hybrid car lever
+    mm_vertical.on_for_degrees(-40, 250, brake=True, block=True)
+
+    #go forward to begin smart grid alignment
+    robot.reset()
+    robot.on_for_degrees(25, 25, 300, brake=True, block=True)
+
     #turn until back light is on black
     forward_turn_until_black(back_light, robot, bLeftTurn=False)
 
 def alignForSmartGrid():
+
     #starts line following with back sensor to smart grid
     robot.reset()
     robot.cs = back_light
@@ -110,29 +126,11 @@ def doSmartGrid():
     run_for_motor_stalled(mm_horizontal, 10000, 25)
     mm_horizontal.reset()
 
-def hybridCar():
+def collectRB():
+    
+    snd.beep()
     #raising rack detach smart grid
     mm_vertical.on_for_degrees(75, 300, brake=True, block=True)
-
-    # move back a bit
-    robot.on_for_degrees(-25, -25, 40, brake=True, block=True)
-
-    # pivot gyro turn to align with hybrid car
-    pivot_gyro_turn(-20, 20, 235, robot, gyro, bLeftTurn=True)
-
-    # move back a bit to align with hybrid car lever
-    robot.on_for_degrees(-25, -25, 60, brake=True, block=True)
-
-    # move rack down to move lever up.
-    run_for_motor_stalled(mm_vertical, 10000, -75)
-
-
-def collectRB():
-    #raising rack all the way to detach smart grid & hybrid car
-    mm_vertical.on_for_degrees(75, 1000, brake=True, block=True)
-
-    #move rack to the right to avoid toy factory
-    mm_horizontal.on_for_degrees(75, -600, brake=True, block=True)
 
     #go back to head to base and collect RB
     robot.reset()
@@ -148,7 +146,9 @@ def collectRB():
     robot.follow_gyro_angle(3, 0, 0, -35, target_angle=315, 
                         follow_for=my_follow_for_degrees, degrees=-150,
                         right_motor = right_motor, left_motor = left_motor)
-
+    
+    #move rack to the right to avoid toy factory
+    mm_horizontal.on_for_degrees(75, -600, brake=True, block=True)
     
     #final go back to base and grab RB
     robot.reset()
@@ -170,8 +170,8 @@ def run3():
     alignWithSolarFarm()
     collectEnergyUnits()
     dropUnitstoPX()
+    doHybridCar()
     alignForSmartGrid()
     doSmartGrid()
-    hybridCar()
-    collectRB
+    collectRB()
     setUpForRun4()
