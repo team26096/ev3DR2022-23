@@ -69,7 +69,7 @@ def dropUnitstoPX():
                         right_motor = right_motor, left_motor = left_motor)
 
     #turn to drop energy units into power to X
-    pivot_gyro_turn(0, -20, 225, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(0, -20, 227, robot, gyro, bLeftTurn=False)
          
     #leave energy units in power to X and avoid water resorvior
     mm_vertical.on_for_degrees(75, 1000, brake=True, block=True)
@@ -81,10 +81,16 @@ def dropUnitstoPX():
 def doHybridCar():
     #go back to align with hybrid car
     robot.reset()
-    robot.on_for_degrees(-25, -25, 310, brake=True, block=True)
+    #robot.on_for_degrees(-25, -25, 310, brake=True, block=True)
+    
+    robot.follow_gyro_angle(3, 0, 0, -35, target_angle=227, 
+                        follow_for=follow_until_left_black, lightSensor=left_light)
+    snd.beep()
+    robot.reset()
+    robot.on_for_degrees(-25, -25, 150, brake=True, block=True)
 
     #raise the rack up to push hybrid car lever
-    mm_vertical.on_for_degrees(50, 400, brake=True, block=True)
+    mm_vertical.on_for_degrees(35, 325, brake=True, block=True)
 
     #bring the rack down to release hybrid car lever
     mm_vertical.on_for_degrees(-40, 250, brake=True, block=True)
@@ -174,4 +180,4 @@ def run3():
     alignForSmartGrid()
     doSmartGrid()
     collectRB()
-    setUpForRun4()
+    run3SelfStartUp()
