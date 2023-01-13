@@ -128,4 +128,4 @@ def run4():
     watchTelevison()
     alignForWindTurbine()
     windTurbine()
-    run4SelfStartUp()
+    setUpForRun5()
