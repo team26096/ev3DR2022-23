@@ -180,4 +180,4 @@ def run3():
     alignForSmartGrid()
     doSmartGrid()
     collectRB()
-    run3SelfStartUp()
+    setUpForRun4()
