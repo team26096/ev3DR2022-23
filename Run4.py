@@ -19,7 +19,7 @@ def recharableBattery():
     # gyro straight to align with rechargeable battery
     robot.reset() 
     robot.follow_gyro_angle(1.5, 0, 0, 25, target_angle=0, 
-                                follow_for=my_follow_for_degrees, degrees=625,
+                                follow_for=my_follow_for_degrees, degrees=635,
                                 left_motor = left_motor, right_motor = right_motor)
 
     # move horizontal rack left to drop battery units in rechargeable battery space.
@@ -38,7 +38,7 @@ def watchTelevison():
     # gyro staight to complete watch television
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 20, target_angle=0, 
-                                follow_for=my_follow_for_degrees, degrees=320,
+                                follow_for=my_follow_for_degrees, degrees=310,
                                 left_motor = left_motor, right_motor = right_motor)
 
 def windTurbine():
@@ -54,7 +54,7 @@ def windTurbine():
     # loop for going back and forth ***70
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 25, target_angle=45, 
-                        follow_for=my_follow_for_degrees, degrees=185,
+                        follow_for=my_follow_for_degrees, degrees=210,
                         left_motor = left_motor, right_motor = right_motor)
     sleep(0.5)
     loop = 0
@@ -79,7 +79,7 @@ def windTurbine():
     pivot_gyro_turn(-15, 15, -10, robot, gyro, bLeftTurn=True)
 
     # bring rack to the right to avoid hitting energy units in rechargeable battery
-    mm_horizontal.on_for_degrees(50, -275, brake=True, block=False)
+    mm_horizontal.on_for_degrees(50, -75, brake=True, block=False)
 
     # backward gyro straight back to base
     robot.reset()
