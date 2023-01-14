@@ -58,7 +58,7 @@ def alignToPowerPlant():
                 follow_for=my_follow_for_degrees, degrees=400,
                 right_motor = right_motor, left_motor = left_motor)
     #pivoting to 0 so the robot can move forward and align to the black line
-    pivot_gyro_turn(10, -10, 0, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(15, -15, 0, robot, gyro, bLeftTurn=False)
     #aligning one light sensor to black so we can move the other one in later and complete the power plant mission
     robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=0, 
             follow_for=follow_until_white, lightSensor=right_light)
@@ -95,7 +95,7 @@ def comeBackToBase():
     robot.follow_gyro_angle(1.5, 0, 0,-90, target_angle=90, 
             follow_for=my_follow_for_degrees, degrees=-250,
             right_motor = right_motor, left_motor = left_motor)
-    pivot_gyro_turn(25, 0, 155, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(35, 0, 155, robot, gyro, bLeftTurn=False)
     robot.reset()
     robot.follow_gyro_angle(1.5, 0, 0, 90, target_angle=155, 
             follow_for=my_follow_for_degrees, degrees=1600,
@@ -107,7 +107,7 @@ def setUpForRun2():
     mm_vertical.reset
 
     # bring rack up
-    mm_vertical.on_for_degrees(65, 1750, brake=True, block=True)
+    mm_vertical.on_for_degrees(65, 1800, brake=True, block=True)
     
     #move rack left 
     run_for_motor_stalled(mm_horizontal, 10000, 35)
