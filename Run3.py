@@ -79,6 +79,11 @@ def dropUnitstoPX():
     robot.on_for_degrees(-25, -25, 270, brake=True, block=True)
 
 def doHybridCar():
+    #we run mm_vertical all the way down
+    run_for_motor_stalled(mm_vertical, 10000, -65)
+    #we reset mm_vertical
+    mm_vertical.reset()
+
     #go back to align with hybrid car
     robot.reset()
     #robot.on_for_degrees(-25, -25, 310, brake=True, block=True)
@@ -90,7 +95,7 @@ def doHybridCar():
     robot.on_for_degrees(-25, -25, 150, brake=True, block=True)
 
     #raise the rack up to push hybrid car lever
-    mm_vertical.on_for_degrees(35, 325, brake=True, block=True)
+    mm_vertical.on_for_degrees(35, 375, brake=True, block=True)
 
     #bring the rack down to release hybrid car lever
     mm_vertical.on_for_degrees(-40, 250, brake=True, block=True)
@@ -120,6 +125,9 @@ def alignForSmartGrid():
                     follow_for=follow_for_ms, ms=1500)
 
 def doSmartGrid():
+    #raise the rack up to push hybrid car lever
+    mm_vertical.on_for_degrees(35, 700, brake=True, block=True)
+
     #move horizontal rack to the right to hook to lever on smart grid
     mm_horizontal.reset()
     mm_horizontal.on_for_degrees(75, -800, brake=True, block=True)
