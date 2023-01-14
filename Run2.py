@@ -10,7 +10,7 @@ def run2SelfSetup():
     mm_vertical.reset
 
     # bring rack up
-    mm_vertical.on_for_degrees(65, 1750, brake=True, block=True)
+    mm_vertical.on_for_degrees(65, 1800, brake=True, block=True)
     
     #move rack left 
     run_for_motor_stalled(mm_horizontal, 10000, 35)
@@ -74,7 +74,7 @@ def alignForEnergyStorage():
 def doEnergyStorage():
     
     #go down to drop units into energy storage bin
-    run_for_motor_stalled(mm_vertical, 10000, -55)
+    run_for_motor_stalled(mm_vertical, 10000, -75)
     mm_vertical.reset()
 
 def doOilPlatform():

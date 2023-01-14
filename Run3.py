@@ -60,7 +60,7 @@ def collectEnergyUnits():
 
 def dropUnitstoPX():
     #raising rack to avoid water reservoir
-    mm_vertical.on_for_degrees(75, 200, brake=True, block=False)
+    # lakshmi mm_vertical.on_for_degrees(75, 200, brake=True, block=False)
 
     #gyro straight into power to X to drop energy units
     robot.reset()
@@ -72,17 +72,17 @@ def dropUnitstoPX():
     pivot_gyro_turn(0, -20, 227, robot, gyro, bLeftTurn=False)
          
     #leave energy units in power to X and avoid water resorvior
-    mm_vertical.on_for_degrees(75, 1000, brake=True, block=True)
+    # lakshmi mm_vertical.on_for_degrees(75, 1000, brake=True, block=True)
 
     #go back to align to leave power to X
     robot.reset()
-    robot.on_for_degrees(-25, -25, 270, brake=True, block=True)
+    robot.on_for_degrees(-25, -25, 280, brake=True, block=True)
 
 def doHybridCar():
     #we run mm_vertical all the way down
-    run_for_motor_stalled(mm_vertical, 10000, -65)
+    # lakshmi run_for_motor_stalled(mm_vertical, 10000, -65)
     #we reset mm_vertical
-    mm_vertical.reset()
+    # lakshmi mm_vertical.reset()
 
     #go back to align with hybrid car
     robot.reset()
@@ -92,20 +92,20 @@ def doHybridCar():
                         follow_for=follow_until_left_black, lightSensor=left_light)
     snd.beep()
     robot.reset()
-    robot.on_for_degrees(-25, -25, 150, brake=True, block=True)
+    robot.on_for_degrees(-25, -25, 155, brake=True, block=True)
 
     #raise the rack up to push hybrid car lever
     mm_vertical.on_for_degrees(35, 375, brake=True, block=True)
 
     #bring the rack down to release hybrid car lever
-    mm_vertical.on_for_degrees(-40, 250, brake=True, block=True)
+    mm_vertical.on_for_degrees(-75, 280, brake=True, block=True)
 
     #go forward to begin smart grid alignment
     robot.reset()
-    robot.on_for_degrees(25, 25, 300, brake=True, block=True)
+    robot.on_for_degrees(25, 25, 310, brake=True, block=True)
 
     #turn until back light is on black
-    forward_turn_until_black(back_light, robot, bLeftTurn=False)
+    forward_turn_until_config_back_black(back_light, robot, bLeftTurn=False)
 
 def alignForSmartGrid():
 
@@ -125,8 +125,8 @@ def alignForSmartGrid():
                     follow_for=follow_for_ms, ms=1500)
 
 def doSmartGrid():
-    #raise the rack up to push hybrid car lever
-    mm_vertical.on_for_degrees(35, 700, brake=True, block=True)
+    #raise the rack up 
+    mm_vertical.on_for_degrees(75, 700, brake=True, block=True)
 
     #move horizontal rack to the right to hook to lever on smart grid
     mm_horizontal.reset()
