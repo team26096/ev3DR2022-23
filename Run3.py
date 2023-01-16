@@ -7,12 +7,12 @@ from functions import *
 #start of code
 def run3SelfStartUp():
     # we run mm_horizontal all the way to the left 
-    run_for_motor_stalled(mm_horizontal, 10000, 25)
+    run_for_motor_stalled(mm_horizontal, 10000, 65)
     #we reset mm_horizontal
     mm_horizontal.reset()
 
     #we run mm_vertical all the way down
-    run_for_motor_stalled(mm_vertical, 10000, -25)
+    run_for_motor_stalled(mm_vertical, 10000, -65)
     #we reset mm_vertical
     mm_vertical.reset()
 
@@ -76,26 +76,20 @@ def dropUnitstoPX():
 
     #go back to align to leave power to X
     robot.reset()
-    robot.on_for_degrees(-25, -25, 280, brake=True, block=True)
+    robot.on_for_degrees(-25, -25, 300, brake=True, block=True)
 
 def doHybridCar():
-    #we run mm_vertical all the way down
-    # lakshmi run_for_motor_stalled(mm_vertical, 10000, -65)
-    #we reset mm_vertical
-    # lakshmi mm_vertical.reset()
-
     #go back to align with hybrid car
-    robot.reset()
-    #robot.on_for_degrees(-25, -25, 310, brake=True, block=True)
-    
+    robot.reset()    
     robot.follow_gyro_angle(3, 0, 0, -35, target_angle=227, 
                         follow_for=follow_until_left_black, lightSensor=left_light)
-    snd.beep()
+    
+    # go more back so robot is in line to push hynrid car lever
     robot.reset()
-    robot.on_for_degrees(-25, -25, 155, brake=True, block=True)
+    robot.on_for_degrees(-25, -25, 150, brake=True, block=True)
 
     #raise the rack up to push hybrid car lever
-    mm_vertical.on_for_degrees(35, 375, brake=True, block=True)
+    mm_vertical.on_for_degrees(35, 385, brake=True, block=True)
 
     #bring the rack down to release hybrid car lever
     mm_vertical.on_for_degrees(-75, 280, brake=True, block=True)
@@ -166,9 +160,10 @@ def collectRB():
     
     #final go back to base and grab RB
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, -85, target_angle=315, 
-                        follow_for=my_follow_for_degrees, degrees=-1500,
-                        right_motor = right_motor, left_motor = left_motor)
+    robot.on_for_degrees(-95, -95, 1500, brake=True, block=True)
+    #robot.follow_gyro_angle(3, 0, 0, -85, target_angle=315, 
+    #                    follow_for=my_follow_for_degrees, degrees=-1500,
+    #                   right_motor = right_motor, left_motor = left_motor)
 
 def setUpForRun4():
     # stall rack to the left

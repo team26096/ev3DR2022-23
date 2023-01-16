@@ -64,8 +64,9 @@ def windTurbine():
                             follow_for=my_follow_for_degrees, degrees=-185,
                             left_motor = left_motor, right_motor = right_motor)
         robot.reset()
+        forwardDegrees = 210 + (loop * 8)
         robot.follow_gyro_angle(3, 0, 0, 30, target_angle=45, 
-                            follow_for=my_follow_for_degrees, degrees=210,
+                            follow_for=my_follow_for_degrees, degrees=forwardDegrees,
                             left_motor = left_motor, right_motor = right_motor)
         sleep(0.5)
         loop = loop + 1
@@ -117,11 +118,11 @@ def alignForWindTurbine():
 
 def setUpForRun5():
     # bring rack down
-    run_for_motor_stalled(mm_vertical, 10000, -35)
+    run_for_motor_stalled(mm_vertical, 10000, -65)
     mm_vertical.reset()
 
     # bring rack up
-    mm_vertical.on_for_degrees(35, 1900, brake=True, block=True)
+    mm_vertical.on_for_degrees(75, 1900, brake=True, block=True)
 
 def run4(): 
     recharableBattery()
