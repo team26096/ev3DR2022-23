@@ -69,10 +69,8 @@ def dropUnitstoPX():
                         right_motor = right_motor, left_motor = left_motor)
 
     #turn to drop energy units into power to X
-    pivot_gyro_turn(0, -20, 227, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(0, -20, 226, robot, gyro, bLeftTurn=False)
          
-    #leave energy units in power to X and avoid water resorvior
-    # lakshmi mm_vertical.on_for_degrees(75, 1000, brake=True, block=True)
 
     #go back to align to leave power to X
     robot.reset()
@@ -81,18 +79,18 @@ def dropUnitstoPX():
 def doHybridCar():
     #go back to align with hybrid car
     robot.reset()    
-    robot.follow_gyro_angle(3, 0, 0, -35, target_angle=227, 
+    robot.follow_gyro_angle(3, 0, 0, -35, target_angle=226, 
                         follow_for=follow_until_left_black, lightSensor=left_light)
     
-    # go more back so robot is in line to push hynrid car lever
+    # go more back so robot is in line to push hybrid car lever
     robot.reset()
-    robot.on_for_degrees(-25, -25, 150, brake=True, block=True)
+    robot.on_for_degrees(-25, -25, 120, brake=True, block=True)
 
     #raise the rack up to push hybrid car lever
-    mm_vertical.on_for_degrees(35, 385, brake=True, block=True)
+    mm_vertical.on_for_degrees(35, 400, brake=True, block=True)
 
     #bring the rack down to release hybrid car lever
-    mm_vertical.on_for_degrees(-75, 280, brake=True, block=True)
+    mm_vertical.on_for_degrees(-75, 300, brake=True, block=True)
 
     #go forward to begin smart grid alignment
     robot.reset()

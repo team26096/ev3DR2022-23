@@ -53,19 +53,20 @@ def windTurbine():
 
     # loop for going back and forth ***70
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, 30, target_angle=45, 
+    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=45, 
                         follow_for=my_follow_for_degrees, degrees=210,
                         left_motor = left_motor, right_motor = right_motor)
     sleep(0.5)
+    snd.beep()
     loop = 0
     while(loop < 3):
         robot.reset()
-        robot.follow_gyro_angle(3, 0, 0, -30, target_angle=45, 
-                            follow_for=my_follow_for_degrees, degrees=-185,
+        robot.follow_gyro_angle(3, 0, 0, -35, target_angle=45, 
+                            follow_for=my_follow_for_degrees, degrees=-180,
                             left_motor = left_motor, right_motor = right_motor)
         robot.reset()
-        forwardDegrees = 210 + (loop * 8)
-        robot.follow_gyro_angle(3, 0, 0, 30, target_angle=45, 
+        forwardDegrees = 210 + (loop * 10)
+        robot.follow_gyro_angle(3, 0, 0, 35, target_angle=45, 
                             follow_for=my_follow_for_degrees, degrees=forwardDegrees,
                             left_motor = left_motor, right_motor = right_motor)
         sleep(0.5)
