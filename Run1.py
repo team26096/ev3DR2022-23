@@ -71,10 +71,10 @@ def alignToPowerPlant():
     robot.reset()
     robot.follow_gyro_angle(1.5, 0, 0,15, target_angle=90, 
             follow_for=follow_until_front_black, lls=left_light, rls=right_light)
-    #coming forward to power plant mission
+    #coming backward to power plant mission
     robot.reset()
     robot.follow_gyro_angle(1.5, 0, 0, -20, target_angle=90, 
-            follow_for=my_follow_for_degrees, degrees=-100,
+            follow_for=my_follow_for_degrees, degrees=-87,
             right_motor = right_motor, left_motor = left_motor)
     #catching the power unit at the front 
     run_for_motor_stalled(mm_vertical, 10000, -85) 
