@@ -51,13 +51,12 @@ def windTurbine():
     # bring rack down for wind turbine
     mm_vertical.on_for_degrees(75, -1900, brake=True, block=True)
 
-    # loop for going back and forth ***70
+    # loop for going back and forth 
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 35, target_angle=45, 
                         follow_for=my_follow_for_degrees, degrees=210,
                         left_motor = left_motor, right_motor = right_motor)
     sleep(0.5)
-    snd.beep()
     loop = 0
     while(loop < 3):
         robot.reset()
