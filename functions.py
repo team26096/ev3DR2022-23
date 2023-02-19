@@ -343,15 +343,31 @@ def forward_turn_until_black (light_sensor, robot, bLeftTurn=True):
         
     robot.stop()
 
+def forward_turn_until_config_back_white(light_sensor, robot, bLeftTurn=True):
+    logfile = logging.getLogger('')
+
+    if  bLeftTurn == True:
+        robot.on(0, 15)
+    else: 
+        robot.on(15, 0)
+
+    light = light_sensor.reflected_light_intensity
+    logfile.info('back light = ' + str(light) + ', backColorSensorWhite = ' + str(backColorSensorWhite - 5))
+    while light < (backColorSensorWhite - 5):
+        logfile.info('back light = ' + str(light) + ' backColorSensorWhite = ' + str(backColorSensorWhite - 5))
+        light=light_sensor.reflected_light_intensity
+        sleep(0.1)
+        
+    robot.stop()
 
 #function to turn and align back sensor to black with forward motion
 def forward_turn_until_config_back_black (light_sensor, robot, bLeftTurn=True):
     logfile = logging.getLogger('')
 
     if  bLeftTurn == True:
-        robot.on(0, 10)
+        robot.on(0, 15)
     else: 
-        robot.on(10, 0)
+        robot.on(15, 0)
 
     light = light_sensor.reflected_light_intensity
     logfile.info('back light = ' + str(light) + ', backColorSensorBlack+3 = ' + str(backColorSensorBlack + 3))

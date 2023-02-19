@@ -84,7 +84,7 @@ def doHybridCar():
     
     # go more back so robot is in line to push hybrid car lever
     robot.reset()
-    robot.on_for_degrees(-25, -25, 120, brake=True, block=True)
+    robot.on_for_degrees(-25, -25, 115, brake=True, block=True)
 
     #raise the rack up to push hybrid car lever
     mm_vertical.on_for_degrees(35, 400, brake=True, block=True)
@@ -96,7 +96,8 @@ def doHybridCar():
     robot.reset()
     robot.on_for_degrees(25, 25, 310, brake=True, block=True)
 
-    #turn until back light is on black
+    #turn until back light is on white and then black
+    forward_turn_until_config_back_white(back_light, robot, bLeftTurn=False)
     forward_turn_until_config_back_black(back_light, robot, bLeftTurn=False)
 
 def alignForSmartGrid():

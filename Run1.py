@@ -45,7 +45,7 @@ def hydroelectricDam():
     #going forward to align with the hydroelectric dam lever
     robot.reset()
     robot.follow_gyro_angle(1.5, 0, 0, 25, target_angle=-39, 
-                follow_for=my_follow_for_degrees, degrees=225,
+                follow_for=my_follow_for_degrees, degrees=230,
                 right_motor = right_motor, left_motor = left_motor)
 
     #raising rack up to push lever
