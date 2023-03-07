@@ -16,16 +16,16 @@ def run4SelfStartUp():
 def recharableBattery():
     gyro.reset()
 
-    # gyro straight to align with rechargeable battery
-    robot.reset() 
-    robot.follow_gyro_angle(1.5, 0, 0, 40, target_angle=0, 
-                                follow_for=my_follow_for_degrees, degrees=635,
-                                left_motor = left_motor, right_motor = right_motor)
-
     # move horizontal rack left to drop battery units in rechargeable battery space.
     mm_horizontal.on_for_degrees(75, 750, brake=True, block=False)
+
+    # gyro straight to align with rechargeable battery
+    robot.reset() 
+    robot.follow_gyro_angle(1.5, 0, 0, 45, target_angle=0, 
+                                follow_for=my_follow_for_degrees, degrees=635,
+                                left_motor = left_motor, right_motor = right_motor)
     
-    # turn into rechargeable battery to push energy units fully in
+    # turn left into rechargeable battery to push energy units fully in
     pivot_gyro_turn(0, 20, -20, robot, gyro, bLeftTurn=True)
 
     # go forward to get units completely in target area
@@ -38,11 +38,11 @@ def watchTelevison():
     # bring rack back to position and right for recharable battery
     mm_horizontal.on_for_degrees(75, -500, brake=True, block=False)
 
-    # turn back from recharable battery
-    pivot_gyro_turn(20, 0, 0, robot, gyro, bLeftTurn=False)
+    # turn right back from recharable battery
+    pivot_gyro_turn(0, -20, 0, robot, gyro, bLeftTurn=False)
 
     # bring rack back to position and right for recharable battery
-    mm_horizontal.on_for_degrees(75, -250, brake=True, block=False)
+    mm_horizontal.on_for_degrees(75, -250, brake=True, block=True)
 
     # gyro staight to complete watch television
     robot.reset()
@@ -55,13 +55,13 @@ def fuelTruck():
     mm_horizontal.on_for_degrees(75, 750, brake=True, block=False)
 
     # lifting rack up to avoid hitting wind turbine
-    mm_vertical.on_for_degrees(75, 700, brake=True, block=False)
+    mm_vertical.on_for_degrees(75, 700, brake=True, block=True)
 
     # move forward to until right light sees black line
-    robot.follow_gyro_angle(3, 0, 0, 30, target_angle=-5, 
+    robot.follow_gyro_angle(3, 0, 0, 40, target_angle=-5, 
                                 follow_for=follow_until_right_white, lightSensor = right_light)
     snd.beep()
-    robot.follow_gyro_angle(3, 0, 0, 30, target_angle=-5, 
+    robot.follow_gyro_angle(3, 0, 0, 40, target_angle=-5, 
                                 follow_for=follow_until_right_black, lightSensor = right_light)
     snd.beep()
 
@@ -69,7 +69,7 @@ def fuelTruck():
     pivot_gyro_turn(0, 20, -25, robot, gyro, bLeftTurn=True)
 
     # move forward to get truck in circle
-    robot.reset() 
+    robot.reset()
     robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=-25, 
                                 follow_for=my_follow_for_degrees, degrees=175,
                                 left_motor = left_motor, right_motor = right_motor)
@@ -100,9 +100,9 @@ def windTurbine():
                                 left_motor = left_motor, right_motor = right_motor)
     
     # bring rack down for wind turbine
-    mm_vertical.on_for_degrees(75, -1200, brake=True, block=False)
+    mm_vertical.on_for_degrees(75, -1200, brake=True, block=True)
 
-    # loop for going back and forth 
+    # loop for going back and forth
     # robot.reset()
     # robot.follow_gyro_angle(3, 0, 0, 45, target_angle=35, 
     #                     follow_for=my_follow_for_degrees, degrees=210,
@@ -128,7 +128,7 @@ def windTurbine():
     #                     left_motor = left_motor, right_motor = right_motor)
 
     # pivot gyro to base
-    pivot_gyro_turn(-15, 15, -10, robot, gyro, bLeftTurn=True)
+    pivot_gyro_turn(-20, 20, -10, robot, gyro, bLeftTurn=True)
 
     # bring rack to the right to avoid hitting energy units in rechargeable battery
     mm_horizontal.on_for_degrees(50, -75, brake=True, block=False)
@@ -136,8 +136,11 @@ def windTurbine():
     # backward gyro straight back to base
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, -75, target_angle=-10, 
-                            follow_for=my_follow_for_degrees, degrees=-1350,
+                            follow_for=my_follow_for_degrees, degrees=-1250,
                             left_motor = left_motor, right_motor = right_motor)
+
+    # turn to make transition from run 4 to 5 easier
+    pivot_gyro_turn(-20, 20, -80, robot, gyro, bLeftTurn=True)
 
 def setUpForRun5():
     # bring rack down
