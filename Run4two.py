@@ -155,9 +155,3 @@ def run4two():
     watchTelevison()
     fuelTruck()
     windTurbine()
-
-snd.speak('Reading Color Values')
-# Read color values
-readAllValues()
-run4SelfStartUp()
-run4two()

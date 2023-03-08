@@ -4,7 +4,7 @@
 from Run1 import *
 from Run2 import *
 from Run3 import *
-from Run4 import *
+from Run4two import *
 from Run5 import *
 from initialize import *
 from portCheck import *
@@ -81,7 +81,7 @@ while True:
         r4Transit = round(transitEnd-transitStart,2)
         transitStart = 0
         startTime = time()
-        run4()
+        run4two()
         endTime = time()
         r4Time = round(endTime-startTime,2)
         transitStart = time()
