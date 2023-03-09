@@ -155,3 +155,4 @@ def run4two():
     watchTelevison()
     fuelTruck()
     windTurbine()
+    setUpForRun5()
