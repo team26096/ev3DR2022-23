@@ -18,7 +18,7 @@ def getOutOfBase():
     # move rack to the middle for energy storage
     mm_horizontal.on_for_degrees(50, -250, brake=True, block=False)
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=0, 
+    robot.follow_gyro_angle(1.5, 0, 0, 25, target_angle=0, 
                         follow_for=follow_until_black, lightSensor=left_light)
 
 def alignForEnergyStorage():
@@ -62,20 +62,37 @@ def doEnergyStorage():
     snd.beep()
 
 def doOilPlatform():
+
+    robot.follow_gyro_angle(3, 0, 0, -15, target_angle=0, 
+                    follow_for=follow_until_right_white, lightSensor=right_light)
+
+
+    robot.follow_gyro_angle(3, 0, 0, -15, target_angle=0, 
+                    follow_for=follow_until_front_black, lls=left_light, rls=right_light)
+
+    robot.follow_gyro_angle(3, 0, 0, -15, target_angle=0, 
+                    follow_for=follow_until_right_white, lightSensor=right_light)
+              
+
     #come back to get in position for oil platform
-    robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, -25, target_angle=0, 
-                    follow_for=my_follow_for_degrees, degrees=-317, left_motor=left_motor, right_motor=right_motor)
+    #robot.reset()
+    #robot.follow_gyro_angle(3, 0, 0, -25, target_angle=0, 
+    #                follow_for=my_follow_for_degrees, degrees=-317, left_motor=left_motor, right_motor=right_motor)
 
     #move rack left to get under pump
     mm_horizontal.on_for_degrees(65, 250, brake=True, block=True)
 
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
+                   follow_for=my_follow_for_degrees, degrees=20, left_motor=left_motor, right_motor=right_motor)
+
+
     #raise rack 3 times to pump fuel units into truck
     loop = 0
     while(loop < 3):
-        mm_vertical.on_for_degrees(80, 1250, brake=True, block=True)
+        mm_vertical.on_for_degrees(80, 1800, brake=True, block=True)
         sleep(0.1)
-        mm_vertical.on_for_degrees(80, -1250, brake=True, block=True)   
+        mm_vertical.on_for_degrees(80, -1800, brake=True, block=True)   
         loop = loop + 1
 
     snd.beep()
@@ -89,7 +106,7 @@ def doOilPlatform():
     # come back to base
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, -75, target_angle=18, 
-                    follow_for=my_follow_for_degrees, degrees=-1220, left_motor=left_motor, right_motor=right_motor)
+                    follow_for=my_follow_for_degrees, degrees=-1300, left_motor=left_motor, right_motor=right_motor)
 
 def setUpForOilPlatform():
     #move rack right
