@@ -36,7 +36,7 @@ def lift1WaterUnit():
                 right_motor = right_motor, left_motor = left_motor)
 
    #lifting water unit up 
-    mm_vertical.on_for_degrees(55, 800, brake=True, block=True)
+    mm_vertical.on_for_degrees(55, 900, brake=True, block=True)
    
     #move to the right
     mm_horizontal.on_for_degrees(45, -600, brake=True, block=True)
@@ -46,7 +46,7 @@ def hydroelectricDam():
     #going forward to align with the hydroelectric dam lever
     robot.reset()
     robot.follow_gyro_angle(1.5, 0, 0, 25, target_angle=-38, 
-                follow_for=my_follow_for_degrees, degrees=230,
+                follow_for=my_follow_for_degrees, degrees=250,
                 right_motor = right_motor, left_motor = left_motor)
 
     #raising rack up to push lever
@@ -59,11 +59,13 @@ def dropWaterUnit1():
     robot.reset()
     #Go forward to align to Water Reservoir circle
     robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=-38, 
-                follow_for=my_follow_for_degrees, degrees=325,
+                follow_for=my_follow_for_degrees, degrees=305,
                 right_motor = right_motor, left_motor = left_motor)
     
     #Move rack left to leave unit in circle
-    mm_horizontal.on_for_degrees(45, 700, brake=True, block=True)
+    #mm_horizontal.on_for_degrees(45, 800, brake=True, block=True)
+    run_for_motor_stalled(mm_horizontal, 10000, 50)
+    mm_horizontal.reset()
 
     #Bring rack down in order to drop unit in circle
     run_for_motor_stalled(mm_vertical, 10000, -75)
@@ -80,60 +82,81 @@ def dropWaterUnit1():
     #Move rack right to leave unit in circle
     mm_horizontal.on_for_degrees(45, -100, brake=True, block=True)
 
-    #Pivot turn to gyro 0
-    pivot_gyro_turn(0, -15, 0, robot, gyro, bLeftTurn=False)
-
+    #Pivot turn to gyro -15
+    pivot_gyro_turn(0, -15, -15, robot, gyro, bLeftTurn=False)
 
 def alignToPowerPlant():
     robot.reset()
-    #starting to align to power plant
-    robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=-39, 
-                follow_for=my_follow_for_degrees, degrees=400,
-                right_motor = right_motor, left_motor = left_motor)
-    #pivoting to 0 so the robot can move forward and align to the black line
-    pivot_gyro_turn(20, -20, 0, robot, gyro, bLeftTurn=False)
     #aligning one light sensor to black so we can move the other one in later and complete the power plant mission
-    robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=0, 
+    robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=-15, 
             follow_for=follow_until_white, lightSensor=right_light)
-    robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=0, 
+    robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=-15, 
             follow_for=follow_until_black, lightSensor=right_light)
-    #moving vertical rack all the way up
-    mm_vertical.on_for_degrees(35, 100, brake=True, block=False)
-    #align robot to face to power plant  
+
+    #align robot to face to power plant
     pivot_gyro_turn(15, 0, 90, robot, gyro, bLeftTurn=False)
+
+    #moving vertical rack all the way up
+    mm_vertical.on_for_degrees(75, 2200, brake=True, block=True)
+
+    # move rack to the right
+    run_for_motor_stalled(mm_horizontal, 10000, -65)
+    mm_horizontal.reset()
+
+    # move forward for both light sensors on black
     robot.reset()
     robot.follow_gyro_angle(1.5, 0, 0,15, target_angle=90, 
             follow_for=follow_until_front_black, lls=left_light, rls=right_light)
+
     #coming backward to power plant mission
     robot.reset()
     robot.follow_gyro_angle(1.5, 0, 0, -20, target_angle=90, 
-            follow_for=my_follow_for_degrees, degrees=-87,
+            follow_for=my_follow_for_degrees, degrees=-100,
             right_motor = right_motor, left_motor = left_motor)
-    #catching the power unit at the front 
-    run_for_motor_stalled(mm_vertical, 10000, -85) 
-    mm_vertical.reset() 
 
+    #moving vertical rack halfway down to get ready to lift lever up
+    mm_vertical.on_for_degrees(75, -1200, brake=True, block=True)
+
+    # move rack to the left to have beam pick lever up
     run_for_motor_stalled(mm_horizontal, 10000, 60)
-    mm_horizontal.reset() 
-    #lifting up to release the last power unit
-    mm_vertical.on_for_degrees(75, 2300, brake=True, block=True)
+    mm_horizontal.reset()
+
+    #lifting up to release the energy units
+    mm_vertical.on_for_degrees(75, 1000, brake=True, block=True)
+    robot.reset()
+
+    # move forward 175 to fully push lever to the back
     robot.reset()
     robot.follow_gyro_angle(1.5, 0, 0, 20, target_angle=90, 
-            follow_for=my_follow_for_degrees, degrees=175,
+            follow_for=my_follow_for_degrees, degrees=160,
             right_motor = right_motor, left_motor = left_motor)
+
+    # move rack to the right to avoid hitting the orange ramp
+    mm_horizontal.on_for_degrees(45, -450, brake=True, block=False)
+
+    # move back 175 degrees to align for middle unit
+    robot.reset()
+    robot.follow_gyro_angle(1.5, 0, 0, -20, target_angle=90, 
+            follow_for=my_follow_for_degrees, degrees=-125,
+            right_motor = right_motor, left_motor = left_motor)
+
+    # stall rack down to get units out
+    run_for_motor_stalled(mm_vertical, 10000, -75)
 
 
 def comeBackToBase():
+    # move backwards 250 degrees to avoid hitting powerplant
     robot.reset()
     robot.follow_gyro_angle(1.5, 0, 0,-90, target_angle=90, 
              follow_for=my_follow_for_degrees, degrees=-250,
              right_motor = right_motor, left_motor = left_motor)
-    pivot_gyro_turn(35, 0, 155, robot, gyro, bLeftTurn=False)
+
+    # pivot turn to align with base
+    pivot_gyro_turn(35, 0, 148, robot, gyro, bLeftTurn=False)
+    
+    # come back to base
     robot.reset()
     robot.on_for_degrees(95, 95, 1600, brake=True, block=True)
-    # robot.follow_gyro_angle(1.5, 0, 0, 90, target_angle=155, 
-    #         follow_for=my_follow_for_degrees, degrees=1600,
-    #         right_motor = right_motor, left_motor = left_motor)
 
 def setUpForRun2():
     # # bring rack down
@@ -152,11 +175,11 @@ def run1two():
     lift1WaterUnit()
     hydroelectricDam()
     dropWaterUnit1()
-    # alignToPowerPlant()
-    # comeBackToBase()
+    alignToPowerPlant()
+    comeBackToBase()
     # setUpForRun2()
 
 readAllValues()
-run1SelftStart()
+# run1SelftStart()
 run1two()
 
