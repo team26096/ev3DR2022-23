@@ -10,7 +10,7 @@ def run2twoSelfSetup():
     run_for_motor_stalled(mm_horizontal, 10000, 35)
     mm_horizontal.reset()
     mm_vertical.reset()
-    mm_vertical.on_for_degrees(75, 2300, brake=True, block=True)
+    mm_vertical.on_for_degrees(75, 1200, brake=True, block=True)
 
 def getOutOfBase():
     # gyro straight until the lcs sees black and white
@@ -90,8 +90,8 @@ def doOilPlatform():
     #raise rack 3 times to pump fuel units into truck
     loop = 0
     while(loop < 3):
-        mm_vertical.on_for_degrees(80, 1800, brake=True, block=True)
-        mm_vertical.on_for_degrees(80, -1800, brake=True, block=True)   
+        mm_vertical.on_for_degrees(80, 740, brake=True, block=True)
+        mm_vertical.on_for_degrees(80, -740, brake=True, block=True)   
         loop = loop + 1
 
     snd.beep()

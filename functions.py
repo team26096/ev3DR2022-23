@@ -94,6 +94,15 @@ def follow_until_right_white(tank, lightSensor):
     else:
         return True
 
+def follow_until_left_white(tank, lightSensor):
+    logfile = logging.getLogger('')
+    light_intensity = (lightSensor.reflected_light_intensity)
+    logfile.info('light = ' + str(light_intensity) + ' leftColorSensorWhite = ' + str(leftColorSensorWhite - 5))
+    if light_intensity >= (leftColorSensorWhite - 5):
+        return False
+    else:
+        return True
+
 def follow_until_right_black(tank,lightSensor):
     logfile = logging.getLogger('')
     light_intensity = (lightSensor.reflected_light_intensity)
