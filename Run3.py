@@ -190,5 +190,3 @@ def run3():
     doSmartGrid()
     collectRB()
     setUpForRun4()
-
-run3()

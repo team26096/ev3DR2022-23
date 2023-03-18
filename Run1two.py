@@ -7,11 +7,11 @@ from functions import *
 #start of code
 def run1SelftStart():
     #we run mm_horizontal all the way to the left 
-    #run_for_motor_stalled(mm_horizontal, 10000, 15)
+    run_for_motor_stalled(mm_horizontal, 10000, 35)
     #we reset mm_horizontal
     mm_horizontal.reset()
     #we run mm_vertical all the way down
-    #run_for_motor_stalled(mm_vertical, 10000, -15)
+    run_for_motor_stalled(mm_vertical, 10000, -35)
     #we reset mm_vertical
     mm_vertical.reset()
 
@@ -31,14 +31,10 @@ def getOutOfBase():
 def lift1WaterUnit():
     #moving to catch water units
     robot.reset()
-    robot.on_for_degrees(25, 25, 200, brake=False, block=True)
-    # robot.follow_gyro_angle(1.5, 0, 0, 25, target_angle=-39, 
-    #             follow_for=my_follow_for_degrees, degrees=200,
-    #             right_motor = right_motor, left_motor = left_motor)
+    robot.on_for_degrees(15, 15, 220, brake=True, block=True)
 
-   #lifting water unit up 
-    #mm_vertical.on_for_degrees(55, 900, brake=True, block=False)
-    mm_vertical.on_for_degrees(55, 850, brake=True, block=True)
+    #lifting water unit up 
+    mm_vertical.on_for_degrees(55, 800, brake=True, block=True)
    
     #move to the right
     mm_horizontal.on_for_degrees(45, -580, brake=True, block=True)
@@ -48,22 +44,20 @@ def hydroelectricDam():
     #going forward to align with the hydroelectric dam lever
     robot.reset()
     robot.follow_gyro_angle(1.5, 0, 0, 15, target_angle=-39, 
-               follow_for=my_follow_for_degrees, degrees=270,
+               follow_for=my_follow_for_degrees, degrees=360,
                right_motor = right_motor, left_motor = left_motor)
     
     #raising rack up to push lever
-    #mm_vertical.on_for_degrees(75, 1100, brake=True, block=True)
-    mm_vertical.on_for_degrees(75, 400, brake=True, block=True)
+    mm_vertical.on_for_degrees(75, 500, brake=True, block=True)
     
     #Bring rack down to release lever
-    #mm_vertical.on_for_degrees(-75, 800, brake=True, block=True)
-    mm_vertical.on_for_degrees(-75, 250, brake=True, block=True)
+    mm_vertical.on_for_degrees(-75, 350, brake=True, block=True)
 
 def dropWaterUnit1():
     #Go forward to align to Water Reservoir circle
     robot.reset()
     robot.follow_gyro_angle(1.5, 0, 0, 15, target_angle=-39, 
-                follow_for=my_follow_for_degrees, degrees=250,
+                follow_for=my_follow_for_degrees, degrees=175,
                 right_motor = right_motor, left_motor = left_motor)
 
     #Move rack left to leave unit in circle
@@ -140,19 +134,14 @@ def setUpForRun2():
     #move rack left
     run_for_motor_stalled(mm_horizontal, 10000, 35)
     mm_horizontal.reset()
+    mm_vertical.reset()
+    mm_vertical.on_for_degrees(75, 1200, brake=True, block=True)
 
 def run1two():
-    run1SelftStart()
     getOutOfBase()
     lift1WaterUnit()
     hydroelectricDam()
     dropWaterUnit1()
     newAlign()
-    # alignToPowerPlant()
     comeBackToBase()
-    # setUpForRun2()
-
-readAllValues()
-# run1SelftStart()
-run1two()
-
+    setUpForRun2()
