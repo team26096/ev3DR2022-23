@@ -127,7 +127,6 @@ def follow_until_front_black(tank, lls, rls):
     right_light_intensity = (rls.reflected_light_intensity)
     logfile.info('left light = ' + str(left_light_intensity) + ', right light = ' + str(right_light_intensity))
     if (left_light_intensity <= (leftColorSensorBlack + 3) and right_light_intensity <= (rightColorSensorBlack + 3)):
-    # if (left_light_intensity <= 10 and right_light_intensity <= 10):
         return False
     else:
         return True

@@ -1,7 +1,7 @@
 #!/usr/bin/env micropython
 
 # add imports here
-from Run1 import *
+from Run1two import *
 from Run2 import *
 from Run3 import *
 from Run4two import *
@@ -45,7 +45,7 @@ while True:
         snd.beep()
         # when the enter button is pressed, the robot will play run1
         startTime = time()
-        run1()
+        run1two()
         endTime = time()
         r1Time = round(endTime-startTime,2)
         transitStart = time()
