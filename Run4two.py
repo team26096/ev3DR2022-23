@@ -47,15 +47,16 @@ def watchTelevison():
     # gyro staight to complete watch television
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 20, target_angle=0, 
-                                follow_for=my_follow_for_degrees, degrees=310,
+                                follow_for=my_follow_for_degrees, degrees=320,
                                 left_motor = left_motor, right_motor = right_motor)
 
 def fuelTruck():
-    # move horizontal rack to the left to avoid watch televsion mission
-    mm_horizontal.on_for_degrees(75, 750, brake=True, block=False)
-
     # lifting rack up to avoid hitting wind turbine
-    mm_vertical.on_for_degrees(75, 700, brake=True, block=True)
+    # mm_vertical.on_for_degrees(75, 700, brake=True, block=True)
+    mm_vertical.on_for_degrees(75, 420, brake=True, block=False)
+
+    # move horizontal rack to the left to avoid watch televsion mission
+    mm_horizontal.on_for_degrees(75, 800, brake=True, block=True)
 
     # move forward to until right light sees black line
     robot.follow_gyro_angle(3, 0, 0, 40, target_angle=-5, 
@@ -75,7 +76,8 @@ def fuelTruck():
                                 left_motor = left_motor, right_motor = right_motor)
     
     # lifting rack up to avoid bring back truck with us
-    mm_vertical.on_for_degrees(75, 1500, brake=True, block=True)
+    #mm_vertical.on_for_degrees(75, 1500, brake=True, block=True)
+    mm_vertical.on_for_degrees(75, 900, brake=True, block=True)
     #sleep(1)
 
     # move backwards to until right light sees black line
@@ -91,7 +93,8 @@ def fuelTruck():
 
 def windTurbine():
     # bring rack down for wind turbine
-    mm_vertical.on_for_degrees(75, -1000, brake=True, block=False)
+    #mm_vertical.on_for_degrees(75, -1000, brake=True, block=False)
+    mm_vertical.on_for_degrees(75, -600, brake=True, block=False)
 
     # gyro staight backwards to align with wind turbine ***200
     robot.reset()
@@ -100,7 +103,8 @@ def windTurbine():
                                 left_motor = left_motor, right_motor = right_motor)
     
     # bring rack down for wind turbine
-    mm_vertical.on_for_degrees(75, -1200, brake=True, block=True)
+    #mm_vertical.on_for_degrees(75, -1200, brake=True, block=True)
+    mm_vertical.on_for_degrees(75, -720, brake=True, block=True)
 
     # loop for going back and forth
     # robot.reset()
@@ -148,7 +152,8 @@ def setUpForRun5():
     mm_vertical.reset()
 
     # bring rack up
-    mm_vertical.on_for_degrees(75, 1900, brake=True, block=True)
+    # mm_vertical.on_for_degrees(75, 1900, brake=True, block=True)
+    mm_vertical.on_for_degrees(75, 1140, brake=True, block=True)
 
 def run4two(): 
     recharableBattery()
