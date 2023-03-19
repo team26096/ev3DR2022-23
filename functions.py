@@ -379,8 +379,44 @@ def forward_turn_until_config_back_black (light_sensor, robot, bLeftTurn=True):
 
     light = light_sensor.reflected_light_intensity
     logfile.info('back light = ' + str(light) + ', backColorSensorBlack+3 = ' + str(backColorSensorBlack + 3))
-    while light > (backColorSensorBlack + 2):
+    while light > (backColorSensorBlack + 3):
         logfile.info('back light = ' + str(light) + ' backColorSensorBlack+3 = ' + str(backColorSensorBlack + 3))
+        light=light_sensor.reflected_light_intensity
+        sleep(0.1)
+        
+    robot.stop()
+
+#function to turn and align back sensor to black with forward motion
+def backward_turn_until_config_left_white(light_sensor, robot, bLeftTurn=True):
+    logfile = logging.getLogger('')
+
+    if  bLeftTurn == False:
+        robot.on(0, -15)
+    else: 
+        robot.on(-15, 0)
+
+    light = light_sensor.reflected_light_intensity
+    logfile.info('left light = ' + str(light) + ', leftColorSensorWhite-5 = ' + str(leftColorSensorWhite - 5))
+    while light < (leftColorSensorWhite - 5):
+        logfile.info('left light = ' + str(light) + ' leftColorSensorWhite-5 = ' + str(leftColorSensorWhite - 5))
+        light=light_sensor.reflected_light_intensity
+        sleep(0.1)
+        
+    robot.stop()
+
+#function to turn and align back sensor to black with forward motion
+def backward_turn_until_config_left_black(light_sensor, robot, bLeftTurn=True):
+    logfile = logging.getLogger('')
+
+    if  bLeftTurn == False:
+        robot.on(0, -15)
+    else: 
+        robot.on(-15, 0)
+
+    light = light_sensor.reflected_light_intensity
+    logfile.info('left light = ' + str(light) + ', leftColorSensorBlack+3 = ' + str(leftColorSensorBlack + 3))
+    while light > (leftColorSensorBlack + 3):
+        logfile.info('back light = ' + str(light) + ' leftColorSensorBlack+3 = ' + str(leftColorSensorBlack + 3))
         light=light_sensor.reflected_light_intensity
         sleep(0.1)
         
