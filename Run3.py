@@ -10,7 +10,7 @@ def run3SelfStartUp():
     run_for_motor_stalled(mm_horizontal, 10000, 65)
     #we reset mm_horizontal
     mm_horizontal.reset()
-
+ 
     #we run mm_vertical all the way down
     run_for_motor_stalled(mm_vertical, 10000, -65)
     #we reset mm_vertical
@@ -54,25 +54,67 @@ def collectEnergyUnits():
                         right_motor = right_motor, left_motor = left_motor)
 
     #turn to avoid smart grid and align to power to X
-    pivot_gyro_turn(0, -20, 122, robot, gyro, bLeftTurn=False)
-    # backward_turn_until_config_left_white(left_light, robot, bLeftTurn=False)
-    # backward_turn_until_config_left_black(left_light, robot, bLeftTurn=False)
-    # backward_turn_until_config_left_white(left_light, robot, bLeftTurn=False)
+    pivot_gyro_turn(0, -20, 140, robot, gyro, bLeftTurn=False)
 
-    
-def newAlignToSmartGrid():
-
+def dropToPXv2():
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, -35, target_angle=122, 
+    robot.follow_gyro_angle(3, 0, 0, -35, target_angle=140, 
                         follow_for=my_follow_for_degrees, degrees=-150,
                         right_motor = right_motor, left_motor = left_motor)
 
     #go forward until left sensor is on white, black, then white
-    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=122, 
+    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=140, 
                         follow_for=follow_until_left_white, lightSensor=left_light)
-    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=122, 
+    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=140, 
                         follow_for=follow_until_left_black, lightSensor=left_light)
-    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=122, 
+    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=140, 
+                        follow_for=follow_until_left_white, lightSensor=left_light)
+
+    #raise rack to avoid collision with smart grid lever
+    mm_vertical.on_for_degrees(35, 250, brake=True, block=True)
+
+    #move rack to the right to avoid collison with Smart Grid
+    run_for_motor_stalled(mm_horizontal, 10000, -65)
+    mm_horizontal.reset()
+    
+    #forward to get into PX
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=140, 
+                        follow_for=my_follow_for_degrees, degrees=450,
+                        right_motor = right_motor, left_motor = left_motor)
+def alignToSmartGridv2():
+
+    #get out of PX and go back until left sensor on white then black
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0, -35, target_angle=140, 
+                        follow_for=follow_until_left_white, lightSensor=left_light)
+    #robot.follow_gyro_angle(3, 0, 0, -35, target_angle=140, 
+                     #follow_for=follow_until_left_black, lightSensor=left_light)
+    
+    #turn until back sensor is on black
+    forward_turn_until_config_back_white(back_light, robot, bLeftTurn=True)
+    #forward_turn_until_config_back_black(back_light, robot, bLeftTurn=True)
+
+    #raise rack to avoid collision with smart grid lever
+    mm_vertical.on_for_degrees(35, 500, brake=True, block=True)
+
+    #go forward till both sensors are on black
+    robot.follow_gyro_angle(3, 0, 0, 15, target_angle=90, 
+                    follow_for=follow_until_front_black, lls=left_light, rls=right_light)
+
+
+def newAlignToSmartGrid():
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0, -35, target_angle=130, 
+                        follow_for=my_follow_for_degrees, degrees=-150,
+                        right_motor = right_motor, left_motor = left_motor)
+
+    #go forward until left sensor is on white, black, then white
+    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=130, 
+                        follow_for=follow_until_left_white, lightSensor=left_light)
+    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=130, 
+                        follow_for=follow_until_left_black, lightSensor=left_light)
+    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=130, 
                         follow_for=follow_until_left_white, lightSensor=left_light)
 
     #move rack to the right to avoid collison with Smart Grid
@@ -82,9 +124,6 @@ def newAlignToSmartGrid():
     #turn to get into position for PX
     forward_turn_until_config_back_white(back_light, robot, bLeftTurn=True)
     forward_turn_until_config_back_black(back_light, robot, bLeftTurn=True)
-    
-    #raise rack to avoid collision with smart grid lever
-    mm_vertical.on_for_degrees(35, 300, brake=True, block=True)
 
     #go forward till both sensors are on black
     robot.follow_gyro_angle(3, 0, 0, 15, target_angle=90, 
@@ -92,12 +131,12 @@ def newAlignToSmartGrid():
 
 def newDoSmartGrid():
     #move rack left to get in postition for Smart Grid
-    mm_horizontal.on_for_degrees(35, 600, brake=True, block=True)
+    mm_horizontal.on_for_degrees(35, 500, brake=True, block=True)
 
     #Come back to grab lever
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, -25, target_angle=90, 
-                        follow_for=my_follow_for_degrees, degrees=-100,
+                        follow_for=my_follow_for_degrees, degrees=-75,
                         right_motor = right_motor, left_motor = left_motor)
     
     #Bring rack down to latch onto lever
@@ -105,18 +144,62 @@ def newDoSmartGrid():
     mm_vertical.reset()
 
     #Pull lever to the right
-    run_for_motor_stalled(mm_horizontal, 10000, -65)
+    run_for_motor_stalled(mm_horizontal, 10000, -35)
     mm_horizontal.reset()
 
     #go forward till both sensors are on black
     robot.follow_gyro_angle(3, 0, 0, 15, target_angle=90, 
                     follow_for=follow_until_front_black, lls=left_light, rls=right_light)
 
+def doHybridCarv2():
+    
+    #raise rack to avoid collision with hybrid car
+    mm_vertical.on_for_degrees(35, 300, brake=True, block=True)
+    
+    #Leave smart grid
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=90, 
+                        follow_for=my_follow_for_degrees, degrees=100,
+                        right_motor = right_motor, left_motor = left_motor)
+    
+    #go forward till both sensors are on black
+    robot.follow_gyro_angle(3, 0, 0, 15, target_angle=90, 
+                    follow_for=follow_until_front_black, lls=left_light, rls=right_light)
+
+    #go forward to get in postition for hybrid car
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=90, 
+                        follow_for=my_follow_for_degrees, degrees=200,
+                        right_motor = right_motor, left_motor = left_motor)
+    
+    #trun to flick hybrid car lever
+    pivot_gyro_turn(0, -20, 130, robot, gyro, bLeftTurn=False)
 
 def newDropPX():
+   
+    #Go back so that when we turn we do not hit smart grid
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0, -25, target_angle=90, 
+                        follow_for=my_follow_for_degrees, degrees=-200,
+                        right_motor = right_motor, left_motor = left_motor)
+   
     #get in front of Power To X
     pivot_gyro_turn(15, 0, 180, robot, gyro, bLeftTurn=False)
 
+    #go forward to keep the units fully in PX
+    robot.follow_gyro_angle(3, 0, 0, 40, target_angle=180, 
+                        follow_for=my_follow_for_degrees, degrees=100,
+                        right_motor = right_motor, left_motor = left_motor)
+
+    #go back to complete smart grid
+    robot.follow_gyro_angle(3, 0, 0, -40, target_angle=180, 
+                        follow_for=my_follow_for_degrees, degrees=-100,
+                        right_motor = right_motor, left_motor = left_motor)
+
+    pivot_gyro_turn(0, 15, 90, robot, gyro, bLeftTurn=True)
+
+#def newHybridCar():
+    
 def dropUnitstoPX():
     #raising rack to avoid water reservoir
     # lakshmi mm_vertical.on_for_degrees(75, 200, brake=True, block=False)
@@ -244,9 +327,10 @@ def run3():
     getOutOfBase()
     alignWithSolarFarm()
     collectEnergyUnits()
-    newAlignToSmartGrid()
+    dropToPXv2()
+    alignToSmartGridv2()
     newDoSmartGrid()
-    newDropPX()
+    doHybridCarv2()
     # dropUnitstoPX()
     # doHybridCar()
     # alignForSmartGrid()
