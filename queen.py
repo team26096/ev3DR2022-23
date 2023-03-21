@@ -7,17 +7,11 @@ from Run3 import *
 from Run4two import *
 from Run5 import *
 from initialize import *
-from portCheck import *
 from functions import *
 
 # start queen code now 
 
 # main program starts here
-
-# do portcheck
-while True:
-    if do_portcheck() == True:
-        break
 
 snd.speak('Reading Color Values')
 # Read color values
