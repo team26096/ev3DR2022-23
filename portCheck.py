@@ -25,6 +25,7 @@ def do_portcheck():
         log.info('Failed on Port B')
         s.speak('Large Motor on port B is not connected. Please connect and try again.')
         return False
+
     #Verify that port 'C' is the left large motor
     try:
         log.info('Checking large motor on Port C')
@@ -33,6 +34,7 @@ def do_portcheck():
         log.info('Failed on Port C')
         s.speak('Large Motor on port C is not connected. Please connect and try again.')
         return False
+
     #Verify that port 'A' is the vertical medium motor
     try:
         log.info('Checking medium motor on Port A')
@@ -41,6 +43,7 @@ def do_portcheck():
         log.info('Failed on Port A')
         s.speak('Medium Motor on port A is not connected. Please connect and try again.')
         return False
+
     #Verify that port 'D' is the horizontal medium motor
     try:
         log.info('Checking medium motor on Port D')
@@ -49,6 +52,7 @@ def do_portcheck():
         log.info('Failed on Port D')
         s.speak('Medium Motor on port D is not connected. Please connect and try again.')
         return False
+
     #Verify that port '3' is the gyro sensor
     try:
         gyro = GyroSensor(INPUT_3)
@@ -56,6 +60,7 @@ def do_portcheck():
         print('33333')
         s.speak('Gyro Sensor on port 3 is not connected. Please connect and try again.')
         return False
+
     #Verify that port '4' is the left light sensor
     try:
         left_light = ColorSensor(INPUT_4)
@@ -63,6 +68,7 @@ def do_portcheck():
         print('44444')
         s.speak('Left Light Sensor on port 4 is not connected. Please connect and try again.')
         return False
+
     #Verify that port '1' is the right light sensor
     try:
         right_light = ColorSensor(INPUT_1)
@@ -70,6 +76,7 @@ def do_portcheck():
         print('11111')
         s.speak('Right Light Sensor on port 1 is not connected. Please connect and try again.')
         return False
+        
     #Verify that port '2' is the back light sensor
     try:
         back_light = ColorSensor(INPUT_2)
@@ -77,6 +84,7 @@ def do_portcheck():
         print('22222')
         s.speak('Back Light Sensor on port 2 is not connected. Please connect and try again.')
         return False
+
     # gyro flow check
     firstGyroValue = gyro.angle
     sleep(2)
@@ -84,6 +92,7 @@ def do_portcheck():
     if int(firstGyroValue) != int(secondGyroValue):
         s.speak('gyro is flowing')
         return False
+
     # check if large motors are moving
     right_motor = LargeMotor(OUTPUT_C)
     left_motor = LargeMotor(OUTPUT_B)
@@ -94,6 +103,7 @@ def do_portcheck():
         log.info('right motor position: ' + str(right_motor.position))
         s.speak('the right motor aint workin')
         return False
+
     left_motor.reset()
     sleep(0.5)
     left_motor.on_for_degrees(10, 30)
@@ -101,7 +111,8 @@ def do_portcheck():
         log.info('left motor position: ' + str(left_motor.position))
         s.speak('the left motor aint workin')
         return False
-    # batter checker
+
+    # battery checker
     ps = PowerSupply()
     log.info('battery current: ' + str(ps.measured_amps))
     log.info('battery volts: ' + str(ps.measured_volts))
@@ -109,6 +120,7 @@ def do_portcheck():
         log.info('the battery is low')
         s.speak('The battery is low, please charge and try again')
         return False
+
     s.speak('All ports are connected!')
 
     return True
