@@ -54,24 +54,24 @@ def collectEnergyUnits():
                         right_motor = right_motor, left_motor = left_motor)
 
     #turn to avoid smart grid and align to power to X
-    pivot_gyro_turn(0, -20, 140, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(0, -20, 135, robot, gyro, bLeftTurn=False)
 
 def dropToPXv2():
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, -35, target_angle=140, 
-                        follow_for=my_follow_for_degrees, degrees=-150,
+    robot.follow_gyro_angle(3, 0, 0, -35, target_angle=135, 
+                        follow_for=my_follow_for_degrees, degrees=-100,
                         right_motor = right_motor, left_motor = left_motor)
 
     #go forward until left sensor is on white, black, then white
-    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=140, 
+    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=135, 
                         follow_for=follow_until_left_white, lightSensor=left_light)
-    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=140, 
+    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=135, 
                         follow_for=follow_until_left_black, lightSensor=left_light)
-    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=140, 
+    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=135, 
                         follow_for=follow_until_left_white, lightSensor=left_light)
 
     #raise rack to avoid collision with smart grid lever
-    mm_vertical.on_for_degrees(35, 250, brake=True, block=True)
+    mm_vertical.on_for_degrees(35, 250, brake=True, block=False)
 
     #move rack to the right to avoid collison with Smart Grid
     run_for_motor_stalled(mm_horizontal, 10000, -65)
@@ -79,26 +79,45 @@ def dropToPXv2():
     
     #forward to get into PX
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=140, 
+    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=135, 
                         follow_for=my_follow_for_degrees, degrees=450,
                         right_motor = right_motor, left_motor = left_motor)
+
 def alignToSmartGridv2():
 
     #get out of PX and go back until left sensor on white then black
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, -35, target_angle=140, 
-                        follow_for=follow_until_left_white, lightSensor=left_light)
+    robot.follow_gyro_angle(3, 0, 0, -20, target_angle=135, 
+                        follow_for=follow_until_back_white, lightSensor=back_light)
+    #robot.follow_gyro_angle(3, 0, 0, -20, target_angle=140, 
+    #                 follow_for=follow_until_back_black, lightSensor=back_light)
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0, -20, target_angle=135, 
+                        follow_for=my_follow_for_degrees, degrees=-100,
+                        right_motor = right_motor, left_motor = left_motor)
+
     #robot.follow_gyro_angle(3, 0, 0, -35, target_angle=140, 
-                     #follow_for=follow_until_left_black, lightSensor=left_light)
-    
+                        #follow_for=follow_until_back_white, lightSensor=back_light)
+
     #turn until back sensor is on black
-    forward_turn_until_config_back_white(back_light, robot, bLeftTurn=True)
+    #forward_turn_until_config_back_white(back_light, robot, bLeftTurn=True)
     #forward_turn_until_config_back_black(back_light, robot, bLeftTurn=True)
 
+    pivot_gyro_turn(0, 20, 90, robot, gyro, bLeftTurn=True)
+
+
     #raise rack to avoid collision with smart grid lever
-    mm_vertical.on_for_degrees(35, 500, brake=True, block=True)
+    mm_vertical.on_for_degrees(35, 500, brake=True, block=False)
+
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=90, 
+                        follow_for=my_follow_for_degrees, degrees=125,
+                        right_motor = right_motor, left_motor = left_motor)
 
     #go forward till both sensors are on black
+    robot.follow_gyro_angle(3, 0, 0, 15, target_angle=90, 
+                    follow_for=follow_until_front_white, lls=left_light, rls=right_light)
+
     robot.follow_gyro_angle(3, 0, 0, 15, target_angle=90, 
                     follow_for=follow_until_front_black, lls=left_light, rls=right_light)
 
@@ -129,9 +148,10 @@ def newAlignToSmartGrid():
     robot.follow_gyro_angle(3, 0, 0, 15, target_angle=90, 
                     follow_for=follow_until_front_black, lls=left_light, rls=right_light)
 
-def newDoSmartGrid():
+def doSmartGridv2():
     #move rack left to get in postition for Smart Grid
-    mm_horizontal.on_for_degrees(35, 500, brake=True, block=True)
+    run_for_motor_stalled(mm_horizontal, 10000, 35)
+    mm_horizontal.reset()
 
     #Come back to grab lever
     robot.reset()
@@ -144,8 +164,10 @@ def newDoSmartGrid():
     mm_vertical.reset()
 
     #Pull lever to the right
-    run_for_motor_stalled(mm_horizontal, 10000, -35)
-    mm_horizontal.reset()
+    #run_for_motor_stalled(mm_horizontal, 10000, -35)
+    #mm_horizontal.reset()
+    mm_horizontal.on_for_degrees(-35, 800, brake=True, block=True)
+
 
     #go forward till both sensors are on black
     robot.follow_gyro_angle(3, 0, 0, 15, target_angle=90, 
@@ -154,14 +176,17 @@ def newDoSmartGrid():
 def doHybridCarv2():
     
     #raise rack to avoid collision with hybrid car
-    mm_vertical.on_for_degrees(35, 300, brake=True, block=True)
-    
+    mm_vertical.on_for_degrees(35, 700, brake=True, block=True)
+    #to avoid toy factory
+    mm_horizontal.on_for_degrees(35, 400, brake=True, block=False)
+
     #Leave smart grid
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 25, target_angle=90, 
-                        follow_for=my_follow_for_degrees, degrees=100,
+                        follow_for=my_follow_for_degrees, degrees=400,
                         right_motor = right_motor, left_motor = left_motor)
-    
+
+
     #go forward till both sensors are on black
     robot.follow_gyro_angle(3, 0, 0, 15, target_angle=90, 
                     follow_for=follow_until_front_black, lls=left_light, rls=right_light)
@@ -169,11 +194,30 @@ def doHybridCarv2():
     #go forward to get in postition for hybrid car
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 25, target_angle=90, 
-                        follow_for=my_follow_for_degrees, degrees=200,
+                        follow_for=my_follow_for_degrees, degrees=350,
                         right_motor = right_motor, left_motor = left_motor)
     
     #trun to flick hybrid car lever
-    pivot_gyro_turn(0, -20, 130, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(0, -20, 135, robot, gyro, bLeftTurn=False)
+
+    #go back to get in postition for hybrid car
+    robot.reset()
+    robot.follow_gyro_angle(3, 0, 0, -25, target_angle=135, 
+                        follow_for=my_follow_for_degrees, degrees=-300,
+                        right_motor = right_motor, left_motor = left_motor)
+    
+    #lower rack to push hybrid car lever
+    mm_vertical.on_for_degrees(-35, 600, brake=True, block=True)
+
+    #lower rack to push hybrid car lever
+    mm_vertical.on_for_degrees(35, 400, brake=True, block=True)
+
+def collectRBv2():
+    #go back to base
+    robot.follow_gyro_angle(3, 0, 0, 80, target_angle=130, 
+                        follow_for=my_follow_for_degrees, degrees=1500,
+                        right_motor = right_motor, left_motor = left_motor)
+
 
 def newDropPX():
    
@@ -329,11 +373,14 @@ def run3():
     collectEnergyUnits()
     dropToPXv2()
     alignToSmartGridv2()
-    newDoSmartGrid()
+    doSmartGridv2()
     doHybridCarv2()
+    collectRBv2()
     # dropUnitstoPX()
     # doHybridCar()
     # alignForSmartGrid()
     # doSmartGrid()
     # collectRB()
     # setUpForRun4()
+
+run3()
