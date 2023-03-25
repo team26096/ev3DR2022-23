@@ -10,7 +10,7 @@ def run3SelfStartUp():
     run_for_motor_stalled(mm_horizontal, 10000, 65)
     #we reset mm_horizontal
     mm_horizontal.reset()
- 
+
     #we run mm_vertical all the way down
     run_for_motor_stalled(mm_vertical, 10000, -65)
     #we reset mm_vertical
@@ -177,8 +177,6 @@ def collectRBv2():
     robot.follow_gyro_angle(3, 0, 0, 80, target_angle=145, 
                         follow_for=my_follow_for_degrees, degrees=400,
                         right_motor = right_motor, left_motor = left_motor)
-    
-
 
 def setUpForRun4():
     # stall rack to the left
@@ -190,8 +188,6 @@ def setUpForRun4():
     mm_vertical.reset()
 
 def run3():
-    run3SelfStartUp()
-    readAllValues()
     getOutOfBase()
     alignWithSolarFarm()
     collectEnergyUnits()
@@ -200,6 +196,4 @@ def run3():
     doSmartGridv2()
     doHybridCarv2()
     collectRBv2()
-    setUpForRun4()
-
-run3()
+    #setUpForRun4()

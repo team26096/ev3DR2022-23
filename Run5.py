@@ -8,9 +8,8 @@ def run5SelfSetup():
     # bring rack down
     run_for_motor_stalled(mm_vertical, 10000, -65)
     mm_vertical.reset()
-
     # bring rack up
-    mm_vertical.on_for_degrees(75, 1900, brake=True, block=True)
+    mm_vertical.on_for_degrees(75, 1140, brake=True, block=True)
 
 def toyFactory():
     #add run 5 code here
@@ -49,4 +48,3 @@ def dinoToy():
 def run5():
     toyFactory()
     dinoToy()
-

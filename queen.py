@@ -2,7 +2,7 @@
 
 # add imports here
 from Run1two import *
-from Run2 import *
+from Run2two import *
 from Run3 import *
 from Run4two import *
 from Run5 import *
@@ -44,6 +44,7 @@ while True:
         r1Time = round(endTime-startTime,2)
         transitStart = time()
         transitEnd = 0
+        run2twoSelfSetup()
     elif btn.check_buttons(buttons=['up']):
         snd.beep()
         # when the up button is pressed, the robot will play run2
@@ -51,11 +52,12 @@ while True:
         r2Transit = round(transitEnd-transitStart,2)
         transitStart = 0
         startTime = time()
-        run2()
+        run2two()
         endTime = time()
         r2Time = round(endTime-startTime,2)
         transitStart = time()
         transitEnd = 0
+        run3SelfStartUp()
     elif btn.check_buttons(buttons=['right']):
         snd.beep()
         # when the right button is pressed, the robot will play run3
@@ -65,9 +67,10 @@ while True:
         startTime = time()
         run3()
         endTime = time()
-        r3Time = round(endTime-startTime,0)
+        r3Time = round(endTime-startTime,2)
         transitStart = time()
         transitEnd = 0
+        run4SelfStartUp()
     elif btn.check_buttons(buttons=['down']):
         snd.beep()
         # when the down button is pressed, the robot will play run4
@@ -80,6 +83,7 @@ while True:
         r4Time = round(endTime-startTime,2)
         transitStart = time()
         transitEnd = 0
+        run5SelfSetup()
     elif btn.check_buttons(buttons=['left']):
         snd.beep()
         # when the left button is pressed, the robot will play run5

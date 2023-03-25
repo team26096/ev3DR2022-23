@@ -111,7 +111,6 @@ def newAlign():
 
     # stall rack down to get units out
     run_for_motor_stalled(mm_vertical, 10000, -75)
-
     #we reset mm_vertical
     mm_vertical.reset()
 
@@ -122,6 +121,9 @@ def comeBackToBase():
     robot.follow_gyro_angle(1.5, 0, 0,-90, target_angle=90, 
              follow_for=my_follow_for_degrees, degrees=-150,
              right_motor = right_motor, left_motor = left_motor)
+
+    # bring rack up to setup for run 2 and avoid tail from messing up with transition
+    mm_vertical.on_for_degrees(75, 1200, brake=True, block=True)
 
     # pivot turn to align with base
     pivot_gyro_turn(35, 0, 148, robot, gyro, bLeftTurn=False)
@@ -134,8 +136,9 @@ def setUpForRun2():
     #move rack left
     run_for_motor_stalled(mm_horizontal, 10000, 35)
     mm_horizontal.reset()
-    mm_vertical.reset()
-    mm_vertical.on_for_degrees(75, 1200, brake=True, block=True)
+    # moved veritical rack up as part of run 1 comebacktobase
+    #mm_vertical.reset()
+    #mm_vertical.on_for_degrees(75, 1200, brake=True, block=True)
 
 def run1two():
     getOutOfBase()
@@ -144,4 +147,4 @@ def run1two():
     dropWaterUnit1()
     newAlign()
     comeBackToBase()
-    setUpForRun2()
+    #setUpForRun2()

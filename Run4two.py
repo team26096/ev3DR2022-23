@@ -6,11 +6,12 @@ from functions import *
 
 #add run 4 code here
 def run4SelfStartUp():
-    run_for_motor_stalled(mm_horizontal, 10000, -35)
+    # stall rack to the left
+    run_for_motor_stalled(mm_horizontal, 10000, -65)
     mm_horizontal.reset()
 
     #we run mm_vertical all the way down
-    run_for_motor_stalled(mm_vertical, 10000, -35)
+    run_for_motor_stalled(mm_vertical, 10000, -65)
     mm_vertical.reset()
 
 def recharableBattery():
@@ -160,4 +161,4 @@ def run4two():
     watchTelevison()
     fuelTruck()
     windTurbine()
-    setUpForRun5()
+    #setUpForRun5()
