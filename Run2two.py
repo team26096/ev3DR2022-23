@@ -9,8 +9,8 @@ def run2twoSelfSetup():
     #move rack left
     run_for_motor_stalled(mm_horizontal, 10000, 35)
     mm_horizontal.reset()
-    mm_vertical.reset()
-    mm_vertical.on_for_degrees(75, 1200, brake=True, block=True)
+    #mm_vertical.reset()
+    #mm_vertical.on_for_degrees(75, 1200, brake=True, block=True)
 
 def getOutOfBase():
     # gyro straight until the lcs sees black and white
@@ -56,6 +56,9 @@ def alignForEnergyStorage():
     snd.beep()
 
 def doEnergyStorage():
+    #move rack left to get in position to catch storage tray
+    mm_horizontal.on_for_degrees(65, 25, brake=True, block=True)
+
     #go down to drop units into energy storage bin
     run_for_motor_stalled(mm_vertical, 10000, -75)
     mm_vertical.reset()
@@ -72,15 +75,9 @@ def doOilPlatform():
 
     robot.follow_gyro_angle(3, 0, 0, -15, target_angle=0, 
                      follow_for=follow_until_right_white, lightSensor=right_light)
-              
-
-    #come back to get in position for oil platform
-    #robot.reset()
-    #robot.follow_gyro_angle(3, 0, 0, -25, target_angle=0, 
-    #                follow_for=my_follow_for_degrees, degrees=-317, left_motor=left_motor, right_motor=right_motor)
 
     #move rack left to get under pump
-    mm_horizontal.on_for_degrees(65, 400, brake=True, block=True)
+    mm_horizontal.on_for_degrees(65, 375, brake=True, block=True)
 
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
@@ -110,7 +107,7 @@ def doOilPlatform():
 def setUpForOilPlatform():
     #move rack right
     mm_vertical.reset()
-    mm_vertical.on_for_degrees(75, 1500, brake=True, block=False)
+    mm_vertical.on_for_degrees(75, 1200, brake=True, block=False)
     run_for_motor_stalled(mm_horizontal, 10000, -35)
     mm_horizontal.reset()
     sleep(3)
@@ -155,14 +152,10 @@ def setUpForRun3():
     mm_vertical.reset()
 
 def run2two():
-    readAllValues()
-    run2twoSelfSetup()
     getOutOfBase()
     alignForEnergyStorage()
     doEnergyStorage()
     doOilPlatform()
     setUpForOilPlatform()
     bringOilTruck()
- #   setUpForRun3()
-
-run2two()
+    #setUpForRun3()
