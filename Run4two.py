@@ -81,7 +81,7 @@ def fuelTruck():
     mm_vertical.on_for_degrees(75, 900, brake=True, block=True)
     #sleep(1)
 
-    # move backwards to until right light sees black line
+    # move backwards to until right light sees white line
     robot.follow_gyro_angle(3, 0, 0, -20, target_angle=-5, 
                                 follow_for=follow_until_right_white, lightSensor = right_light)
     snd.beep()
