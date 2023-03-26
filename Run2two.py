@@ -57,7 +57,7 @@ def alignForEnergyStorage():
 
 def doEnergyStorage():
     #move rack left to get in position to catch storage tray
-    mm_horizontal.on_for_degrees(65, 25, brake=True, block=True)
+    mm_horizontal.on_for_degrees(55, 100, brake=True, block=True)
 
     #go down to drop units into energy storage bin
     run_for_motor_stalled(mm_vertical, 10000, -75)
@@ -77,7 +77,7 @@ def doOilPlatform():
                      follow_for=follow_until_right_white, lightSensor=right_light)
 
     #move rack left to get under pump
-    mm_horizontal.on_for_degrees(65, 375, brake=True, block=True)
+    mm_horizontal.on_for_degrees(55, 300, brake=True, block=True)
 
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
@@ -110,8 +110,12 @@ def setUpForOilPlatform():
     mm_vertical.on_for_degrees(75, 1200, brake=True, block=False)
     run_for_motor_stalled(mm_horizontal, 10000, -35)
     mm_horizontal.reset()
-    sleep(3)
-
+    #sleep(3)
+    while True:
+        if btn.check_buttons(buttons=['enter']):
+            snd.beep()
+            break
+        sleep(0.1)
 
 def bringOilTruck():
     gyro.reset()
@@ -121,7 +125,7 @@ def bringOilTruck():
 
     # we are going forward till we reach fuel truck while also resetting the rack
     robot.follow_gyro_angle(3, 0, 0, 45, target_angle=0, 
-                    follow_for=my_follow_for_degrees, degrees=750, left_motor=left_motor, right_motor=right_motor)
+                    follow_for=my_follow_for_degrees, degrees=720, left_motor=left_motor, right_motor=right_motor)
     
     #bring rack down to catch oil truck
     run_for_motor_stalled(mm_vertical, 10000, -65)
@@ -138,7 +142,7 @@ def bringOilTruck():
     
     #come back to base while bringing truck
     robot.follow_gyro_angle(3, 0, 0, -25, target_angle=0, 
-                    follow_for=my_follow_for_degrees, degrees=-800, left_motor=left_motor, right_motor=right_motor)
+                    follow_for=my_follow_for_degrees, degrees=-740, left_motor=left_motor, right_motor=right_motor)
 
 def setUpForRun3():
     # we run mm_horizontal all the way to the left 
