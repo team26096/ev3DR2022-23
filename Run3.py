@@ -152,7 +152,7 @@ def doHybridCarv2():
     #go back to get in postition for hybrid car lever
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, -25, target_angle=132, 
-                        follow_for=my_follow_for_degrees, degrees=-230,
+                        follow_for=my_follow_for_degrees, degrees=-250,
                         right_motor = right_motor, left_motor = left_motor)
     
     #lower rack to push hybrid car lever
