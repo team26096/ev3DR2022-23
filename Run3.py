@@ -120,7 +120,7 @@ def doSmartGridv2():
 
 def doHybridCarv2():
     #raise rack to avoid collision with hybrid car
-    mm_vertical.on_for_degrees(45, 800, brake=True, block=True)
+    mm_vertical.on_for_degrees(45, 1275, brake=True, block=True)
 
     #go left to avoid toy factory
     mm_horizontal.on_for_degrees(45, 400, brake=True, block=False)
@@ -156,13 +156,20 @@ def doHybridCarv2():
                         right_motor = right_motor, left_motor = left_motor)
     
     #lower rack to push hybrid car lever
-    mm_vertical.on_for_degrees(-55, 400, brake=True, block=True)
+    mm_vertical.on_for_degrees(-50, 400, brake=True, block=True)
 
-    #bring rack up to release hybrid car lever
-    mm_vertical.on_for_degrees(45, 400, brake=True, block=True)
+    sleep(1)
+
+    #bring rack down to release hybrid car lever
+    mm_vertical.on_for_degrees(-60, 800, brake=True, block=True)
+
 
 def collectRBv2():
     
+    #move rack to get RB
+
+    mm_horizontal.on_for_degrees(-45, 200, brake=True, block=True)
+
     #go back to base
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 80, target_angle=132, 
@@ -197,3 +204,7 @@ def run3():
     doHybridCarv2()
     collectRBv2()
     #setUpForRun4()
+
+readAllValues()
+run3SelfStartUp()
+run3()
