@@ -10,7 +10,6 @@ def run5SelfSetup():
     mm_vertical.reset()
     # bring rack up
     mm_vertical.on_for_degrees(75, 1140, brake=True, block=True)
-
 def toyFactory():
     #add run 5 code here
     gyro.reset()
@@ -35,16 +34,18 @@ def toyFactory():
 
     # pivot gyro back to 0
     pivot_gyro_turn(-35, 0, 15, robot, gyro, bLeftTurn=True)
-
 def dinoToy():
-
-    # go back to base and finish run!
-    robot.reset()
-    robot.on_for_degrees(95, 95, 2500)
     # robot.follow_gyro_angle(3, 0, 0, 85, target_angle=0, 
     #                        follow_for=my_follow_for_degrees, degrees=2500,
     #                        left_motor = left_motor, right_motor = right_motor)
-
+    # go back to base and finish run!
+    robot.reset()
+    robot.on_for_degrees(95, 95, 2500)
 def run5():
+    logfile = logging.getLogger('')
+    logfile.info('=====> run 5 toyFactory start')
     toyFactory()
+    logfile.info('=====> run 5 toyFactory end')
+    logfile.info('=====> run 5 dinoToy start')
     dinoToy()
+    logfile.info('=====> run 5 dinoToy end')

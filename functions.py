@@ -103,11 +103,11 @@ def follow_until_left_white(tank, lightSensor):
     else:
         return True
 
-def follow_until_back_white(tank, lightSensor):
+def follow_until_back_white(tank, lightSensor, range=5):
     logfile = logging.getLogger('')
     light_intensity = (lightSensor.reflected_light_intensity)
-    logfile.info('back light = ' + str(light_intensity) + ' backColorSensorWhite = ' + str(backColorSensorWhite - 5))
-    if light_intensity >= (backColorSensorWhite - 5):
+    logfile.info('back light = ' + str(light_intensity) + ' backColorSensorWhite = ' + str(backColorSensorWhite - range))
+    if light_intensity >= (backColorSensorWhite - range):
         return False
     else:
         return True
@@ -125,7 +125,7 @@ def follow_until_front_white(tank, lls, rls):
 def follow_until_right_black(tank,lightSensor):
     logfile = logging.getLogger('')
     light_intensity = (lightSensor.reflected_light_intensity)
-    logfile.info('light = ' + str(light_intensity) + ' rightColorSensorBlack = ' + str(rightColorSensorWhite + 3))
+    logfile.info('light = ' + str(light_intensity) + ' rightColorSensorBlack = ' + str(rightColorSensorBlack + 3))
     if light_intensity <= (rightColorSensorBlack + 3):
         return False
     else:
