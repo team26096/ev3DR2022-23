@@ -1,10 +1,10 @@
 #!/usr/bin/env micropython
 
 # add imports here
-from Run1two import *
-from Run2two import *
+from Run1 import *
+from Run2 import *
 from Run3 import *
-from Run4two import *
+from Run4 import *
 from Run5 import *
 from initialize import *
 from functions import *
@@ -39,12 +39,12 @@ while True:
         snd.beep()
         # when the enter button is pressed, the robot will play run1
         startTime = time()
-        run1two()
+        run1()
         endTime = time()
         r1Time = round(endTime-startTime,2)
         transitStart = time()
         transitEnd = 0
-        run2twoSelfSetup()
+        run2SelfSetup()
     elif btn.check_buttons(buttons=['up']):
         snd.beep()
         # when the up button is pressed, the robot will play run2
@@ -52,7 +52,7 @@ while True:
         r2Transit = round(transitEnd-transitStart,2)
         transitStart = 0
         startTime = time()
-        run2two()
+        run2()
         endTime = time()
         r2Time = round(endTime-startTime,2)
         transitStart = time()
@@ -78,7 +78,7 @@ while True:
         r4Transit = round(transitEnd-transitStart,2)
         transitStart = 0
         startTime = time()
-        run4two()
+        run4()
         endTime = time()
         r4Time = round(endTime-startTime,2)
         transitStart = time()
