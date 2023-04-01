@@ -17,7 +17,7 @@ def toyFactory():
 
     # gyro straight to align with toy factory
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, 45, target_angle=0, 
+    robot.follow_gyro_angle(1.5, 0, 0, 50, target_angle=0, 
                             follow_for=my_follow_for_degrees, degrees=1000,
                             left_motor = left_motor, right_motor = right_motor)
 
