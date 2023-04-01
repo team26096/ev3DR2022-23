@@ -32,7 +32,7 @@ def alignWithSolarFarm():
 
     #gyro straight to get in position for solar farm
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, 45, target_angle=32, 
+    robot.follow_gyro_angle(3, 0, 0, 50, target_angle=32, 
                         follow_for=my_follow_for_degrees, degrees=870,
                         right_motor = right_motor, left_motor = left_motor)
 
@@ -45,7 +45,7 @@ def collectEnergyUnits():
 
     #gyro straight to collect the last solar unit (next to smart grid)
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, 45, target_angle=75, 
+    robot.follow_gyro_angle(3, 0, 0, 50, target_angle=75, 
                         follow_for=my_follow_for_degrees, degrees=325,
                         right_motor = right_motor, left_motor = left_motor)
 
@@ -54,7 +54,7 @@ def collectEnergyUnits():
 def dropToPX():
     #forward to get into PX
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, 45, target_angle=130, 
+    robot.follow_gyro_angle(3, 0, 0, 50, target_angle=130, 
                         follow_for=my_follow_for_degrees, degrees=550,
                         right_motor = right_motor, left_motor = left_motor)
 
@@ -96,7 +96,7 @@ def doSmartGrid():
     #move rack left to get in postition for Smart Grid
     run_for_motor_stalled(mm_horizontal, 10000, 35)
     mm_horizontal.reset()
-
+    
     #Come back to grab lever
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, -25, target_angle=90, 
@@ -137,7 +137,7 @@ def doHybridCar():
     #go forward to get in postition for hybrid car
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 35, target_angle=90, 
-                        follow_for=my_follow_for_degrees, degrees=315,
+                        follow_for=my_follow_for_degrees, degrees=320,
                         right_motor = right_motor, left_motor = left_motor)
     
     #turn to get in position to align with hybrid car lever
@@ -152,7 +152,8 @@ def doHybridCar():
     #lower rack to push hybrid car lever
     mm_vertical.on_for_degrees(-60, 425, brake=True, block=True)
 
-    sleep(1)
+    # allow time for hybrid car to pass under the robot
+    sleep(0.5)
 
     #bring rack down to release hybrid car lever
     mm_vertical.on_for_degrees(-60, 775, brake=True, block=True)
@@ -163,8 +164,10 @@ def collectRB():
     #go back to base
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 80, target_angle=145, 
-                        follow_for=my_follow_for_degrees, degrees=1750,
+                        follow_for=my_follow_for_degrees, degrees=1700,
                         right_motor = right_motor, left_motor = left_motor)
+    #we are turning when we come back to base
+    pivot_gyro_turn(0, 25, 110, robot, gyro, bLeftTurn=True)
 def setUpForRun4():
     # stall rack to the left
     run_for_motor_stalled(mm_horizontal, 10000, -35)

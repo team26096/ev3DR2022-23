@@ -38,7 +38,7 @@ def lift1WaterUnit():
 def hydroelectricDam():
     #going forward to align with the hydroelectric dam lever
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, 15, target_angle=-39, 
+    robot.follow_gyro_angle(1.5, 0, 0, 20, target_angle=-39, 
                follow_for=my_follow_for_degrees, degrees=360,
                right_motor = right_motor, left_motor = left_motor)
     
@@ -50,7 +50,7 @@ def hydroelectricDam():
 def dropWaterUnit1():
     #Go forward to align to Water Reservoir circle
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, 15, target_angle=-39, 
+    robot.follow_gyro_angle(1.5, 0, 0, 20, target_angle=-39, 
                 follow_for=my_follow_for_degrees, degrees=175,
                 right_motor = right_motor, left_motor = left_motor)
 
@@ -114,7 +114,7 @@ def comeBackToBase():
              right_motor = right_motor, left_motor = left_motor)
 
     # bring rack up to setup for run 2 and avoid tail from messing up with transition
-    mm_vertical.on_for_degrees(75, 1200, brake=True, block=True)
+    mm_vertical.on_for_degrees(75, 1100, brake=True, block=False)
 
     # pivot turn to align with base
     pivot_gyro_turn(35, 0, 148, robot, gyro, bLeftTurn=False)
