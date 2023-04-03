@@ -38,7 +38,7 @@ def lift1WaterUnit():
 def hydroelectricDam():
     #going forward to align with the hydroelectric dam lever
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, 20, target_angle=-39, 
+    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=-39, 
                follow_for=my_follow_for_degrees, degrees=360,
                right_motor = right_motor, left_motor = left_motor)
     
@@ -50,7 +50,7 @@ def hydroelectricDam():
 def dropWaterUnit1():
     #Go forward to align to Water Reservoir circle
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, 20, target_angle=-39, 
+    robot.follow_gyro_angle(3, 0, 0, 20, target_angle=-39, 
                 follow_for=my_follow_for_degrees, degrees=175,
                 right_motor = right_motor, left_motor = left_motor)
 
@@ -63,7 +63,7 @@ def dropWaterUnit1():
 
     #Move back to release unit in circle
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, -35, target_angle=-39, 
+    robot.follow_gyro_angle(3, 0, 0, -35, target_angle=-39, 
                 follow_for=my_follow_for_degrees, degrees=-125,
                 right_motor = right_motor, left_motor = left_motor)
 
@@ -81,11 +81,11 @@ def alignAndDoPowerPlant():
 
     #aligning one light sensor to black so we can move the other one in later and complete the power plant mission
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, 45, target_angle=-17, 
+    robot.follow_gyro_angle(3, 0, 0, 45, target_angle=-17, 
             follow_for=follow_until_white, lightSensor=right_light)
-    robot.follow_gyro_angle(1.5, 0, 0, 45, target_angle=-17, 
+    robot.follow_gyro_angle(3, 0, 0, 45, target_angle=-17, 
             follow_for=follow_until_black, lightSensor=right_light)
-    robot.follow_gyro_angle(1.5, 0, 0, 45, target_angle=-17, 
+    robot.follow_gyro_angle(3, 0, 0, 45, target_angle=-17, 
             follow_for=follow_until_white, lightSensor=right_light)
 
     #align robot to face to power plant
@@ -93,12 +93,12 @@ def alignAndDoPowerPlant():
 
     # move forward for both light sensors on black
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, 20, target_angle=90, 
+    robot.follow_gyro_angle(3, 0, 0, 20, target_angle=90, 
             follow_for=follow_until_front_black, lls=left_light, rls=right_light)
             
     # move back 100 degrees to align for middle unit
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, -15, target_angle=90, 
+    robot.follow_gyro_angle(3, 0, 0, -15, target_angle=90, 
             follow_for=my_follow_for_degrees, degrees=-90,
             right_motor = right_motor, left_motor = left_motor)
 
@@ -107,9 +107,9 @@ def alignAndDoPowerPlant():
     #we reset mm_vertical
     mm_vertical.reset()
 def comeBackToBase():
-    # move backwards 250 degrees to avoid hitting powerplant
+    # move backwards to avoid hitting powerplant
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0,-90, target_angle=90, 
+    robot.follow_gyro_angle(1.5, 0, 0, -90, target_angle=90, 
              follow_for=my_follow_for_degrees, degrees=-150,
              right_motor = right_motor, left_motor = left_motor)
 

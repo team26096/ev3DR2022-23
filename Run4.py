@@ -5,7 +5,7 @@ from initialize import *
 from functions import *
 
 def run4SelfStartUp():
-    # stall rack to the left
+    # stall rack to the right
     run_for_motor_stalled(mm_horizontal, 10000, -65)
     mm_horizontal.reset()
 
@@ -29,7 +29,7 @@ def recharableBattery():
 
     # go forward to get units completely in target area
     robot.reset() 
-    robot.follow_gyro_angle(1.5, 0, 0, 40, target_angle=0, 
+    robot.follow_gyro_angle(1.5, 0, 0, 45, target_angle=0, 
                                 follow_for=my_follow_for_degrees, degrees=40,
                                 left_motor = left_motor, right_motor = right_motor)
 def watchTelevison():
@@ -49,7 +49,6 @@ def watchTelevison():
                                 left_motor = left_motor, right_motor = right_motor)
 def fuelTruck():
     # lifting rack up to avoid hitting wind turbine
-    # mm_vertical.on_for_degrees(75, 700, brake=True, block=True)
     mm_vertical.on_for_degrees(75, 420, brake=True, block=False)
 
     # move horizontal rack to the left to avoid watch televsion mission
@@ -58,10 +57,8 @@ def fuelTruck():
     # move forward to until right light sees black line
     robot.follow_gyro_angle(3, 0, 0, 40, target_angle=-5, 
                                 follow_for=follow_until_right_white, lightSensor = right_light)
-    snd.beep()
     robot.follow_gyro_angle(3, 0, 0, 40, target_angle=-5, 
                                 follow_for=follow_until_right_black, lightSensor = right_light)
-    snd.beep()
 
     # turn so we do not hit wind turbine
     pivot_gyro_turn(0, 20, -25, robot, gyro, bLeftTurn=True)
@@ -73,23 +70,16 @@ def fuelTruck():
                                 left_motor = left_motor, right_motor = right_motor)
     
     # lifting rack up to avoid bring back truck with us
-    #mm_vertical.on_for_degrees(75, 1500, brake=True, block=True)
     mm_vertical.on_for_degrees(75, 900, brake=True, block=True)
-    #sleep(1)
 
     # move backwards to until right light sees white line
     robot.follow_gyro_angle(3, 0, 0, -20, target_angle=-5, 
                                 follow_for=follow_until_right_white, lightSensor = right_light)
-    snd.beep()
-    # robot.follow_gyro_angle(3, 0, 0, -20, target_angle=-5, 
-    #                             follow_for=follow_until_right_black, lightSensor = right_light)
-    # snd.beep()
 
     # move turn to align with wind turbine
     pivot_gyro_turn(20, -20, 45, robot, gyro, bLeftTurn=False)
 def windTurbine():
     # bring rack down for wind turbine
-    #mm_vertical.on_for_degrees(75, -1000, brake=True, block=False)
     mm_vertical.on_for_degrees(75, -600, brake=True, block=False)
 
     # gyro staight backwards to align with wind turbine ***200
@@ -99,15 +89,8 @@ def windTurbine():
                                 left_motor = left_motor, right_motor = right_motor)
     
     # bring rack down for wind turbine
-    #mm_vertical.on_for_degrees(75, -1200, brake=True, block=True)
     mm_vertical.on_for_degrees(75, -720, brake=True, block=True)
 
-    # loop for going back and forth
-    # robot.reset()
-    # robot.follow_gyro_angle(3, 0, 0, 45, target_angle=35, 
-    #                     follow_for=my_follow_for_degrees, degrees=210,
-    #                     left_motor = left_motor, right_motor = right_motor)
-    # sleep(0.5)
     loop = 0
     while(loop < 4):
         forwardDegrees = 210 + (loop * 15)
