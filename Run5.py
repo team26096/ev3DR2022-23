@@ -35,9 +35,6 @@ def toyFactory():
     # pivot gyro back to 0
     pivot_gyro_turn(-35, 0, 15, robot, gyro, bLeftTurn=True)
 def dinoToy():
-    # robot.follow_gyro_angle(3, 0, 0, 85, target_angle=0, 
-    #                        follow_for=my_follow_for_degrees, degrees=2500,
-    #                        left_motor = left_motor, right_motor = right_motor)
     # go back to base and finish run!
     robot.reset()
     robot.on_for_degrees(95, 95, 2500)
