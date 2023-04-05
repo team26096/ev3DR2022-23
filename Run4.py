@@ -45,7 +45,7 @@ def watchTelevison():
     # gyro staight to complete watch television
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 20, target_angle=0, 
-                                follow_for=my_follow_for_degrees, degrees=320,
+                                follow_for=my_follow_for_degrees, degrees=345,
                                 left_motor = left_motor, right_motor = right_motor)
 def fuelTruck():
     # lifting rack up to avoid hitting wind turbine
@@ -58,7 +58,7 @@ def fuelTruck():
     robot.follow_gyro_angle(3, 0, 0, 40, target_angle=-5, 
                                 follow_for=follow_until_right_white, lightSensor = right_light)
     robot.follow_gyro_angle(3, 0, 0, 40, target_angle=-5, 
-                                follow_for=follow_until_right_black, lightSensor = right_light)
+                                follow_for=follow_until_right_black, lightSensor = right_light, range=6)
 
     # turn so we do not hit wind turbine
     pivot_gyro_turn(0, 20, -25, robot, gyro, bLeftTurn=True)
@@ -93,14 +93,14 @@ def windTurbine():
 
     loop = 0
     while(loop < 4):
-        forwardDegrees = 210 + (loop * 15)
+        forwardDegrees = 215 + (loop * 15)
         robot.reset()
         robot.follow_gyro_angle(3, 0, 0, 55, target_angle=45, 
                             follow_for=my_follow_for_degrees, degrees=forwardDegrees,
                             left_motor = left_motor, right_motor = right_motor)
-        sleep(0.6)
+        sleep(0.8)
         robot.reset()
-        robot.follow_gyro_angle(3, 0, 0, -55, target_angle=45, 
+        robot.follow_gyro_angle(3, 0, 0, -45, target_angle=45, 
                             follow_for=my_follow_for_degrees, degrees=-180,
                             left_motor = left_motor, right_motor = right_motor)
         loop = loop + 1

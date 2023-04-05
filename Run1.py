@@ -18,6 +18,7 @@ def getOutOfBase():
     gyro.reset()
     #we reset both motors
     robot.reset()
+   
     #we move robot forward to the end of base area
     robot.follow_gyro_angle(1.5, 0, 0, 25, target_angle=0, 
                     follow_for=my_follow_for_degrees, degrees=450,
@@ -28,7 +29,10 @@ def getOutOfBase():
 def lift1WaterUnit():
     #moving to catch water units
     robot.reset()
-    robot.on_for_degrees(15, 15, 220, brake=True, block=True)
+    robot.follow_gyro_angle(3, 0, 0, 15, target_angle=-39, 
+               follow_for=my_follow_for_degrees, degrees=210,
+               right_motor = right_motor, left_motor = left_motor)
+    #robot.on_for_degrees(15, 15, 220, brake=True, block=True)
 
     #lifting water unit up 
     mm_vertical.on_for_degrees(55, 800, brake=True, block=True)
@@ -94,7 +98,7 @@ def alignAndDoPowerPlant():
     # move forward for both light sensors on black
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 20, target_angle=90, 
-            follow_for=follow_until_front_black, lls=left_light, rls=right_light)
+            follow_for=follow_until_front_black, lls=left_light, rls=right_light, range=6)
             
     # move back 100 degrees to align for middle unit
     robot.reset()

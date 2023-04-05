@@ -15,11 +15,12 @@ def getOutOfBase():
     # gyro straight until the lcs sees black and white
     gyro.reset()
     # move rack to the middle for energy storage
-    mm_horizontal.on_for_degrees(50, -400, brake=True, block=False)
+    mm_horizontal.on_for_degrees(35, -400, brake=True, block=False)
     # move forward to get out of base
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, 40, target_angle=0, 
+    robot.follow_gyro_angle(1.5, 0, 0, 30, target_angle=0, 
                         follow_for=follow_until_black, lightSensor=left_light)
+    pivot_gyro_turn(10, 0, 30, robot, gyro, bLeftTurn=False)
 def alignForEnergyStorage():
     #line follow to energy storage
     robot.reset()
@@ -41,7 +42,7 @@ def alignForEnergyStorage():
     
     #follow gyro until both front sensors are on black
     robot.follow_gyro_angle(3, 0, 0, 15, target_angle=0, 
-                    follow_for=follow_until_front_black, lls=left_light, rls=right_light)
+                    follow_for=follow_until_right_black, lightSensor=right_light, range=6)
 
     #make sure the robot is aligned completely to energy storage
     if (gyro.angle > 0):
@@ -54,7 +55,7 @@ def alignForEnergyStorage():
                     follow_for=my_follow_for_degrees, degrees=160, left_motor=left_motor, right_motor=right_motor)
 def doEnergyStorage():
     #move rack left to get in position to catch storage tray
-    mm_horizontal.on_for_degrees(55, 150, brake=True, block=True)
+    mm_horizontal.on_for_degrees(55, 125, brake=True, block=True)
 
     #go down to drop units into energy storage bin
     # run_for_motor_stalled(mm_vertical, 10000, -75)
@@ -66,10 +67,10 @@ def doOilPlatform():
                     follow_for=follow_until_right_white, lightSensor=right_light)
 
     robot.follow_gyro_angle(3, 0, 0, -15, target_angle=0, 
-                    follow_for=follow_until_front_black, lls=left_light, rls=right_light)
+                    follow_for=follow_until_right_black, lightSensor=right_light, range=6)
 
     #move rack left to get under pump
-    mm_horizontal.on_for_degrees(55, 250, brake=True, block=True)
+    mm_horizontal.on_for_degrees(55, 260, brake=True, block=True)
 
     #raise rack 3 times to pump fuel units into truck
     loop = 0
