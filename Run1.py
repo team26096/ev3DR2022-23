@@ -42,7 +42,7 @@ def lift1WaterUnit():
 def hydroelectricDam():
     #going forward to align with the hydroelectric dam lever
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, 25, target_angle=-39, 
+    robot.follow_gyro_angle(3, 0, 0, 20, target_angle=-39, 
                follow_for=my_follow_for_degrees, degrees=360,
                right_motor = right_motor, left_motor = left_motor)
     
@@ -54,7 +54,7 @@ def hydroelectricDam():
 def dropWaterUnit1():
     #Go forward to align to Water Reservoir circle
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, 20, target_angle=-39, 
+    robot.follow_gyro_angle(3, 0, 0, 15, target_angle=-39, 
                 follow_for=my_follow_for_degrees, degrees=175,
                 right_motor = right_motor, left_motor = left_motor)
 

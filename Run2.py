@@ -15,12 +15,12 @@ def getOutOfBase():
     # gyro straight until the lcs sees black and white
     gyro.reset()
     # move rack to the middle for energy storage
-    mm_horizontal.on_for_degrees(35, -400, brake=True, block=False)
+    mm_horizontal.on_for_degrees(45, -400, brake=True, block=False)
     # move forward to get out of base
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, 30, target_angle=0, 
+    robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=0, 
                         follow_for=follow_until_black, lightSensor=left_light)
-    pivot_gyro_turn(10, 0, 30, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(15, 0, 30, robot, gyro, bLeftTurn=False)
 def alignForEnergyStorage():
     #line follow to energy storage
     robot.reset()
@@ -46,9 +46,9 @@ def alignForEnergyStorage():
 
     #make sure the robot is aligned completely to energy storage
     if (gyro.angle > 0):
-        pivot_gyro_turn(-10, 10, 0, robot, gyro, bLeftTurn=True)
+        pivot_gyro_turn(-5, 5, 0, robot, gyro, bLeftTurn=True)
     elif (gyro.angle < 0):
-        pivot_gyro_turn(10, -10, 0, robot, gyro, bLeftTurn=False)
+        pivot_gyro_turn(5, -5, 0, robot, gyro, bLeftTurn=False)
 
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 25, target_angle=0, 
@@ -80,14 +80,14 @@ def doOilPlatform():
         loop = loop + 1
 
     #Turn tight to align with the return home base
-    pivot_gyro_turn(15, -15, 10, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(15, -15, 8, robot, gyro, bLeftTurn=False)
 
     #move rack right to get under pump
     mm_horizontal.on_for_degrees(65, -275, brake=True, block=False)
 
     # come back to base
     robot.reset()
-    robot.follow_gyro_angle(1.5, 0, 0, -90, target_angle=10, 
+    robot.follow_gyro_angle(1.5, 0, 0, -90, target_angle=8, 
                     follow_for=my_follow_for_degrees, degrees=-1300, left_motor=left_motor, right_motor=right_motor)
 def setUpForOilTruck():
     run_for_motor_stalled(mm_horizontal, 10000, -35)

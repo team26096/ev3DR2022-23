@@ -114,7 +114,7 @@ def doHybridCar():
     mm_vertical.on_for_degrees(65, 250, brake=True, block=True)
 
     #go left to avoid toy factory
-    mm_horizontal.on_for_degrees(65, 400, brake=True, block=False)
+    mm_horizontal.on_for_degrees(65, 475, brake=True, block=False)
 
     #raise rack to avoid collision with hybrid car
     mm_vertical.on_for_degrees(65, 1025, brake=True, block=False)
@@ -145,7 +145,7 @@ def doHybridCar():
     #go back to get in postition for hybrid car lever
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, -15, target_angle=137, 
-                        follow_for=my_follow_for_degrees, degrees=-225,
+                        follow_for=my_follow_for_degrees, degrees=-260,
                         right_motor = right_motor, left_motor = left_motor)
     
     #lower rack to push hybrid car lever
@@ -155,7 +155,7 @@ def doHybridCar():
     sleep(0.6)
 
     #move rack to get RB
-    mm_horizontal.on_for_degrees(65, -150, brake=True, block=False)
+    mm_horizontal.on_for_degrees(65, -275, brake=True, block=False)
     #bring rack down to collect hybrid car and get in position collect rb
     mm_vertical.on_for_degrees(-65, 650, brake=True, block=True)
 def collectRB():
@@ -165,17 +165,13 @@ def collectRB():
                         follow_for=my_follow_for_degrees, degrees=875,
                         right_motor = right_motor, left_motor = left_motor)
     #move rack to get RB
-    mm_horizontal.on_for_degrees(65, -235, brake=True, block=False)
+    mm_horizontal.on_for_degrees(65, -275, brake=True, block=False)
 
     #turn to get in position to align with hybrid car lever
     pivot_gyro_turn(0, -25, 140, robot, gyro, bLeftTurn=False)
 
     robot.reset()
     robot.on_for_degrees(90, 90, 875, brake=True, block=True)
-    # robot.follow_gyro_angle(1.5, 0, 0, 90, target_angle=137, 
-    #                 follow_for=my_follow_for_degrees, degrees=750,
-    #                 right_motor = right_motor, left_motor = left_motor)
-
 
 def setUpForRun4():
     # stall rack to the left
