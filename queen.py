@@ -18,7 +18,7 @@ snd.speak('Reading Color Values')
 readAllValues()
 
 #setup for run 1
-run1SelftStart()
+run1SelfStart()
 
 transitStart = time()
 transitEnd = transitStart
