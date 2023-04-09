@@ -4,7 +4,7 @@
 from initialize import *
 from functions import *
 
-def run1SelftStart():
+def run1SelfStart():
     #we run mm_horizontal all the way to the left 
     run_for_motor_stalled(mm_horizontal, 10000, 35)
     #we reset mm_horizontal
@@ -59,8 +59,9 @@ def dropWaterUnit1():
                 right_motor = right_motor, left_motor = left_motor)
 
     #Move rack left to leave unit in circle
-    run_for_motor_stalled(mm_horizontal, 10000, 50)
-    mm_horizontal.reset()
+    mm_horizontal.on_for_degrees(50, 580, brake=True, block=True)
+    # run_for_motor_stalled(mm_horizontal, 10000, 50)
+    # mm_horizontal.reset()
 
     #Bring rack down in order to drop unit in circle
     mm_vertical.on_for_degrees(-75, 600, brake=True, block=True)
@@ -86,11 +87,11 @@ def alignAndDoPowerPlant():
     #aligning one light sensor to black so we can move the other one in later and complete the power plant mission
     robot.reset()
     robot.follow_gyro_angle(3, 0, 0, 45, target_angle=-17, 
-            follow_for=follow_until_white, lightSensor=right_light)
+            follow_for=follow_until_right_white, lightSensor=right_light)
     robot.follow_gyro_angle(3, 0, 0, 45, target_angle=-17, 
-            follow_for=follow_until_black, lightSensor=right_light)
+            follow_for=follow_until_right_black, lightSensor=right_light)
     robot.follow_gyro_angle(3, 0, 0, 45, target_angle=-17, 
-            follow_for=follow_until_white, lightSensor=right_light)
+            follow_for=follow_until_right_white, lightSensor=right_light)
 
     #align robot to face to power plant
     pivot_gyro_turn(10, -10, 85, robot, gyro, bLeftTurn=False)

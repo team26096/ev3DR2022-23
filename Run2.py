@@ -19,7 +19,7 @@ def getOutOfBase():
     # move forward to get out of base
     robot.reset()
     robot.follow_gyro_angle(1.5, 0, 0, 35, target_angle=0, 
-                        follow_for=follow_until_black, lightSensor=left_light)
+                        follow_for=follow_until_left_black, lightSensor=left_light)
     pivot_gyro_turn(15, 0, 30, robot, gyro, bLeftTurn=False)
 def alignForEnergyStorage():
     #line follow to energy storage
@@ -40,7 +40,7 @@ def alignForEnergyStorage():
                     sleep_time=0.01,
                     follow_for=follow_until_right_white, lightSensor=right_light)
     
-    #follow gyro until both front sensors are on black
+    #follow gyro until right sensor is on black
     robot.follow_gyro_angle(3, 0, 0, 15, target_angle=0, 
                     follow_for=follow_until_right_black, lightSensor=right_light, range=6)
 
@@ -58,8 +58,6 @@ def doEnergyStorage():
     mm_horizontal.on_for_degrees(55, 125, brake=True, block=True)
 
     #go down to drop units into energy storage bin
-    # run_for_motor_stalled(mm_vertical, 10000, -75)
-    # mm_vertical.reset()
     mm_vertical.on_for_degrees(75, -1090, brake=True, block=True)
 def doOilPlatform():
     # move backward to align robot with oil platform
@@ -112,7 +110,6 @@ def bringOilTruck():
                     follow_for=my_follow_for_degrees, degrees=720, left_motor=left_motor, right_motor=right_motor)
     
     #bring rack down to catch oil truck
-    # run_for_motor_stalled(mm_vertical, 10000, -65)
     mm_vertical.on_for_degrees(65, -740, brake=True, block=True)
 
     #Come back slightly and sleep so that we grab fuel truck
