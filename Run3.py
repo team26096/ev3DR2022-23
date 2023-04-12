@@ -149,15 +149,15 @@ def doHybridCar():
                         right_motor = right_motor, left_motor = left_motor)
     
     #lower rack to push hybrid car lever
-    mm_vertical.on_for_degrees(-60, 450, brake=True, block=True)
+    mm_vertical.on_for_degrees(-60, 425, brake=True, block=True)
 
     # allow time for hybrid car to pass under the robot
     sleep(0.6)
 
     #move rack to get RB
-    mm_horizontal.on_for_degrees(65, -275, brake=True, block=False)
+    mm_horizontal.on_for_degrees(65, -250, brake=True, block=False)
     #bring rack down to collect hybrid car and get in position collect rb
-    mm_vertical.on_for_degrees(-65, 650, brake=True, block=True)
+    mm_vertical.on_for_degrees(-75, 650, brake=True, block=True)
 def collectRB():
     #go back to base
     robot.reset()
@@ -171,7 +171,7 @@ def collectRB():
     pivot_gyro_turn(0, -25, 140, robot, gyro, bLeftTurn=False)
 
     robot.reset()
-    robot.on_for_degrees(90, 90, 875, brake=True, block=True)
+    robot.on_for_degrees(90, 90, 925, brake=True, block=True)
 
 def setUpForRun4():
     # stall rack to the left
