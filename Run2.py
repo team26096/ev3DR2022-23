@@ -68,7 +68,7 @@ def doOilPlatform():
                     follow_for=follow_until_right_black, lightSensor=right_light, range=6)
 
     #move rack left to get under pump
-    mm_horizontal.on_for_degrees(55, 260, brake=True, block=True)
+    mm_horizontal.on_for_degrees(55, 213, brake=True, block=True)
 
     #raise rack 3 times to pump fuel units into truck
     loop = 0

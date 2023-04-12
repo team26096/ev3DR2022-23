@@ -27,10 +27,10 @@ def toyFactory():
 
     # gyro straight to align with toy factory
     robot.reset()
-    robot.on_for_degrees(20, 20, 80)
+    robot.on_for_degrees(20, 20, 110)
 
     # move rack down a little bit
-    mm_vertical.on_for_degrees(75, -950, brake=True, block=True)
+    mm_vertical.on_for_degrees(75, -850, brake=True, block=True)
     sleep(0.4)
 
     # pivot gyro back to 0
@@ -38,7 +38,7 @@ def toyFactory():
 def dinoToy():
     # go back to base and finish run!
     robot.reset()
-    robot.on_for_degrees(95, 95, 2500)
+    robot.on_for_degrees(95, 95, 2575)
 def run5():
     logfile = logging.getLogger('')
     logfile.info('=====> run 5 toyFactory start')

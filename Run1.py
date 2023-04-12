@@ -76,7 +76,7 @@ def dropWaterUnit1():
     mm_horizontal.on_for_degrees(45, -100, brake=True, block=True)
 
     #Pivot turn to gyro -18
-    pivot_gyro_turn(0, -20, -17, robot, gyro, bLeftTurn=False)
+    pivot_gyro_turn(0, -20, -18, robot, gyro, bLeftTurn=False)
 def alignAndDoPowerPlant():
     # move rack in position for power plant
     mm_horizontal.on_for_degrees(45, 100, brake=True, block=False)
@@ -86,11 +86,11 @@ def alignAndDoPowerPlant():
 
     #aligning one light sensor to black so we can move the other one in later and complete the power plant mission
     robot.reset()
-    robot.follow_gyro_angle(3, 0, 0, 45, target_angle=-17, 
+    robot.follow_gyro_angle(3, 0, 0, 35, target_angle=-18, 
             follow_for=follow_until_right_white, lightSensor=right_light)
-    robot.follow_gyro_angle(3, 0, 0, 45, target_angle=-17, 
+    robot.follow_gyro_angle(3, 0, 0, 20, target_angle=-18, 
             follow_for=follow_until_right_black, lightSensor=right_light)
-    robot.follow_gyro_angle(3, 0, 0, 45, target_angle=-17, 
+    robot.follow_gyro_angle(3, 0, 0, 20, target_angle=-18, 
             follow_for=follow_until_right_white, lightSensor=right_light)
 
     #align robot to face to power plant
