@@ -82,7 +82,7 @@ def alignAndDoPowerPlant():
     mm_horizontal.on_for_degrees(45, 100, brake=True, block=False)
 
     # moving vertical rack up to get ready to lift lever
-    mm_vertical.on_for_degrees(75, 570, brake=True, block=False)
+    mm_vertical.on_for_degrees(75, 520, brake=True, block=False)
 
     #aligning one light sensor to black so we can move the other one in later and complete the power plant mission
     robot.reset()
