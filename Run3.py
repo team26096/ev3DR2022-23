@@ -171,7 +171,7 @@ def collectRB():
     pivot_gyro_turn(0, -25, 140, robot, gyro, bLeftTurn=False)
 
     robot.reset()
-    robot.on_for_degrees(90, 90, 925, brake=True, block=True)
+    robot.on_for_degrees(90, 90, 950, brake=True, block=True)
 
 def setUpForRun4():
     # stall rack to the left
