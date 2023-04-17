@@ -128,10 +128,11 @@ def comeBackToBase():
     robot.reset()
     robot.on_for_degrees(95, 95, 1600, brake=True, block=True)
 def setUpForRun2():
+    #we run mm_vertical all the way down
+    run_for_motor_stalled(mm_vertical, 10000, -65)
+    mm_vertical.reset()
+    mm_vertical.on_for_degrees(75, 1100, brake=True, block=True)
     #move rack left
-    # moved veritical rack up as part of run 1 comebacktobase
-    #mm_vertical.reset()
-    #mm_vertical.on_for_degrees(75, 1200, brake=True, block=True)
     run_for_motor_stalled(mm_horizontal, 10000, 35)
     mm_horizontal.reset()
 def run1():

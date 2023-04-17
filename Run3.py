@@ -47,8 +47,12 @@ def collectEnergyUnits():
                         follow_for=my_follow_for_degrees, degrees=325,
                         right_motor = right_motor, left_motor = left_motor)
 
+    #We are moving rack right to avoid collison with smart grid
+    mm_horizontal.on_for_degrees(35, -100, brake=True, block=True)
+
     #turn to avoid smart grid and align to power to X
     pivot_gyro_turn(0, -20, 130, robot, gyro, bLeftTurn=False)
+
 def dropToPX():
     #forward to get into PX
     robot.reset()
@@ -57,7 +61,7 @@ def dropToPX():
                         right_motor = right_motor, left_motor = left_motor)
 
     #move rack to the right to bring units into PX
-    mm_horizontal.on_for_degrees(45, -400, brake=True, block=False)
+    mm_horizontal.on_for_degrees(45, -300, brake=True, block=False)
 
     #turn to leave units in power to X
     pivot_gyro_turn(0, -20, 155, robot, gyro, bLeftTurn=False)
@@ -175,11 +179,11 @@ def collectRB():
 
 def setUpForRun4():
     # stall rack to the left
-    run_for_motor_stalled(mm_horizontal, 10000, -35)
+    run_for_motor_stalled(mm_horizontal, 10000, -65)
     mm_horizontal.reset()
 
     #we run mm_vertical all the way down
-    run_for_motor_stalled(mm_vertical, 10000, -35)
+    run_for_motor_stalled(mm_vertical, 10000, -65)
     mm_vertical.reset()
 def run3():
     logfile = logging.getLogger('')
